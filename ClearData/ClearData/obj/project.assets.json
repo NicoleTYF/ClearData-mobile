@@ -628,23 +628,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alast\\.nuget\\packages\\": {},
+    "C:\\Users\\Luke Kamols\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
+      "projectUniqueName": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
       "projectName": "ClearData",
-      "projectPath": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
-      "packagesPath": "C:\\Users\\alast\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\obj\\",
+      "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
+      "packagesPath": "C:\\Users\\Luke Kamols\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\alast\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Luke Kamols\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],

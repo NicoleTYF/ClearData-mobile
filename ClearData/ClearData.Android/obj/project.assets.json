@@ -1930,24 +1930,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alast\\.nuget\\packages\\": {},
+    "C:\\Users\\Luke Kamols\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
+      "projectUniqueName": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
       "projectName": "ClearData.Android",
-      "projectPath": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
-      "packagesPath": "C:\\Users\\alast\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\obj\\",
+      "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
+      "packagesPath": "C:\\Users\\Luke Kamols\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\alast\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Luke Kamols\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1961,8 +1961,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
-              "projectPath": "C:\\Users\\alast\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
+            "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
+              "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
             }
           }
         }
