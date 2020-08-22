@@ -984,11 +984,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\ClearData.iOS.csproj",
+      "projectUniqueName": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\ClearData.iOS.csproj",
       "projectName": "ClearData.iOS",
-      "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\ClearData.iOS.csproj",
+      "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\ClearData.iOS.csproj",
       "packagesPath": "C:\\Users\\Luke Kamols\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\obj\\",
+      "outputPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1009,8 +1009,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
-              "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
+            "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
+              "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
             }
           }
         }

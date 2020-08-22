@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {}
+    "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
+    "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
+        "projectUniqueName": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
         "projectName": "ClearData",
-        "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
+        "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj",
         "packagesPath": "C:\\Users\\Luke Kamols\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\obj\\",
+        "outputPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

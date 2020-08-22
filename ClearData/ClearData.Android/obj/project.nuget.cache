@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "s/yn2V2TZxo83B5EdD7qjp5RWM40Kz2NCBUEJHN5h/89VtVl8ifpog6ISqcO6v+YvjHO87DK/oSdNoDEvWRrMA==",
+  "dgSpecHash": "x8MWBTvkGKpn3bTUKY3RSjmTLno+YMj5jhbbVQR6QhFQhGcY01zfaGZYIPTJPa41PE0KLcYwJI4P9cVkTWGyiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
+  "projectFilePath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.arch.core.common\\1.1.1.3\\xamarin.android.arch.core.common.1.1.1.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.arch.core.runtime\\1.1.1.3\\xamarin.android.arch.core.runtime.1.1.1.3.nupkg.sha512",

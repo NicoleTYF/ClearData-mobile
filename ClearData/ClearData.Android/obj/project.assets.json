@@ -1936,11 +1936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
+      "projectUniqueName": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
       "projectName": "ClearData.Android",
-      "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
+      "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.Android\\ClearData.Android.csproj",
       "packagesPath": "C:\\Users\\Luke Kamols\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData.Android\\obj\\",
+      "outputPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1961,8 +1961,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
-              "projectPath": "C:\\Users\\Luke Kamols\\source\\repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
+            "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj": {
+              "projectPath": "C:\\Users\\Luke Kamols\\Source\\Repos\\cleardata-mobile\\ClearData\\ClearData\\ClearData.csproj"
             }
           }
         }
