@@ -1,7 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ClearData.Views.CapturePage">
+             x:Class="ClearData.Views.CapturePage"
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:CaptureViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Text="Welcome to the Capture Page!" VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand" TextColor="White" 
+               BackgroundColor="Blue" Grid.Row="0" Grid.Column="0"/>
+        <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+            <Entry Placeholder="John Doe" Text="{Binding NameText}" HorizontalOptions="CenterAndExpand" 
+                   VerticalOptions="CenterAndExpand" WidthRequest="150"/>
+            <Label Text="Enter your name!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+            <DatePicker Date="{Binding DateVal}" HorizontalOptions="CenterAndExpand" 
+                   VerticalOptions="CenterAndExpand" WidthRequest="150"/>
+            <Label Text="Enter your date of birth!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
+            <Entry Placeholder="Australia" Text="{Binding PlaceText}" HorizontalOptions="CenterAndExpand" 
+                   VerticalOptions="CenterAndExpand" WidthRequest="150"/>
+            <Label Text="Country of Birth" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+        <Button Text="View My Data!" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
+                HorizontalOptions="Center" WidthRequest="150" HeightRequest="50" 
+                Grid.Row="4" Grid.Column="0"/>
+
+    </Grid>
+    
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
