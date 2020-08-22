@@ -4,6 +4,6 @@ ClearData/ClearData.Android/bin/*
 ClearData/ClearData.Android/obj/*
 ClearData/ClearData.iOS/bin/*
 ClearData/ClearData.iOS/obj/*
-*/bin/*
-*/obj/*
-*.vs*
+**/bin
+**/obj
+**.vs
