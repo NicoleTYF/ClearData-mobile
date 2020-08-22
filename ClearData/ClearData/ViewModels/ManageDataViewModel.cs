@@ -23,13 +23,14 @@ namespace ClearData.ViewModels
         async Task ExecuteLoadDataTypesCommand()
         {
             IsBusy = true;
-
+            /*
             try
             {
                 DataTypes.Clear();
                 var dataTypes = await PermissionsDataStore.GetDataTypesAsync(true);
                 //UP TO HERE
             }
+            */
         }
 
         public ICommand OpenWebCommand { get; }
