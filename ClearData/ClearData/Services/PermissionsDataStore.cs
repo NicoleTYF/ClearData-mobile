@@ -18,7 +18,7 @@ namespace ClearData.Services
             {
                 new DataType { Id = 0, Name = "Coarse Location Data", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
                 new DataType { Id = 1, Name = "Fine Location Data", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
-                new DataType { Id = 2, Name = "Browsing Data", Description = "Browsing history tracking what websites you visit", Enabled = true },
+                new DataType { Id = 2, Name = "Browsing Data", Description = "Browsing history tracking what websites you visit", Enabled = false },
             };
 
             Company Google = new Company
@@ -50,6 +50,11 @@ namespace ClearData.Services
         public async Task<IEnumerable<DataType>> GetDataTypesAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(dataTypes);
+        }
+
+        public async Task<IEnumerable<Company>> GetCompaniesAsync(bool forceRefresh = false)
+        {
+            return await Task.FromResult(companies);
         }
     }
 }

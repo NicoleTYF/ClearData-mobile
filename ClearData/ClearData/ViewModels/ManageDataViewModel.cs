@@ -21,13 +21,11 @@ namespace ClearData.ViewModels
             LoadDataTypesCommand = new Command(async () => await ExecuteLoadDataTypesCommand());
             IsBusy = false;
 
-            System.Console.WriteLine("HELLO FRIENDS");
         }
 
         async Task ExecuteLoadDataTypesCommand()
         {
             IsBusy = true;
-            System.Console.WriteLine("ORANGE");
 
             try
             {
@@ -35,10 +33,8 @@ namespace ClearData.ViewModels
                 //these static variables, potentially this needs to move somewhere else
                 if (UserInfo.permissions == null)
                 {
-                    System.Console.WriteLine("INSIDE");
                     UserInfo.permissions = new PermissionsDataStore();
                 }
-                System.Console.WriteLine("OUTSIDE");
                 //then we clear the observable collection and replace it
                 DataTypes.Clear();
                 var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
@@ -46,7 +42,6 @@ namespace ClearData.ViewModels
                 {
                     DataTypes.Add(dataType);
                 }
-                System.Console.WriteLine("HELLOOO %d", DataTypes.ToString());
             }
             catch (Exception ex)
             {
