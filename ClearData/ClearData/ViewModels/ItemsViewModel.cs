@@ -33,6 +33,7 @@ namespace ClearData.ViewModels
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
+            System.Console.WriteLine("YELLOW");
 
             try
             {

@@ -17,5 +17,11 @@ namespace ClearData.Views
 
             BindingContext = _viewModel = new ManageDataViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
     }
 }

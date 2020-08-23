@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClearData.Views.ManageDataPage"
              xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
              Title="{Binding Title}">
     
 
@@ -11,5 +13,26 @@
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="DataTypeListView"
+                ItemsSource="{Binding DataTypes}"
+                SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="model:DataType">
+                        <Label Text="{Binding Name}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                        <Label Text="{Binding Description}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
 
 </ContentPage>
