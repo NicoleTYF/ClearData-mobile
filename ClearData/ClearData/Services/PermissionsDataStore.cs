@@ -8,7 +8,7 @@ namespace ClearData.Services
 {
     public class PermissionsDataStore
     {
-        readonly List<DataType> dataTypes;
+        public List<DataType> dataTypes;
         readonly List<Company> companies;
 
         public PermissionsDataStore()
@@ -18,7 +18,7 @@ namespace ClearData.Services
             {
                 new DataType { Id = 0, Name = "Coarse Location Data", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
                 new DataType { Id = 1, Name = "Fine Location Data", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
-                new DataType { Id = 2, Name = "Browsing Data", Description = "Browsing history tracking what websites you visit", Enabled = false },
+                new DataType { Id = 2, Name = "Browsing Data", Description = "Browsing history tracking what websites you visit", Enabled = true },
             };
 
             Company Google = new Company

@@ -23,5 +23,6 @@ namespace ClearData.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
     }
 }
