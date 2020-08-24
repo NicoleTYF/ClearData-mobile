@@ -47,7 +47,7 @@ namespace ClearData.ViewModels
             get => dataTypeButtonSecondary;
             set => SetProperty(ref dataTypeButtonSecondary, value);
         }
-        public bool ServicesVisbile
+        public bool ServicesVisible
         {
             get => servicesVisible;
             set => SetProperty(ref servicesVisible, value);
@@ -67,7 +67,7 @@ namespace ClearData.ViewModels
             IsBusy = false;
 
             DataTypesVisible = false; //ensures the next function runs fine
-            UpdateToDataTypesDisplay();
+            //UpdateToDataTypesDisplay();
         }
 
         async Task ExecuteLoadDataTypesCommand()
@@ -141,7 +141,7 @@ namespace ClearData.ViewModels
          * Update the variables which are used to display the button colours and which view to make
          * visible, this is called when the services button is pressed
          */
-        public void UpdateToServicesDisplay()
+        public async Task UpdateToServicesDisplay()
         {
             if (servicesVisible) { return; } //already set, don't need to reset every button push
             //all these colours are hardcoded here, probably want to base them on some theme in the future
@@ -150,7 +150,9 @@ namespace ClearData.ViewModels
             DataTypeButtonColor = Color.DarkGray;
             DataTypeButtonSecondary = Color.LightGray;
             DataTypesVisible = false;
-            ServicesVisbile = true;
+            ServicesVisible = true;
+            IsBusy = true;
+            await ExecuteLoadCompaniesCommand(); //reload the companies when we switch to this view
         }
 
         /**
@@ -158,7 +160,7 @@ namespace ClearData.ViewModels
          * visible, this is called when the services button is pressed, this is also default so called upon
          * instantiation. Set DataTypesVisible false before calling for instantiation
          */
-        public void UpdateToDataTypesDisplay()
+        public async Task UpdateToDataTypesDisplay()
         {
             if (DataTypesVisible) { return; } //already set, bail
             //all these colours are hardcoded here, probably want to base them on some theme in the future
@@ -166,8 +168,15 @@ namespace ClearData.ViewModels
             DataTypeButtonSecondary = Color.CornflowerBlue;
             ServiceButtonColor = Color.DarkGray;
             ServiceButtonSecondary = Color.LightGray;
-            ServicesVisbile = false;
+            ServicesVisible = false;
             DataTypesVisible = true;
+            IsBusy = true;
+            await ExecuteLoadDataTypesCommand(); //reload the data type info
+        }
+
+        public Color DumbFunction(Color color)
+        {
+            return color;
         }
 
         public ICommand OpenWebCommand { get; }

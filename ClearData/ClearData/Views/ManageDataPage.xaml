@@ -11,6 +11,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
+            <model:BoolToPrimaryColorConverter x:Key="primaryColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -27,7 +28,7 @@
             </Grid.ColumnDefinitions>
             <Button Text="Service" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Clicked="OnServicePushed" 
                     x:DataType="local:ManageDataViewModel" 
-                    BackgroundColor="{Binding ServiceButtonColor}" 
+                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource primaryColorConverter}, ConverterParameter=0}"
                     TextColor="{Binding ServiceButtonSecondary}"
                     BorderColor="{Binding ServiceButtonSecondary}"/>
             <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Clicked="OnDataTypesPushed"
@@ -59,7 +60,27 @@
             </CollectionView>
         </RefreshView>
 
-        <Label Text="SEE YOU ON THE OTTER SLIDE!" IsVisible="{Binding ServicesVisible}" />
+        <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadCompaniesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     IsVisible="{Binding ServicesVisible}">
+            <CollectionView x:Name="CompanyListView"
+                    ItemsSource="{Binding Companies}"
+                    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model:Company">
+                            <Label Text="{Binding Name}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </StackLayout>
 
 </ContentPage>
