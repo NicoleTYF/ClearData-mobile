@@ -19,6 +19,8 @@ namespace ClearData
 
         protected override void OnStart()
         {
+            Console.WriteLine("Baked beans is how we'll start!");
+
         }
 
         protected override void OnSleep()
