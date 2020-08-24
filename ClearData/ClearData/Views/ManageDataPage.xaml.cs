@@ -24,5 +24,14 @@ namespace ClearData.Views
             _viewModel.OnAppearing();
         }
 
+        private void OnServicePushed(object sender, EventArgs e)
+        {
+            _viewModel.UpdateToServicesDisplay();
+        }
+
+        private void OnDataTypesPushed(object sender, EventArgs e)
+        {
+            _viewModel.UpdateToDataTypesDisplay();
+        }
     }
 }

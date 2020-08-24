@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClearData.ViewModels"  
              xmlns:model="clr-namespace:ClearData.Models"  
              Title="{Binding Title}">
-    
+
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -14,27 +14,52 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="DataTypeListView"
-                ItemsSource="{Binding DataTypes}"
-                SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:DataType">
-                        <Label Text="{Binding Name}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="{Binding Description}" 
-                            LineBreakMode="TailTruncation"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                        <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
-                        <Switch IsToggled="{Binding Enabled}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+
+
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Clicked="OnServicePushed" 
+                    x:DataType="local:ManageDataViewModel" 
+                    BackgroundColor="{Binding ServiceButtonColor}" 
+                    TextColor="{Binding ServiceButtonSecondary}"
+                    BorderColor="{Binding ServiceButtonSecondary}"/>
+            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Clicked="OnDataTypesPushed"
+                    BackgroundColor="{Binding DataTypeButtonColor}"
+                    TextColor="{Binding DataTypeButtonSecondary}"
+                    BorderColor="{Binding DataTypeButtonSecondary}"/>
+        </Grid>
+        <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     IsVisible="{Binding DataTypesVisible}">
+            <CollectionView x:Name="DataTypeListView"
+                    ItemsSource="{Binding DataTypes}"
+                    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model:DataType">
+                            <Label Text="{Binding Name}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                            <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
+                            <Switch IsToggled="{Binding Enabled}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Label Text="SEE YOU ON THE OTTER SLIDE!" IsVisible="{Binding ServicesVisible}" />
+    </StackLayout>
 
 </ContentPage>
