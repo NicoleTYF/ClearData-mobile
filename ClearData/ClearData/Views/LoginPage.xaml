@@ -8,8 +8,9 @@
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Entry VerticalOptions="Center" Placeholder="Username" WidthRequest="200" />
-            <Entry VerticalOptions="Center" Placeholder="Password"  IsPassword="True" WidthRequest="200" />
+            <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" TextColor="Red" />
+            <Entry VerticalOptions="Center" Placeholder="Username" WidthRequest="200" Text="{Binding Username}"/>
+            <Entry VerticalOptions="Center" Placeholder="Password"  IsPassword="True" WidthRequest="200" Text="{Binding Password}"/>
             <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
             <Button VerticalOptions="Center" Text="Sign Up" Command="{Binding SignupCommand}" />
         </StackLayout>
