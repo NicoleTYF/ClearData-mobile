@@ -20,33 +20,9 @@ namespace ClearData.ViewModels
         /* whole bunch of variables for the button displays and which section to display
          * the SetProperty is important for updating the display so I think it needs to be this verbose
          */
-        private Color serviceButtonColor;
-        private Color dataTypeButtonColor;
-        private Color serviceButtonSecondary;
-        private Color dataTypeButtonSecondary;
         private bool servicesVisible;
         private bool dataTypesVisible;
 
-        public Color ServiceButtonColor
-        {
-            get => serviceButtonColor;
-            set => SetProperty(ref serviceButtonColor, value);
-        }
-        public Color DataTypeButtonColor
-        {
-            get => dataTypeButtonColor;
-            set => SetProperty(ref dataTypeButtonColor, value);
-        }
-        public Color ServiceButtonSecondary
-        {
-            get => serviceButtonSecondary;
-            set => SetProperty(ref serviceButtonSecondary, value);
-        }
-        public Color DataTypeButtonSecondary
-        {
-            get => dataTypeButtonSecondary;
-            set => SetProperty(ref dataTypeButtonSecondary, value);
-        }
         public bool ServicesVisible
         {
             get => servicesVisible;
@@ -66,8 +42,8 @@ namespace ClearData.ViewModels
             LoadCompaniesCommand = new Command(async () => await ExecuteLoadCompaniesCommand());
             IsBusy = false;
 
-            DataTypesVisible = false; //ensures the next function runs fine
-            //UpdateToDataTypesDisplay();
+            DataTypesVisible = true; //start with data visible, services not
+            ServicesVisible = false;
         }
 
         async Task ExecuteLoadDataTypesCommand()
@@ -144,11 +120,6 @@ namespace ClearData.ViewModels
         public async Task UpdateToServicesDisplay()
         {
             if (servicesVisible) { return; } //already set, don't need to reset every button push
-            //all these colours are hardcoded here, probably want to base them on some theme in the future
-            ServiceButtonColor = Color.White;
-            ServiceButtonSecondary = Color.CornflowerBlue;
-            DataTypeButtonColor = Color.DarkGray;
-            DataTypeButtonSecondary = Color.LightGray;
             DataTypesVisible = false;
             ServicesVisible = true;
             IsBusy = true;
@@ -163,11 +134,6 @@ namespace ClearData.ViewModels
         public async Task UpdateToDataTypesDisplay()
         {
             if (DataTypesVisible) { return; } //already set, bail
-            //all these colours are hardcoded here, probably want to base them on some theme in the future
-            DataTypeButtonColor = Color.White;
-            DataTypeButtonSecondary = Color.CornflowerBlue;
-            ServiceButtonColor = Color.DarkGray;
-            ServiceButtonSecondary = Color.LightGray;
             ServicesVisible = false;
             DataTypesVisible = true;
             IsBusy = true;

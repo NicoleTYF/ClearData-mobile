@@ -5,13 +5,14 @@
              xmlns:vm="clr-namespace:ClearData.ViewModels"
              xmlns:local="clr-namespace:ClearData.ViewModels"  
              xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
              Title="{Binding Title}">
 
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
-            <model:BoolToPrimaryColorConverter x:Key="primaryColorConverter"/>
+            <converters:BoolToColorConverter x:Key="colorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -28,13 +29,13 @@
             </Grid.ColumnDefinitions>
             <Button Text="Service" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Clicked="OnServicePushed" 
                     x:DataType="local:ManageDataViewModel" 
-                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource primaryColorConverter}, ConverterParameter=0}"
-                    TextColor="{Binding ServiceButtonSecondary}"
-                    BorderColor="{Binding ServiceButtonSecondary}"/>
+                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                    BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
             <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Clicked="OnDataTypesPushed"
-                    BackgroundColor="{Binding DataTypeButtonColor}"
-                    TextColor="{Binding DataTypeButtonSecondary}"
-                    BorderColor="{Binding DataTypeButtonSecondary}"/>
+                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      IsVisible="{Binding DataTypesVisible}">
