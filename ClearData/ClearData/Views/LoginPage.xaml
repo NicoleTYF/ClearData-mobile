@@ -5,10 +5,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ClearData.Views.LoginPage"
+             BackgroundImageSource="bg_mobile.png"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+            
+            <Button 
+                VerticalOptions="Center" 
+                Text="LOGIN" 
+                Margin="20,0,20,0"
+                Padding="0"
+                FontSize="Medium"
+                TextColor="#81B2B2"
+                HeightRequest="40"
+                FontAttributes="Bold"
+                BackgroundColor="White"
+                Command="{Binding LoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
