@@ -17,10 +17,10 @@ namespace ClearData
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             Console.WriteLine("Baked beans is how we'll start!");
-
+            await Shell.Current.GoToAsync("//LoginPage");
         }
 
         protected override void OnSleep()
