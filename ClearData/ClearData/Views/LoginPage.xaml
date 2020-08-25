@@ -3,16 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ClearData;assembly:ClearData"
              mc:Ignorable="d"
              x:Class="ClearData.Views.LoginPage"
+             BackgroundImageSource="bg_mobile.png"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+        <StackLayout Padding="35,0,35,0" VerticalOptions="Center">
+
             <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" TextColor="Red" />
-            <Entry VerticalOptions="Center" Placeholder="Username" WidthRequest="200" Text="{Binding Username}"/>
-            <Entry VerticalOptions="Center" Placeholder="Password"  IsPassword="True" WidthRequest="200" Text="{Binding Password}"/>
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-            <Button VerticalOptions="Center" Text="Sign Up" Command="{Binding SignupCommand}" />
+
+            <!-- Username & Password Entry Grid -->
+            <Grid Margin="0,40,0,40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+
+                <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
+                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="0" Grid.ColumnSpan="2"/>
+                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"
+                       BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
+                <local:LoginEntry WidthRequest="227" HeightRequest="60" Text="{Binding Username}" Grid.Row="0" Grid.Column="1"/>
+
+                <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
+                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"  
+                       BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
+                <local:LoginEntry IsPassword="True" WidthRequest="227" HeightRequest="30" Text="{Binding Password}" Grid.Row="1" Grid.Column="1"/>
+
+            </Grid>
+
+            <Button 
+                VerticalOptions="Center" 
+                Text="LOGIN" 
+                Padding="0"
+                FontSize="Body"
+                TextColor="#81B2B2"
+                HeightRequest="40"
+                FontAttributes="Bold"
+                BackgroundColor="White"
+                Command="{Binding LoginCommand}"/>
+
+            <FlexLayout Padding="0,20,0,0"
+                        Direction="Row"
+                        AlignItems="Center"
+                        JustifyContent="Center">
+                <Label
+                    Text="Don't have an account?" 
+                    Padding="0"
+                    FontSize="Caption"
+                    TextColor="#81B2B2"
+                    LineBreakMode="NoWrap"
+                    FlexLayout.AlignSelf="Start"/>                   
+                            
+                <Button 
+                    Text="Sign Up" 
+                    Padding="0"
+                    FontSize="Caption"
+                    TextColor="#FFE88F"
+                    WidthRequest="50"
+                    HeightRequest="15" 
+                    FontAttributes="Bold" 
+                    BackgroundColor="Transparent"
+                    FlexLayout.AlignSelf="Start"
+                Command="{Binding SignupCommand}"/>
+
+                <Label
+                    Text="." 
+                    Padding="0"
+                    FontSize="Caption"
+                    TextColor="#81B2B2"
+                    HeightRequest="15"
+                    FlexLayout.AlignSelf="Start"/>
+            </FlexLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
