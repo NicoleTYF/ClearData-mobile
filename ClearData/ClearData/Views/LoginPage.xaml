@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- 
+             xmlns:custom="clr-namespace:ClearData.Controls;assembly=ClearData"
              x:Class="ClearData.Views.LoginPage"
              BackgroundImageSource="bg_mobile.png"
              Shell.NavBarIsVisible="False">
@@ -16,30 +16,28 @@
             <!-- Username & Password Entry Grid -->
             <Grid Margin="0,40,0,40">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Username Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="3"/>
-                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"
-                       BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
-                <Entry WidthRequest="227" HeightRequest="50" Text="{Binding Username}" 
-                       TextColor="White" Grid.Row="0" Grid.Column="1"/>
+                       Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
+                <custom:LoginEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,0,-10"/>
 
                 <!-- Password Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="3"/>
-                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"  
-                       BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
-                <Entry IsPassword="True" WidthRequest="227" HeightRequest="50" Text="{Binding Password}" 
-                       TextColor="White" Grid.Row="1" Grid.Column="1"/>
+                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10" 
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
+                <custom:LoginEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,-10"/>
 
             </Grid>
 
