@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:ClearData;assembly:ClearData"
-             mc:Ignorable="d"
+ 
              x:Class="ClearData.Views.LoginPage"
              BackgroundImageSource="bg_mobile.png"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="35,0,35,0" VerticalOptions="Center">
 
+            <!-- Invalid Username or Password Label -->
             <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" TextColor="Red" />
 
             <!-- Username & Password Entry Grid -->
-            <Grid Margin="0,40,0,40">
+            <Grid Margin="0,40,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -25,20 +25,25 @@
                     <ColumnDefinition Width="55"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Username Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
                        Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="0" Grid.ColumnSpan="2"/>
                 <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"
                        BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
-                <local:LoginEntry WidthRequest="227" HeightRequest="60" Text="{Binding Username}" Grid.Row="0" Grid.Column="1"/>
+                <Entry WidthRequest="227" HeightRequest="60" Text="{Binding Username}" 
+                       TextColor="White" Grid.Row="0" Grid.Column="1"/>
 
+                <!-- Password Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
                        Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
                 <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="Center"  
                        BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
-                <local:LoginEntry IsPassword="True" WidthRequest="227" HeightRequest="30" Text="{Binding Password}" Grid.Row="1" Grid.Column="1"/>
+                <Entry IsPassword="True" WidthRequest="227" HeightRequest="30" Text="{Binding Password}" 
+                       TextColor="White" Grid.Row="1" Grid.Column="1"/>
 
             </Grid>
 
+            <!-- Login Button -->
             <Button 
                 VerticalOptions="Center" 
                 Text="LOGIN" 
@@ -50,12 +55,13 @@
                 BackgroundColor="White"
                 Command="{Binding LoginCommand}"/>
 
+            <!-- Sign Up Label & Button -->
             <FlexLayout Padding="0,20,0,0"
                         Direction="Row"
                         AlignItems="Center"
                         JustifyContent="Center">
                 <Label
-                    Text="Don't have an account?" 
+                    Text="Don't have an account?  " 
                     Padding="0"
                     FontSize="Caption"
                     TextColor="#81B2B2"

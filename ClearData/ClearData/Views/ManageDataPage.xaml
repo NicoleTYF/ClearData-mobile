@@ -1,26 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:ClearData.ViewModels"
-             xmlns:local="clr-namespace:ClearData.ViewModels" 
-             xmlns:model="clr-namespace:ClearData.Models" 
              x:Class="ClearData.Views.ManageDataPage"
-             
-             BackgroundImageSource="bg_mobile.png" 
-
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
+             BackgroundImageSource="bg_mobile.png"
              Title="{Binding Title}">
 
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
+            <converters:BoolToColorConverter x:Key="colorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
 
 
-    <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                 AbsoluteLayout.LayoutFlags="All">
+    <StackLayout>
         <!-- Top left logo button -->
         <ImageButton Source="logo_text.png"
                      Margin="10,8,0,0"
@@ -30,10 +29,6 @@
                      HorizontalOptions="Start"/>
 
         <Grid Margin="21.5,0,0,0">
-            <Image Source="img_sort_by.png"
-                   WidthRequest="120"
-                   HeightRequest="33.3"
-                   HorizontalOptions="Start"/>
             <Grid.RowDefinitions>
                 <RowDefinition Height ="50" />
             </Grid.RowDefinitions>
@@ -41,7 +36,23 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-           
+
+            <!-- "SORT BY" image -->
+            <Image Source="img_sort_by.png"
+                   WidthRequest="120"
+                   HeightRequest="33.3"
+                   HorizontalOptions="Start" 
+                   Grid.Column="1"/>
+
+            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="3" Clicked="OnServicePushed" 
+                    x:DataType="local:ManageDataViewModel" 
+                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                    BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
+            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Clicked="OnDataTypesPushed"
+                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      IsVisible="{Binding DataTypesVisible}">
@@ -67,7 +78,27 @@
             </CollectionView>
         </RefreshView>
 
-        <Label Text="SEE YOU ON THE OTTER SLIDE!" IsVisible="{Binding ServicesVisible}" />
+        <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadCompaniesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     IsVisible="{Binding ServicesVisible}">
+            <CollectionView x:Name="CompanyListView"
+                    ItemsSource="{Binding Companies}"
+                    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model:Company">
+                            <Label Text="{Binding Name}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </StackLayout>
 
 </ContentPage>
