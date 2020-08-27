@@ -1,33 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ClearData.LogsPage">
-  <ListView x:Name="MyListView"
-            ItemsSource="{Binding Items}"
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
-            
-    <!--Built in Cells-->
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextCell Text="{Binding .}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
-    
-    <!--Custom View Cells-->
-    <!--
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
-  </ListView>
+             x:Class="ClearData.LogsPage" 
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
+             Title="{Binding Title}"
+             BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center">
+
+            <!-- Top left logo -->
+            <ImageButton Source="logo_text.png"
+                         Margin="10,8,0,0"
+                         WidthRequest="120"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Start"/>
+
+            <!-- Page content -->
+            <Grid Margin="21.5,15,21.5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="17.3"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title text -->
+                <Label Text="Logs"
+                       FontSize="37"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       TextColor="White"
+                       FontFamily="Calibri-Light"
+                    
+                       
+                       HorizontalOptions="Start"/>
+
+                <!-- "SORT BY" image -->
+                <Image Source="img_sort_by.png"
+                       Margin="-5,0,0,0" 
+                       Grid.Row="1"       
+                       Grid.Column="0"
+                       WidthRequest="90" 
+                       HeightRequest="25"
+                       HorizontalOptions="Start"/>
+
+                <!-- White horizontal line -->
+                <Image Source="img_whiteline.png" 
+                       Grid.Row="2" 
+                       Grid.Column="0"   
+                       Grid.RowSpan="1"  
+                       Grid.ColumnSpan="2"/>
+
+                <!-- Description text -->
+                <Label Text="Click on a cell to view full log history." 
+                       Grid.Row="3"
+                       Grid.Column="0"   
+                       Grid.RowSpan="1"  
+                       Grid.ColumnSpan="2" 
+                       FontSize="Micro"
+                       TextColor="White" 
+                       LineBreakMode="NoWrap"/>
+
+                <!-- List of Services -->
+                <ListView x:Name="LogList"
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="80"
+                          ItemsSource="{Binding Items}" ItemTapped="Handle_ItemTapped" CachingStrategy="RecycleElement">
+
+                    <!-- Cell layout -->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid Padding="0,0,0,7">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height ="4*" />
+                                            <RowDefinition Height ="2*" />
+                                            <RowDefinition Height ="2*" />
+                                            <RowDefinition Height ="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- {Binding Text} {Binding Detail} -->
+                                        <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" 
+                                               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                        <Label Text="Location" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
+                                        <Label Text="11:32AM:    Accessed by Spotify"   Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="24,-4,0,0" />
+                                        <Label Text="10:45AM:    Accessed by Facebook " Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="Micro" Margin="24,-10,0,0" />
+                                        <Label Text="09:24AM:    Accessed by Google "   Grid.Column="0" Grid.Row="3" TextColor="White" FontSize="Micro" Margin="24,-16,0,0" Padding="0,0,0,10"/> 
+
+                                        <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" BackgroundColor="Transparent" Background="bg_trans.png" />
+
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -120,73 +120,76 @@
     <AndroidResource Include="Resources\drawable\logo_textonly.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\arrow_down_wt.png" />
+    <AndroidResource Include="Resources\drawable\arrow_down_wt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\arrow_down_yl.png" />
+    <AndroidResource Include="Resources\drawable\arrow_down_yl.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\arrow_up_wt.png" />
+    <AndroidResource Include="Resources\drawable\arrow_up_wt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\arrow_up_yl.png" />
+    <AndroidResource Include="Resources\drawable\arrow_up_yl.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\ic_history.png" />
+    <AndroidResource Include="Resources\drawable\ic_history.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\ic_share.png" />
+    <AndroidResource Include="Resources\drawable\ic_share.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\nav_home.png" />
+    <AndroidResource Include="Resources\drawable\nav_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\nav_logs.png" />
+    <AndroidResource Include="Resources\drawable\nav_logs.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\nav_manage_data.png" />
+    <AndroidResource Include="Resources\drawable\nav_manage_data.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\nav_settings.png" />
+    <AndroidResource Include="Resources\drawable\nav_settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_calendar.png" />
+    <AndroidResource Include="Resources\drawable\perm_calendar.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_contacts.png" />
+    <AndroidResource Include="Resources\drawable\perm_contacts.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_file.png" />
+    <AndroidResource Include="Resources\drawable\perm_file.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_location.png" />
+    <AndroidResource Include="Resources\drawable\perm_location.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_payment.png" />
+    <AndroidResource Include="Resources\drawable\perm_payment.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_search.png" />
+    <AndroidResource Include="Resources\drawable\perm_search.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic\perm_telephone.png" />
+    <AndroidResource Include="Resources\drawable\perm_telephone.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\btn\btn_back.png" />
+    <AndroidResource Include="Resources\drawable\btn_back.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\btn\btn_full_access.png" />
+    <AndroidResource Include="Resources\drawable\btn_full_access.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\btn\btn_more_details.png" />
+    <AndroidResource Include="Resources\drawable\btn_more_details.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\btn\btn_no_access.png" />
+    <AndroidResource Include="Resources\drawable\btn_no_access.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\btn\btn_user_action.png" />
+    <AndroidResource Include="Resources\drawable\btn_user_action.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_entry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\img_whiteline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:ClearData.Views"
+       xmlns:logsPage="clr-namespace:ClearData"
        Title="ClearData"
        x:Class="ClearData.AppShell">
 
@@ -80,9 +81,9 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="About" Icon="tab_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
-        <ShellContent Title="Manage Data" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ManageDataPage}"/>
+        <ShellContent Title="About" Icon="nav_home.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+            <ShellContent Title="Logs" Icon="nav_logs.png" ContentTemplate="{DataTemplate logsPage:LogsPage}" />
+            <ShellContent Title="Manage Data" Icon="nav_manage_data.png" ContentTemplate="{DataTemplate local:ManageDataPage}"/>
         <ShellContent Title="Capture" Route="CapturePage" ContentTemplate="{DataTemplate local:CapturePage}" />
     </FlyoutItem>
 
