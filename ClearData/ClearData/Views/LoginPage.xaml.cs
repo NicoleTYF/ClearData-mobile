@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ClearData.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : ContentPage 
     {
-        public LoginPage()
+        public LoginPage() 
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel();

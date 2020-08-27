@@ -9,8 +9,8 @@
              BackgroundImageSource="bg_mobile.png">
 
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center">
-
+        <StackLayout> 
+         
             <!-- Top left logo -->
             <ImageButton Source="logo_text.png"
                          Margin="10,8,0,0"
@@ -27,7 +27,7 @@
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                </Grid.RowDefinitions> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition/>
@@ -76,7 +76,7 @@
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
                           RowHeight="80"
-                          ItemsSource="{Binding Items}" ItemTapped="Handle_ItemTapped" CachingStrategy="RecycleElement">
+                          ItemsSource="{Binding Items}" CachingStrategy="RecycleElement">
 
                     <!-- Cell layout -->
                     <ListView.ItemTemplate>
@@ -98,14 +98,15 @@
                                         <!-- {Binding Text} {Binding Detail} -->
                                         <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" 
                                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
-                                        <Label Text="Location" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
+                                        <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
                                         <Label Text="11:32AM:    Accessed by Spotify"   Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="24,-4,0,0" />
-                                        <Label Text="10:45AM:    Accessed by Facebook " Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="Micro" Margin="24,-10,0,0" />
-                                        <Label Text="09:24AM:    Accessed by Google "   Grid.Column="0" Grid.Row="3" TextColor="White" FontSize="Micro" Margin="24,-16,0,0" Padding="0,0,0,10"/> 
+                                        <Label Text="10:45AM:    Accessed by Facebook"  Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="Micro" Margin="24,-10,0,0" />
+                                        <Label Text="09:24AM:    Accessed by Google "   Grid.Column="0" Grid.Row="3" TextColor="White" FontSize="Micro" Margin="24,-16,0,0" Padding="0,0,0,10"/>
 
-                                        <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" BackgroundColor="Transparent" Background="bg_trans.png" />
+                                        <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" 
+                                                     BackgroundColor="Transparent" Command="{Binding HistoryBtnCommand}" CommandParameter="{Binding Id}"/>
 
-                                    </Grid>
+                                    </Grid> 
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

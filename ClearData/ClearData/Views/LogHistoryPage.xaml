@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClearData.Views.LogHistoryPage" 
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
+             Title="{Binding Title}"
+             BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Content>
+        <StackLayout> 
+
+            <!-- Top left logo -->
+            <ImageButton Source="logo_text.png"
+                         Margin="10,8,0,0"
+                         WidthRequest="120"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Start"/> 
+
+            <!-- Page content -->
+            <Grid Margin="21.5,15,21.5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/> 
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/> 
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="*"  />
+                </Grid.ColumnDefinitions>
+
+                <!-- Back button -->
+                <ImageButton Source="btn_back.png" Grid.Column="0" Grid.Row="0" />
+
+                <!-- Title text -->
+                <Label Text="Logs"
+                       FontSize="37"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextColor="White"
+                       FontFamily="Calibri-Light"
+                       HorizontalOptions="Start"/>
+
+                <!-- TODAY's collapsable -->
+                <Image  Source="bg_trans.png" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+                <Button Text="TODAY" Grid.Row="2" Grid.Column="0" Margin="38.5,6,0,0" FontSize="Caption" 
+                        TextColor="#FFE88F" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                <Image  Source="arrow_down_wt.png" Grid.Row="2" Grid.Column="1"/>
+                <Image  Source="img_whiteline.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/> 
+
+                <ListView x:Name="LogHistory_Today"
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          RowHeight="30">
+                    <!-- Cell layout -->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid Padding="0,0,0,7">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height ="*" />
+                                            <RowDefinition Height ="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- {Binding Text} {Binding Detail} -->
+                                        <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Micro" Margin="38.5,0,0,0" />
+                                        <Label Text="Accessed by Spotify " Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="38.5,0,0,0" />
+                                        <!-- Permission's icon on the right -->
+                                        <Image Source="perm_location.png" Grid.Column="1" Grid.Row="1"/>
+
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

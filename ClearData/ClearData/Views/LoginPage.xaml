@@ -55,7 +55,7 @@
 
             <!-- Sign Up Label & Button -->
             <FlexLayout Padding="0,20,0,0"
-                        Direction="Row"
+                        Direction="Row" 
                         AlignItems="Center"
                         JustifyContent="Center">
                 <Label
