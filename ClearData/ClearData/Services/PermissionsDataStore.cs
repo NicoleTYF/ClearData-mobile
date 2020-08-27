@@ -31,7 +31,7 @@ namespace ClearData.Services
                 "alongside Amazon, Apple and Microsoft.",
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { 0, 2 },
-                ExcludedDataTypes = new SortedSet<int>()
+                DataTypeEnabled = new Dictionary<int, bool>()
             };
 
             Company Amazon = new Company
@@ -43,7 +43,7 @@ namespace ClearData.Services
                 "of the Big Four technology companies, along with Google, Apple, and Facebook.",
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { 1, 2 },
-                ExcludedDataTypes = new SortedSet<int>()
+                DataTypeEnabled = new Dictionary<int, bool>()
             };
 
             companies = new List<Company> { Google, Amazon }; //add the companies

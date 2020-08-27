@@ -11,17 +11,35 @@ namespace ClearData.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch ((Company.RestrictionType)value)
+            if (Equals((string)parameter, "info"))
             {
-                case Company.RestrictionType.ALL:
-                    return "All";
-                case Company.RestrictionType.CUSTOM_OPT_IN:
-                    return "Custom Opt In";
-                case Company.RestrictionType.CUSTOM_OPT_OUT:
-                    return "Custom Opt Out";
-                case Company.RestrictionType.NONE:
-                default:
-                    return "None";
+                switch ((Company.RestrictionType)value)
+                {
+                    case Company.RestrictionType.ALL:
+                        return "On this setting, any data you are sharing will be accessible by this company";
+                    case Company.RestrictionType.CUSTOM_OPT_IN:
+                        return "On this setting, your settings below will apply and any new data you choose to share will not be shared with this company unless you opt in";
+                    case Company.RestrictionType.CUSTOM_OPT_OUT:
+                        return "On this setting, your settings below will apply and any new data you choose to share will be shared with this company unless you opt out";
+                    case Company.RestrictionType.NONE:
+                    default:
+                        return "On this setting, none of your data will be shared with this company";
+                }
+            }
+            else
+            {
+                switch ((Company.RestrictionType)value)
+                {
+                    case Company.RestrictionType.ALL:
+                        return "All";
+                    case Company.RestrictionType.CUSTOM_OPT_IN:
+                        return "Custom Opt In";
+                    case Company.RestrictionType.CUSTOM_OPT_OUT:
+                        return "Custom Opt Out";
+                    case Company.RestrictionType.NONE:
+                    default:
+                        return "None";
+                }
             }
         }
 

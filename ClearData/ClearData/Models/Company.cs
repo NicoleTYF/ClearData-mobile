@@ -5,9 +5,13 @@ namespace ClearData.Models
 {
     public class Company : DataObject
     {
-        public enum RestrictionType {ALL, CUSTOM_OPT_IN, CUSTOM_OPT_OUT, NONE }; //Possible types of restrictions
+        public enum RestrictionType {ALL = 0, CUSTOM_OPT_IN = 1, CUSTOM_OPT_OUT = 2, NONE = 3}; //Possible types of restrictions
         public SortedSet<int> WantedDataTypes { get; set; } //all data types wanted by the company, entry is the data type id
+        
         public RestrictionType Restriction { get; set; } 
-        public SortedSet<int> ExcludedDataTypes { get; set; } //set of all data types which have permissions excluded, entry is the data type id
+        
+        //dictionary which maintains whether any data type has been enabled or disabled, if an entry doesn't exist, base it off
+        //the Restriction setting
+        public Dictionary<int, bool> DataTypeEnabled { get; set; } 
     }
 }

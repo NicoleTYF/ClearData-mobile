@@ -2,13 +2,55 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClearData.Views.ManageCompanyPage"
+             xmlns:converters="clr-namespace:ClearData.Converters"
+             xmlns:local="clr-namespace:ClearData.ViewModels" 
+             xmlns:model="clr-namespace:ClearData.Models"  
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:PermissionTextConverter x:Key="permissionConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
+        <Label Text="Service" FontSize="Medium" />
         <Label Text="{Binding Company.Name}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
+        <Label Text="{Binding Company.Description}" FontSize="Small"/>
+
+        <Grid>
+            <Label Text="Permission Level" Grid.Column="0"/>
+            <Picker x:Name="permission_picker" Title="Permission Setting" SelectedIndex="{Binding CurrentRestriction}" Grid.Column="1"  SelectedIndexChanged="Picker">
+                <!--PropertyChanged="PickerChosen"-->
+                <!-- These written values are hard coded in here, not good but binding them was super difficult and this was easy-->
+                <Picker.Items>
+                    <x:String>All</x:String>
+                    <x:String>Custom Opt In</x:String>
+                    <x:String>Custom Opt Out</x:String>
+                    <x:String>None</x:String>
+                </Picker.Items>
+            </Picker>
+        </Grid>
+        <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}"/>
+
+        <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="PermissionListView"
+                            ItemsSource="{Binding DataTypePermissions}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="(model:DataType, bool)">
+                            <Label Text="{Binding Item2}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
     </StackLayout>
+
+
     
 </ContentPage>
