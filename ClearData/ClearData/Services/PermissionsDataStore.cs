@@ -31,6 +31,7 @@ namespace ClearData.Services
                 "alongside Amazon, Apple and Microsoft.",
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { 0, 2 },
+                ExcludedDataTypes = new SortedSet<int>()
             };
 
             Company Amazon = new Company
@@ -42,6 +43,7 @@ namespace ClearData.Services
                 "of the Big Four technology companies, along with Google, Apple, and Facebook.",
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { 1, 2 },
+                ExcludedDataTypes = new SortedSet<int>()
             };
 
             companies = new List<Company> { Google, Amazon }; //add the companies
@@ -55,6 +57,11 @@ namespace ClearData.Services
         public async Task<IEnumerable<Company>> GetCompaniesAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(companies);
+        }
+
+        public async Task<Company> GetCompanyAsync(string name)
+        {
+            return await Task.FromResult(companies.FirstOrDefault(s => Equals(s.Name,name)));
         }
     }
 }

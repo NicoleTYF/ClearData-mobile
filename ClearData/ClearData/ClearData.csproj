@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ManageCompanyPage.xaml.cs">
+      <DependentUpon>ManageCompanyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ManageDataPage.xaml.cs">
       <DependentUpon>ManageDataPage.xaml</DependentUpon>
     </Compile>

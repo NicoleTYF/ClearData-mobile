@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
             <converters:BoolToColorConverter x:Key="colorConverter"/>
+            <converters:PermissionTextConverter x:Key="permissionConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -26,17 +27,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Clicked="OnServicePushed" 
+            <Label Text="Sort By" FontSize="16" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" VerticalOptions="CenterAndExpand"/>
+            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Clicked="OnDataTypesPushed"
+                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
+            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Clicked="OnServicePushed" 
                     x:DataType="local:ManageDataViewModel" 
                     BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                     TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
                     BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
-            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Clicked="OnDataTypesPushed"
-                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
-                    TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
+        
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      IsVisible="{Binding DataTypesVisible}">
             <CollectionView x:Name="DataTypeListView"
@@ -68,16 +72,42 @@
                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:Company">
-                            <Label Text="{Binding Name}" 
+                        <Grid x:DataType="model:Company">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Padding="10" Grid.Column="0" HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
-                            <Label Text="{Binding Description}" 
+                                <Label Text="{Binding Description}" 
                                 LineBreakMode="TailTruncation"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
-                        </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <StackLayout Padding="10" Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="Current Setting" FontSize="14" LineBreakMode="NoWrap"/>
+                                <Label FontSize="12" LineBreakMode="NoWrap" HorizontalTextAlignment="Center"
+                                       Text="{Binding Restriction, Converter={StaticResource permissionConverter}}"/>
+                                <!-- This part is repeated, giving two gesture recognisers that do the same thing, binding to the grid didn't work though-->
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

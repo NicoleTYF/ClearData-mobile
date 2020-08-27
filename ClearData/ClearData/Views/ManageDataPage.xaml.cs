@@ -33,5 +33,6 @@ namespace ClearData.Views
         {
             await _viewModel.UpdateToDataTypesDisplay();
         }
+
     }
 }
