@@ -29,6 +29,8 @@ namespace ClearData.Views
             };
              
             LogHistory_Today.ItemsSource = Items;
+            LogHistory_ThisWeek.ItemsSource = Items;
+            LogHistory_Past.ItemsSource = Items;
         }
     }
 }

@@ -17,73 +17,166 @@
                          WidthRequest="120"
                          HeightRequest="30"
                          BackgroundColor="Transparent"
-                         HorizontalOptions="Start"/> 
+                         HorizontalOptions="Start"/>
 
-            <!-- Page content -->
-            <Grid Margin="21.5,15,21.5,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/> 
-                    <RowDefinition Height="70"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/> 
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="*"  />
-                </Grid.ColumnDefinitions>
+            <!-- Back button -->
+            <ImageButton Source="btn_back.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="21.5,10,21.5,0"
+                             WidthRequest="70" HeightRequest="36" BackgroundColor="Transparent" HorizontalOptions="Start" />
 
-                <!-- Back button -->
-                <ImageButton Source="btn_back.png" Grid.Column="0" Grid.Row="0" />
-
-                <!-- Title text -->
-                <Label Text="Logs"
-                       FontSize="37"
+            <!-- Title text -->
+            <Label Text="History of (Some Permission) Data Usage"
+                       Margin="21.5,5,10,0"
+                       FontSize="21"
                        Grid.Row="1"
                        Grid.Column="0"
                        TextColor="White"
                        FontFamily="Calibri-Light"
+                       FontAttributes="Bold"
                        HorizontalOptions="Start"/>
 
-                <!-- TODAY's collapsable -->
-                <Image  Source="bg_trans.png" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
-                <Button Text="TODAY" Grid.Row="2" Grid.Column="0" Margin="38.5,6,0,0" FontSize="Caption" 
-                        TextColor="#FFE88F" FontAttributes="Bold" BackgroundColor="Transparent"/>
-                <Image  Source="arrow_down_wt.png" Grid.Row="2" Grid.Column="1"/>
-                <Image  Source="img_whiteline.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/> 
+            <!-- Page content -->
+            <ScrollView>
+                <Grid Margin="21.5,10,21.5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
 
-                <ListView x:Name="LogHistory_Today"
-                          Grid.Row="4"
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/> <!-- Space at the Bottom, may change later -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="*"  />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- "TODAY"'s collapsable -->
+                    <Button Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="TODAY" Grid.Row="0" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="0" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_Today"
+                          Grid.Row="2"
                           Grid.Column="0"
-                          RowHeight="30">
-                    <!-- Cell layout -->
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout>
-                                    <Grid Padding="0,0,0,7">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height ="*" />
-                                            <RowDefinition Height ="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="4*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                          Grid.ColumnSpan="2"
+                          RowHeight="25">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="12*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <!-- {Binding Text} {Binding Detail} -->
-                                        <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Micro" Margin="38.5,0,0,0" />
-                                        <Label Text="Accessed by Spotify " Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="38.5,0,0,0" />
-                                        <!-- Permission's icon on the right -->
-                                        <Image Source="perm_location.png" Grid.Column="1" Grid.Row="1"/>
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
+                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_location.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                                    </Grid>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                    <!-- "THIS WEEK"'s collapsable -->
+                    <Button Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="THIS WEEK" Grid.Row="3" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="3" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_ThisWeek"
+                          Grid.Row="5"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="25">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="12*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
+                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_search.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- "MORE THAN A WEEK AGO"'s collapsable -->
+                    <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="MORE THAN A WEEK AGO" Grid.Row="6" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="6" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_Past"
+                          Grid.Row="8"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="25">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="12*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
+                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_contacts.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
