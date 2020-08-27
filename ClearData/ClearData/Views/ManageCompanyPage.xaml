@@ -21,6 +21,9 @@
         <Label Text="{Binding Company.Description}" FontSize="Small"/>
 
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
             <Label Text="Permission Level" Grid.Column="0"/>
             <Picker x:Name="permission_picker" Title="Permission Setting" SelectedIndex="{Binding CurrentRestriction}" Grid.Column="1"  SelectedIndexChanged="Picker">
                 <!--PropertyChanged="PickerChosen"-->
@@ -40,9 +43,9 @@
                             ItemsSource="{Binding DataTypePermissions}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="(model:DataType, bool)">
-                            <Label Text="{Binding Item2}"/>
+                    <DataTemplate x:DataType="model:CompanyDataType">
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding CompanyEnabled}"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

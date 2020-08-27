@@ -13,7 +13,7 @@ namespace ClearData.ViewModels
     public class ManageCompanyViewModel : BaseViewModel
     {
         
-        public ObservableCollection<(DataType, bool)> DataTypePermissions { get; }
+        public ObservableCollection<CompanyDataType> DataTypePermissions { get; }
 
         private int currentRestriction;
         private Company company;
@@ -36,7 +36,7 @@ namespace ClearData.ViewModels
         {
             Title = String.Format("Manage {0} permissions", company.Name);
             Company = company;
-            DataTypePermissions = new ObservableCollection<(DataType, bool)>();
+            DataTypePermissions = new ObservableCollection<CompanyDataType>();
             //get the permission options as a list
             RestrictionChanged = new Command(OnRestrictionChanged);
             LoadPermissionsCommand = new Command(async () => await ExecuteLoadPermissionsCommand());
@@ -85,7 +85,11 @@ namespace ClearData.ViewModels
                             }
                         }
                         //now make an entry into the tuple observable collection which we use for our display
-                        DataTypePermissions.Add((dataType, company.DataTypeEnabled[dataType.Id]));
+                        DataTypePermissions.Add(new CompanyDataType()
+                        {
+                            DataType = dataType,
+                            CompanyEnabled = company.DataTypeEnabled[dataType.Id]
+                        });
                     }
                 }
             }
