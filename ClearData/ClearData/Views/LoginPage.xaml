@@ -8,10 +8,10 @@
              BackgroundImageSource="bg_mobile.png"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="35,0,35,0" VerticalOptions="Center">
+        <StackLayout Padding="40,0,40,0" VerticalOptions="Center">
 
             <!-- ClearData text -->
-            <Image Source="logo_textonly.png" Scale="0.7" Margin="0,6,0,0"/>
+            <Image Source="logo_textonly.png" Scale="0.7" Margin="0,15,0,0"/>
 
             <!-- "Fair Use Plaform..." text -->
             <Label Text="Fair-use Data Platform" TextColor="#77DBFF" FontSize="Caption" HorizontalTextAlignment="Center" Margin="0,-20,0,0"/>
@@ -22,33 +22,33 @@
             <!-- Username & Password Entry Grid -->
             <Grid Margin="0,-50,0,120">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Invalid Username or Password Label -->
-                <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" 
-                       TextColor="Red" Margin="0,-6,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="Caption" />
-
                 <!-- Username Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+                       Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
                 <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
-                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
-                <custom:LoginEntry Text="{Binding Username}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,-5"/>
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
+                <custom:LoginEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,0,-5"/>
 
                 <!-- Password Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="2" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
                 <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10" 
-                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="0"/>
-                <custom:LoginEntry IsPassword="True" Text="{Binding Password}" Grid.Row="2" Grid.Column="1" Margin="0,0,0,-5"/>
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
+                <custom:LoginEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,-5"/>
+
+                <!-- Invalid Username or Password Label -->
+                <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" HorizontalOptions="End"
+                       TextColor="Red" Margin="0,-3,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="Caption" />
             </Grid>
 
             <!-- Login Button -->
