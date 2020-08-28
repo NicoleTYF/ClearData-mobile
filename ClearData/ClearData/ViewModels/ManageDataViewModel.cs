@@ -8,6 +8,9 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
+using ClearData.Models;
+using ClearData.Views;
+
 namespace ClearData.ViewModels
 {
     public class ManageDataViewModel : BaseViewModel
@@ -16,6 +19,8 @@ namespace ClearData.ViewModels
         public ObservableCollection<Company> Companies { get; }
         public Command LoadDataTypesCommand { get; }
         public Command LoadCompaniesCommand { get; }
+
+        public Command<Company> CompanyTapped { get; }
 
         /* whole bunch of variables for the button displays and which section to display
          * the SetProperty is important for updating the display so I think it needs to be this verbose
@@ -40,6 +45,7 @@ namespace ClearData.ViewModels
             Companies = new ObservableCollection<Company>();
             LoadDataTypesCommand = new Command(async () => await ExecuteLoadDataTypesCommand());
             LoadCompaniesCommand = new Command(async () => await ExecuteLoadCompaniesCommand());
+            CompanyTapped = new Command<Company>(OnCompanySelected);
             IsBusy = false;
 
             DataTypesVisible = true; //start with data visible, services not
@@ -108,9 +114,26 @@ namespace ClearData.ViewModels
 
         }
 
-        public void OnAppearing()
+        async void OnCompanySelected(Company company)
+        {
+            if (company == null)
+                return;
+
+            var manageCompanyViewModel = new ManageCompanyViewModel(company);
+
+            await Application.Current.MainPage.Navigation.PushAsync(new ManageCompanyPage(manageCompanyViewModel));
+            
+        }
+
+        public async void OnAppearing()
         {
             IsBusy = true;
+            //when the page appears, load the data types or companies
+            if (dataTypesVisible)
+                await ExecuteLoadDataTypesCommand();
+            else
+                await ExecuteLoadCompaniesCommand(); 
+
         }
 
         /**
@@ -140,11 +163,5 @@ namespace ClearData.ViewModels
             await ExecuteLoadDataTypesCommand(); //reload the data type info
         }
 
-        public Color DumbFunction(Color color)
-        {
-            return color;
-        }
-
-        public ICommand OpenWebCommand { get; }
     }
 }

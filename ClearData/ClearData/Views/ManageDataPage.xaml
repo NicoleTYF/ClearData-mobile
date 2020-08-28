@@ -5,9 +5,7 @@
              xmlns:vm="clr-namespace:ClearData.ViewModels"
              xmlns:local="clr-namespace:ClearData.ViewModels"  
              xmlns:model="clr-namespace:ClearData.Models"  
-             xmlns:custom="clr-namespace:ClearData.Controls;assembly=ClearData"
              xmlns:converters="clr-namespace:ClearData.Converters"
-             BackgroundImageSource="bg_mobile.png"
              Title="{Binding Title}">
 
 
@@ -15,83 +13,34 @@
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
             <converters:BoolToColorConverter x:Key="colorConverter"/>
+            <converters:PermissionTextConverter x:Key="permissionConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <StackLayout>
-        <!-- Top left logo -->
-        <ImageButton Source="logo_text.png"
-                         Margin="10,8,0,0"
-                         WidthRequest="120"
-                         HeightRequest="30"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="Start"/>
 
-        <!-- Page content -->
-        <Grid Margin="21.5,15,21.5,0">
+
+    <StackLayout>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height ="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <!-- Title text -->
-            <Label Text="Manage Data"
-                       FontSize="37"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="3"
-                       TextColor="White"
-                       FontFamily="Calibri-Light"
-                       HorizontalOptions="Start"/>
-
-            <!-- "SORT BY" image -->
-            <Image Source="img_sort_by.png"
-                       Margin="5,0,0,0" 
-                       Grid.Row="1"       
-                       Grid.Column="0"
-                       WidthRequest="80" 
-                       HeightRequest="15"
-                       HorizontalOptions="Start"/>
-
-            <!-- Service & Data type buttons -->
-            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Row="1" Grid.Column="1" Clicked="OnDataTypesPushed"
+            <Label Text="Sort By" FontSize="16" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" VerticalOptions="CenterAndExpand"/>
+            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Clicked="OnDataTypesPushed"
                     BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                     TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-                    WidthRequest="120" HeightRequest="20" FontSize="Small"/>
-            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="1" Grid.Column="2" Clicked="OnServicePushed" 
+                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
+            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Clicked="OnServicePushed" 
                     x:DataType="local:ManageDataViewModel" 
                     BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                     TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-                    BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-                    WidthRequest="90" HeightRequest="20" FontSize="Small"/>
-
-            <!-- White horizontal line -->
-            <Image Source="img_whiteline.png" 
-                       Grid.Row="2" 
-                       Grid.Column="0"   
-                       Grid.RowSpan="1"  
-                       Grid.ColumnSpan="3"/>
-
-            <!-- Description text -->
-            <Label Text="Enable/Disable data types to share." 
-                       Grid.Row="3"
-                       Grid.Column="0"   
-                       Grid.RowSpan="1"  
-                       Grid.ColumnSpan="3" 
-                       FontSize="Micro"
-                       TextColor="White" 
-                       LineBreakMode="NoWrap"/>
+                    BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
-
+        
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      IsVisible="{Binding DataTypesVisible}">
             <CollectionView x:Name="DataTypeListView"
@@ -109,7 +58,7 @@
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
                             <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
-                            <Switch IsToggled="{Binding Enabled}"  />
+                            <Switch IsToggled="{Binding Enabled}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -123,16 +72,42 @@
                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:Company">
-                            <Label Text="{Binding Name}" 
+                        <Grid x:DataType="model:Company">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Padding="10" Grid.Column="0" HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
-                            <Label Text="{Binding Description}" 
+                                <Label Text="{Binding Description}" 
                                 LineBreakMode="TailTruncation"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
-                        </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <StackLayout Padding="10" Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="Current Setting" FontSize="14" LineBreakMode="NoWrap"/>
+                                <Label FontSize="12" LineBreakMode="NoWrap" HorizontalTextAlignment="Center"
+                                       Text="{Binding Restriction, Converter={StaticResource permissionConverter}}"/>
+                                <!-- This part is repeated, giving two gesture recognisers that do the same thing, binding to the grid didn't work though-->
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

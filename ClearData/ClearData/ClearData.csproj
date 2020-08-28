@@ -6,25 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\CapturePage.xaml.cs">
-      <DependentUpon>CapturePage.xaml</DependentUpon>
+    <Compile Update="Views\ManageCompanyPage.xaml.cs">
+      <DependentUpon>ManageCompanyPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\CapturePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignupPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LogHistoryPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Compile Update="Views\ManageDataPage.xaml.cs">
+      <DependentUpon>ManageDataPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
