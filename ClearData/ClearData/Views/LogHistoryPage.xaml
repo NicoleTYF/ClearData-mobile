@@ -21,7 +21,7 @@
 
             <!-- Back button -->
             <ImageButton Source="btn_back.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="21.5,10,21.5,0"
-                             WidthRequest="70" HeightRequest="36" BackgroundColor="Transparent" HorizontalOptions="Start" />
+                             WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Start" />
 
             <!-- Title text -->
             <Label Text="History of (Some Permission) Data Usage"

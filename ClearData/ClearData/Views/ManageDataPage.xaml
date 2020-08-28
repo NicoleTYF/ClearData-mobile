@@ -149,8 +149,7 @@
                             </Grid.RowDefinitions>
 
                             <ImageButton Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2"
-                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, 		
-                                         Path=CompanyTapped}" CommandParameter="{Binding .}" BackgroundColor="Transparent"
+                                         BackgroundColor="Transparent"
                                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
 
                             <Image Source="img_no_image.png" Grid.Column="0" Grid.Row="0" Margin="18,0,0,0" Grid.RowSpan="2" VerticalOptions="Center"/>
