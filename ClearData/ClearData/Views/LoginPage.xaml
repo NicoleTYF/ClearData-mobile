@@ -20,7 +20,7 @@
             <Image Source="logo.png" Scale="0.6" Margin="10,-40,0,0"/>
 
             <!-- Username & Password Entry Grid -->
-            <Grid Margin="0,-50,0,120">
+            <Grid Margin="0,-50,0,100">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
@@ -35,14 +35,14 @@
                 <!-- Username Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
                        Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
-                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="7,0,0,10"
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
                 <custom:LoginEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,0,-5"/>
 
                 <!-- Password Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
                        Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
-                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10" 
+                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="7,0,0,10" 
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
                 <custom:LoginEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,-5"/>
 
