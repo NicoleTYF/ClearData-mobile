@@ -47,6 +47,20 @@ namespace ClearData.ViewModels
         {
             //we have had the restriction changed, update the actual restriction
             company.Restriction = (Company.RestrictionType)currentRestriction;
+
+            //next update the sliders and permissions to reflect this
+            //only done if changing to ALL or NONE
+            if (company.Restriction == Company.RestrictionType.ALL || 
+                company.Restriction == Company.RestrictionType.NONE)
+            {
+                foreach (var companyDataType in DataTypePermissions)
+                {
+                    //update both the data stored and the variable which is being displayed
+                    companyDataType.CompanyEnabled = (company.Restriction == Company.RestrictionType.ALL);
+                    company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
+                }
+            }
+            IsBusy = true; //update the display of the scrollable content by setting this flag
         }
 
         async Task ExecuteLoadPermissionsCommand()
@@ -102,6 +116,48 @@ namespace ClearData.ViewModels
                 IsBusy = false;
             }
 
+        }
+
+        public async void OnAppearing()
+        {
+            IsBusy = true;
+            //when the page appears, load the data types or companies
+            await ExecuteLoadPermissionsCommand();
+
+        }
+
+        public void SwitchToggled()
+        {
+            //don't worry about tracking which switch was actually toggled
+            //since we want to iterate through all switches anyway to
+            //check for changing the overall permission
+            int trueCount = 0;
+            foreach (var companyDataType in DataTypePermissions)
+            {
+                //first do the updating of the backend to reflect the change to the switch
+                //switch bound to company enabled, not the dictionary
+                company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
+                //next increment the true count, this is counting the new status
+                if (companyDataType.CompanyEnabled)
+                    trueCount++;
+            }
+            //now use the number of trues counted to update the restriction type
+            //first check updating to ALL setting, don't do if on opt in setting
+            if (trueCount == DataTypePermissions.Count &&
+                company.Restriction != Company.RestrictionType.CUSTOM_OPT_IN)
+                company.Restriction = Company.RestrictionType.ALL;
+            else if (trueCount == 0)
+                company.Restriction = Company.RestrictionType.NONE;
+            else if (trueCount < DataTypePermissions.Count && trueCount > 0)
+            {
+                if (company.Restriction == Company.RestrictionType.NONE)
+                    //coming from none restriction, change to opt in
+                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_IN;
+                else //coming from all restriction, change to opt out
+                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_OUT;
+            }
+            //finally update the restriction that is being displayed
+            CurrentRestriction = (int)company.Restriction;
         }
 
     }

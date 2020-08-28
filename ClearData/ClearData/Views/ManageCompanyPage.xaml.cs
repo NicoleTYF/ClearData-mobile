@@ -16,8 +16,18 @@ namespace ClearData.Views
 
         public void Picker(object sender, System.EventArgs e)
         {
-            Console.WriteLine("hello from the otherside");
             _viewModel.OnRestrictionChanged();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
+
+        private void SwitchToggled(object sender, ToggledEventArgs e)
+        {
+            _viewModel.SwitchToggled();
         }
     }
 }

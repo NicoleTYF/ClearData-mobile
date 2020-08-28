@@ -45,7 +45,16 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:CompanyDataType">
                         <StackLayout Padding="10">
-                            <Label Text="{Binding CompanyEnabled}"/>
+                            <Label Text="{Binding DataType.Name}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding DataType.Description}" 
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                            <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
+                            <Switch IsToggled="{Binding CompanyEnabled}" Toggled="SwitchToggled"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
