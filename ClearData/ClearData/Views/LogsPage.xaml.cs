@@ -11,12 +11,18 @@ namespace ClearData
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LogsPage : ContentPage
     {
+        LogsViewModel _viewModel;
         public LogsPage()
         {
             InitializeComponent();
-            LogsViewModel logsViewModel = new LogsViewModel();
-			this.BindingContext = logsViewModel;
-			LogList.ItemsSource = logsViewModel.Items;
+            BindingContext = _viewModel = new LogsViewModel();
+			
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
     }
 }

@@ -13,5 +13,9 @@ namespace ClearData.Models
         //dictionary which maintains whether any data type has been enabled or disabled, if an entry doesn't exist, base it off
         //the Restriction setting
         public Dictionary<int, bool> DataTypeEnabled { get; set; } 
+
+        //dictionary to store the last time any data was accessed by the company
+        //null if company hasn't accessed the data type
+        public Dictionary<int, DateTime> LastAccessed { get; set; }
     }
 }

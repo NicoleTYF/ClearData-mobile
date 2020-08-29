@@ -1,12 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ClearData.Models
 {
     public class Log
     {
-        public int Id { get; set; }
-        public int DataTypeId { get; set; } //ID of the associated data type
-        public DateTime LogTime { get; set; } //Timestamp associated with each log
+        public DataType DataType { get; set; }
+        public Company Company { get; set; }
+        public DateTime Time { get; set; }
+        public Log(DataType dataType, Company company, DateTime time)
+        {
+            DataType = dataType;
+            Company = company;
+            Time = time;
+        }
     }
 }
