@@ -5,8 +5,16 @@
              xmlns:vm="clr-namespace:ClearData.ViewModels"
              xmlns:local="clr-namespace:ClearData.ViewModels"  
              xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
              Title="{Binding Title}"
              BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:TimeToStringConverter x:Key="timeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout> 
@@ -112,8 +120,10 @@
                                                                 <ColumnDefinition Width="2*"/>
                                                                 <ColumnDefinition Width="3*"/>
                                                             </Grid.ColumnDefinitions>
+                                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" TextColor="White" 
+                                                                   FontSize="Micro" Grid.Column="0" HorizontalTextAlignment="End"/>
+                                                            <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" Grid.Column="1" HorizontalTextAlignment="Start"/>
                                                         </Grid>
-                                                        <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" Margin="24,-4,0,0"/>
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
                                             </CollectionView>
