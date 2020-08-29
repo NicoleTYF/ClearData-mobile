@@ -86,9 +86,7 @@
                                         <Grid Padding="0,0,0,7">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height ="4*" />
-                                                <RowDefinition Height ="2*" />
-                                                <RowDefinition Height ="2*" />
-                                                <RowDefinition Height ="*" />
+                                                <RowDefinition Height ="5*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="4*"/>
@@ -99,10 +97,32 @@
                                             <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" 
                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
+                                            
+                                            <CollectionView ItemsSource="{Binding Logs}" Grid.Column="0" Grid.Row="1">
+                                                <CollectionView.ItemsLayout>
+                                                    <GridItemsLayout Orientation="Vertical"/>
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="model:Log">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="3*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                        </Grid>
+                                                        <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" Margin="24,-4,0,0"/>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                            
+                                            <!--
                                             <Label Text="11:32AM:    Accessed by Spotify"   Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="24,-4,0,0" />
                                             <Label Text="10:45AM:    Accessed by Facebook"  Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="Micro" Margin="24,-10,0,0" />
                                             <Label Text="09:24AM:    Accessed by Google "   Grid.Column="0" Grid.Row="3" TextColor="White" FontSize="Micro" Margin="24,-16,0,0" Padding="0,0,0,10"/>
-
+                                            -->
                                             <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" 
                                                          BackgroundColor="Transparent" />
                                         </Grid> 

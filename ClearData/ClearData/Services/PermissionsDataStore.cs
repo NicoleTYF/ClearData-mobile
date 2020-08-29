@@ -32,7 +32,8 @@ namespace ClearData.Services
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, new DateTime(2020, 8, 29, 15, 47, 53) } }
+                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, new DateTime(2020, 8, 29, 15, 47, 53) },
+                                                                    { (int)DataType.DataTypeId.BROWSING, new DateTime(2020, 8, 29, 15, 53, 41) }}
             };
 
             Company Amazon = new Company
@@ -45,7 +46,8 @@ namespace ClearData.Services
                 Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, new DateTime(2020, 8, 29, 15, 49, 43) } }
+                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, new DateTime(2020, 8, 29, 15, 49, 43) },
+                                                                { (int)DataType.DataTypeId.BROWSING, new DateTime(2020, 8, 29, 15, 53, 41) }}
             };
 
             companies = new List<Company> { Google, Amazon }; //add the companies

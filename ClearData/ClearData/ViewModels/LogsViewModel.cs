@@ -16,7 +16,7 @@ namespace ClearData.ViewModels
 	public class LogsViewModel: BaseViewModel
 	{
 
-        public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; }
+        public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; set; }
         public Command HistoryBtnCommand { get; }
         public Command LoadLogsCommand { get; }
 
@@ -63,7 +63,10 @@ namespace ClearData.ViewModels
                     foreach (var dataType in dataTypes)
                     {
                         //if there is an entry to be made, find where to enter it
-                        if (dataType.Enabled && company.LastAccessed.TryGetValue(dataType.Id, out DateTime result))
+                        //for an entry to be made, it must be enabled by the user and the company and have a last accessed time
+                        ManageCompanyViewModel.EnsureDataTypeEnabledEntry(company, dataType); //ensure the entry exists
+                        if (dataType.Enabled && company.DataTypeEnabled[dataType.Id] &&
+                            company.LastAccessed.TryGetValue(dataType.Id, out DateTime result))
                         {
                             //this hurts my soul a bit with the remarkable inefficiency, but we won't be doing anything big
                             //so it is kinda fine, and to do it better I would need to track indices and stuff
@@ -90,7 +93,7 @@ namespace ClearData.ViewModels
                         typeSortedLog.Logs.Add(log);
                     }
                 }
-                Console.WriteLine("YELLOW {0}", TypeSortedLogs.Count);
+                Console.WriteLine("YELLOW {0} {1}", TypeSortedLogs.Count, TypeSortedLogs[0].Logs.Count);
             }
             catch (Exception ex)
             {

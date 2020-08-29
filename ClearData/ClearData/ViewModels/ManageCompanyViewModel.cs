@@ -63,6 +63,27 @@ namespace ClearData.ViewModels
             IsBusy = true; //update the display of the scrollable content by setting this flag
         }
 
+        public static void EnsureDataTypeEnabledEntry(Company company, DataType dataType)
+        {
+            if (!company.DataTypeEnabled.TryGetValue(dataType.Id, out bool result))
+            {
+                //if we are in here, there wasn't an entry in the dictionary
+                //add the entry in the dictionary depending on the current restriction setting
+                switch (company.Restriction)
+                {
+                    case Company.RestrictionType.ALL:
+                    case Company.RestrictionType.CUSTOM_OPT_OUT:
+                        company.DataTypeEnabled.Add(dataType.Id, true);
+                        break;
+                    default:
+                        company.DataTypeEnabled.Add(dataType.Id, false);
+                        break;
+                }
+            }
+        }
+            //TO DO - static function for ensuring that a data type has an entry, then updates the entry if required
+            //static so that we can hook this into the logs model as well
+
         async Task ExecuteLoadPermissionsCommand()
         {
             IsBusy = true;
@@ -83,21 +104,7 @@ namespace ClearData.ViewModels
                     //first check for overlap between the wanted data types and the enabled data types and only display those
                     if (dataType.Enabled && company.WantedDataTypes.Contains(dataType.Id))
                     {
-                        if (!company.DataTypeEnabled.TryGetValue(dataType.Id, out bool result))
-                        {
-                            //if we are in here, there wasn't an entry in the dictionary
-                            //add the entry in the dictionary depending on the current restriction setting
-                            switch(company.Restriction)
-                            {
-                                case Company.RestrictionType.ALL:
-                                case Company.RestrictionType.CUSTOM_OPT_OUT:
-                                    company.DataTypeEnabled.Add(dataType.Id, true);
-                                    break;
-                                default:
-                                    company.DataTypeEnabled.Add(dataType.Id, false);
-                                    break;
-                            }
-                        }
+                        EnsureDataTypeEnabledEntry(Company, dataType);
                         //now make an entry into the tuple observable collection which we use for our display
                         DataTypePermissions.Add(new CompanyDataType()
                         {
