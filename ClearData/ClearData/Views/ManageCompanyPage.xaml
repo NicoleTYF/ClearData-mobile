@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
             <converters:PermissionTextConverter x:Key="permissionConverter"/>
+            <converters:StringCaseConverter x:Key="caseConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -46,15 +47,7 @@
                         <!-- INFORMATION -->
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -64,7 +57,7 @@
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="12" Grid.ColumnSpan="5" 
+                    <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="4" 
                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
 
                     <Label Text="SERVICE" TextColor="#FFE88F" FontSize="Small" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontAttributes="Bold" Padding="15,20,0,0"/>
@@ -89,27 +82,34 @@
                     </Picker>
                 </Grid>
 
-                <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}" Margin="21.5,0,21.5,0" TextColor="White" />
+                <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}" Margin="21.5,0,21.5,0" TextColor="LightGoldenrodYellow" />
 
-                <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Margin="21.5,10,21.5,0">
                     <CollectionView x:Name="PermissionListView" 
                             ItemsSource="{Binding DataTypePermissions}"
                             SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:CompanyDataType">
                                 <StackLayout>
-                                    <Label Text="{Binding DataType.Name}" 
-                                           FontSize="Default" 
-                                           TextColor="White" 
-                                           LineBreakMode="NoWrap" 
-                                           FontAttributes="Bold" />
-                                    <Label Text="{Binding DataType.Description}" 
-                                           FontSize="Micro" 
-                                           TextColor="#CFCFCF" 
-                                           LineBreakMode="TailTruncation" />
-                                    <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
-                                    <Switch IsToggled="{Binding CompanyEnabled}" Toggled="SwitchToggled"  
-                                            OnColor="#FFCB00" ThumbColor="#e8e9dc"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="{Binding DataType.Name, Converter={StaticResource caseConverter}}"
+                                               LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
+                                        <Label Text="{Binding DataType.Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
+                                               TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
+                                        <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
+                                        <Switch IsToggled="{Binding CompanyEnabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
+                                                VerticalOptions="Start" OnColor="#FFCB00" ThumbColor="#e8e9dc"/>
+                                    </Grid>
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

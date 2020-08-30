@@ -80,8 +80,7 @@
                        Grid.Column="0"    
                        Grid.ColumnSpan="3" 
                        FontSize="Caption"
-                       TextColor="White" 
-                       LineBreakMode="NoWrap"/>
+                       TextColor="White" />
 
             <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="1" Clicked="OnDataTypesPushed" 
                     BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
@@ -113,12 +112,12 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <Label Text="{Binding Name, Converter={StaticResource caseConverter}, ConverterParameter='u'}}"
+                                <Label Text="{Binding Name, Converter={StaticResource caseConverter}}"
                                        LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
                                        TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
                                 <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
-                                <Switch IsToggled="{Binding Enabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
+                                <Switch IsToggled="{Binding Enabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Start"
                                         OnColor="#FFCB00" ThumbColor="#e8e9dc"/>
                             </Grid>
                         </StackLayout>
@@ -141,7 +140,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30"/>
@@ -155,10 +153,10 @@
                             <Image Source="img_no_image.png" Grid.Column="0" Grid.Row="0" Margin="18,0,0,0" Grid.RowSpan="2" VerticalOptions="Center"/>
 
                             <Label Text="{Binding Name}" LineBreakMode="NoWrap" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
-                                   TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="Center"/>
+                                   TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="0,-14,0,0" />
 
                             <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, StringFormat='Setting: {0}'}" 
-                                   Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End" FontSize="Micro" TextColor="White"/>
+                                   Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Micro" TextColor="White" Margin="0,-14,0,0" />
 
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer 
