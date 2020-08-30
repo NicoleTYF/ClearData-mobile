@@ -89,8 +89,8 @@
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="12*"/>
-                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
@@ -131,18 +131,18 @@
                                                 <RowDefinition Height="25" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="12*"/>
-                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="7*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
                                             <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
-                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                                   FontSize="Caption" Margin="15,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                             <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
-                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"/>
                                             <!-- Permission's icon on the right -->
-                                            <Image Source="perm_search.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                            <Image Source="perm_search.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center" Margin="0,0,15,0"/>
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
@@ -175,13 +175,13 @@
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="12*"/>
+                                                <ColumnDefinition Width="11*"/>
                                                 <ColumnDefinition Width="2*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
                                             <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
-                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                                   FontSize="Caption" Margin="7,0,0,0" VerticalOptions="Center" HorizontalOptions="Start" MinimumWidthRequest="40"/>
                                             <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
                                                    FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                             <!-- Permission's icon on the right -->
