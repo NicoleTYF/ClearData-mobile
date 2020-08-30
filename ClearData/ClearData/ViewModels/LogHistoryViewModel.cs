@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -11,16 +12,17 @@ namespace ClearData.ViewModels
 {
 	public class LogHistoryViewModel : BaseViewModel
 	{
-        public Command BackBtnCommand { get; }
         public DataType DataType { get; set; }
         public ObservableCollection<Log> TodaysLogs { get; }
         public ObservableCollection<Log> ThisWeeksLogs { get; }
         public ObservableCollection<Log> LaterLogs { get; }
 
+        public Command BackButtonPressed { get; }
+
         public LogHistoryViewModel(DataType dataType, ObservableCollection<Log> allLogs)
         {
             Title = "Log History";
-            BackBtnCommand = new Command(OnBackBtnTapped);
+            BackButtonPressed = new Command(async () => await ExecuteBackButtonPressed());
             DataType = dataType;
             TodaysLogs = new ObservableCollection<Log>();
             ThisWeeksLogs = new ObservableCollection<Log>();
@@ -48,9 +50,9 @@ namespace ClearData.ViewModels
             }
         }
 
-        private async void OnBackBtnTapped(object obj)
+        async Task ExecuteBackButtonPressed()
         {
-            await Shell.Current.GoToAsync($"//LogsPage");
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 }
