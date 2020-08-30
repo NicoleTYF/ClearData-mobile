@@ -103,7 +103,7 @@
 
                                             <!-- TODO: Bind data into the labels -->
                                             <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" 
-                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
 
                                             <CollectionView ItemsSource="{Binding Logs}" Grid.Column="0" Grid.Row="1">

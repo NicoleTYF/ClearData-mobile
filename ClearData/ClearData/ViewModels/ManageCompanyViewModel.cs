@@ -31,6 +31,7 @@ namespace ClearData.ViewModels
         
         public Command RestrictionChanged { get; }
         public Command LoadPermissionsCommand { get; }
+        public Command BackButtonPressed { get; }
 
         public ManageCompanyViewModel(Company company)
         {
@@ -41,8 +42,10 @@ namespace ClearData.ViewModels
             RestrictionChanged = new Command(OnRestrictionChanged);
             CurrentRestriction = (int)company.Restriction; //need a variable for this, as it won't sync directly
             LoadPermissionsCommand = new Command(async () => await ExecuteLoadPermissionsCommand());
-            
+            BackButtonPressed = new Command(async () => await ExecuteBackButtonPressed());
         }
+
+
 
         public void OnRestrictionChanged()
         {
@@ -81,8 +84,11 @@ namespace ClearData.ViewModels
                 }
             }
         }
-            //TO DO - static function for ensuring that a data type has an entry, then updates the entry if required
-            //static so that we can hook this into the logs model as well
+            
+        async Task ExecuteBackButtonPressed()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
 
         async Task ExecuteLoadPermissionsCommand()
         {

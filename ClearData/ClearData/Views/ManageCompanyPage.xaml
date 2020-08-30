@@ -33,7 +33,7 @@
 
         <!-- Back button -->
         <ImageButton Source="btn_back.png" Margin="21.5,10,21.5,0" Grid.Row="1" HorizontalOptions="Start"
-                     WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" />
+                     WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" Command="{Binding BackButtonPressed}"/>
 
         <ScrollView VerticalOptions="FillAndExpand" Grid.Row="2">
             <StackLayout>
