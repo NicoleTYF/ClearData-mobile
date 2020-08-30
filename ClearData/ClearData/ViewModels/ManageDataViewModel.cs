@@ -27,6 +27,8 @@ namespace ClearData.ViewModels
          */
         private bool servicesVisible;
         private bool dataTypesVisible;
+        bool isDataTypeDisplayBusy = false; //add a different IsBusy parameter for each to stop infinite loops
+        bool isServicesDisplayBusy = false;
 
         public bool ServicesVisible
         {
@@ -37,6 +39,18 @@ namespace ClearData.ViewModels
         {
             get => dataTypesVisible;
             set => SetProperty(ref dataTypesVisible, value);
+        }
+        
+        public bool IsDataTypeDisplayBusy
+        {
+            get { return isDataTypeDisplayBusy; }
+            set { SetProperty(ref isDataTypeDisplayBusy, value); }
+        }
+        
+        public bool IsServicesDisplayBusy
+        {
+            get { return isServicesDisplayBusy; }
+            set { SetProperty(ref isServicesDisplayBusy, value); }
         }
         public ManageDataViewModel()
         {
@@ -54,7 +68,7 @@ namespace ClearData.ViewModels
 
         async Task ExecuteLoadDataTypesCommand()
         {
-            IsBusy = true;
+            IsDataTypeDisplayBusy = true;
 
             try
             {
@@ -78,14 +92,14 @@ namespace ClearData.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                IsDataTypeDisplayBusy = false;
             }
             
         }
 
         async Task ExecuteLoadCompaniesCommand()
         {
-            IsBusy = true;
+            IsServicesDisplayBusy = true;
 
             try
             {
@@ -109,7 +123,7 @@ namespace ClearData.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                IsServicesDisplayBusy = false;
             }
 
         }
@@ -127,9 +141,7 @@ namespace ClearData.ViewModels
 
         public async void OnAppearing()
         {
-            //IsBusy = true;
-            //when the page appears, load the data types or companies
-            
+            //when the page appears, load the data types or companies, only need to load one
             if (dataTypesVisible)
                 await ExecuteLoadDataTypesCommand();
             else

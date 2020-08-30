@@ -93,8 +93,8 @@
                     TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
                     BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
-        
-        <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+
+        <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}"  IsRefreshing="{Binding IsDataTypeDisplayBusy, Mode=TwoWay}"
                      IsVisible="{Binding DataTypesVisible}" Margin="21.5,0,21.5,0">
             <CollectionView x:Name="DataTypeListView"
                     ItemsSource="{Binding DataTypes}"
@@ -128,7 +128,7 @@
         </RefreshView>
 
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadCompaniesCommand}" 
-                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}" IsVisible="{Binding ServicesVisible}" Margin="21.5,-10,21.5,0">
+                     IsRefreshing="{Binding IsServicesDisplayBusy, Mode=TwoWay}" IsVisible="{Binding ServicesVisible}" Margin="21.5,-10,21.5,0">
             <CollectionView x:Name="CompanyListView"
                             ItemsSource="{Binding Companies}"
                             SelectionMode="None">
