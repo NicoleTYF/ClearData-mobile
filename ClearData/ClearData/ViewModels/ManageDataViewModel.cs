@@ -127,13 +127,14 @@ namespace ClearData.ViewModels
 
         public async void OnAppearing()
         {
-            IsBusy = true;
+            //IsBusy = true;
             //when the page appears, load the data types or companies
+            
             if (dataTypesVisible)
                 await ExecuteLoadDataTypesCommand();
             else
                 await ExecuteLoadCompaniesCommand(); 
-
+            
         }
 
         /**

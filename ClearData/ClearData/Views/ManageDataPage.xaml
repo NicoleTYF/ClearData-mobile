@@ -157,29 +157,16 @@
                             <Label Text="{Binding Name}" LineBreakMode="NoWrap" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
                                    TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="Center"/>
 
-                            <StackLayout Grid.Column="2" Grid.Row="0" BackgroundColor="AliceBlue" >
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
-                                        CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
+                            <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, StringFormat='Setting: {0}'}" 
+                                   Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End" FontSize="Micro" TextColor="White"/>
 
-                            <StackLayout Padding="10" Grid.Column="2" Grid.Row="1" HorizontalOptions="End" BackgroundColor="AliceBlue">
-                                <Label Text="Current Setting" FontSize="14" LineBreakMode="NoWrap"/>
-                                <Label FontSize="12" LineBreakMode="NoWrap" HorizontalTextAlignment="Center"
-                                       Text="{Binding Restriction, Converter={StaticResource permissionConverter}}"/>
-                                <!-- This part is repeated, giving two gesture recognisers that do the same thing, binding to the grid didn't work though-->
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
                                         NumberOfTapsRequired="1"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
                                         CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
+                                </TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

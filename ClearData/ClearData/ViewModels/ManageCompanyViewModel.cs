@@ -60,7 +60,6 @@ namespace ClearData.ViewModels
                     company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
                 }
             }
-            IsBusy = true; //update the display of the scrollable content by setting this flag
         }
 
         public static void EnsureDataTypeEnabledEntry(Company company, DataType dataType)
@@ -125,12 +124,9 @@ namespace ClearData.ViewModels
 
         }
 
-        public async void OnAppearing()
+        public void OnAppearing()
         {
             IsBusy = true;
-            //when the page appears, load the data types or companies
-            await ExecuteLoadPermissionsCommand();
-
         }
 
         public void SwitchToggled()
@@ -145,7 +141,7 @@ namespace ClearData.ViewModels
                 //switch bound to company enabled, not the dictionary
                 company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
                 //next increment the true count, this is counting the new status
-                if (companyDataType.CompanyEnabled)
+                if (company.DataTypeEnabled[companyDataType.DataType.Id])
                     trueCount++;
             }
             //now use the number of trues counted to update the restriction type
