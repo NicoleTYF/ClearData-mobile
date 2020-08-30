@@ -50,7 +50,22 @@ namespace ClearData.Services
                                                                 { (int)DataType.DataTypeId.BROWSING, new DateTime(2020, 8, 29, 15, 53, 41) }}
             };
 
-            companies = new List<Company> { Google, Amazon }; //add the companies
+            Company Spotify = new Company
+            {
+                Id = 2,
+                Name = "Spotify",
+                Description = "Spotify is a Swedish music streaming and media services provider. It is operated by Spotify AB, " +
+                "which is publicly traded in the NYSE through Luxembourg-domiciled holding company Spotify Technology S.A., " +
+                "itself a constituent of the Russell 1000 Index.",
+                Restriction = Company.RestrictionType.ALL,
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.COARSE_LOCATION },
+                DataTypeEnabled = new Dictionary<int, bool>(),
+                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, new DateTime(2020, 8, 30, 9, 49, 43) },
+                                                                { (int)DataType.DataTypeId.BROWSING, new DateTime(2020, 8, 29, 15, 53, 41) },
+                                                                 { (int)DataType.DataTypeId.COARSE_LOCATION, new DateTime(2020, 8, 30, 15, 53, 41) }}
+            };
+
+            companies = new List<Company> { Google, Amazon, Spotify }; //add the companies
         }
 
         public async Task<IEnumerable<DataType>> GetDataTypesAsync(bool forceRefresh = false)

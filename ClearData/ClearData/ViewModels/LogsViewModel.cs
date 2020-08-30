@@ -10,6 +10,7 @@ using Xamarin.Forms;
 
 using ClearData.Models;
 using ClearData.Services;
+using ClearData.Views;
 
 namespace ClearData.ViewModels
 {
@@ -17,22 +18,31 @@ namespace ClearData.ViewModels
 	{
 
         public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; set; }
-        public Command HistoryBtnCommand { get; }
+        public Command<IndexedLogCollection> HistoryBtnCommand { get; }
         public Command LoadLogsCommand { get; }
-
-        
 
         public LogsViewModel ()
 	    {
+            Title = "Logs";
             LoadLogsCommand = new Command(async () => await ExecuteLoadLogsCommand());
             TypeSortedLogs = new ObservableCollection<IndexedLogCollection>();
-
-            // HistoryBtnCommand = new Command(OnHistoryBtnTapped);
+           
+            HistoryBtnCommand = new Command<IndexedLogCollection>(OnHistoryButtonSelected);
         }
 
         public void OnAppearing()
         {
             IsBusy = true;
+        }
+
+        async void OnHistoryButtonSelected(IndexedLogCollection indexedLogCollection)
+        {
+            if (indexedLogCollection == null)
+                return;
+
+            LogHistoryViewModel logHistoryViewModel = new LogHistoryViewModel(indexedLogCollection.DataType, indexedLogCollection.Logs);
+
+            await Application.Current.MainPage.Navigation.PushAsync(new LogHistoryPage(logHistoryViewModel));
         }
 
         async Task ExecuteLoadLogsCommand()
@@ -93,7 +103,6 @@ namespace ClearData.ViewModels
                         typeSortedLog.Logs.Add(log);
                     }
                 }
-                Console.WriteLine("YELLOW {0} {1}", TypeSortedLogs.Count, TypeSortedLogs[0].Logs.Count);
             }
             catch (Exception ex)
             {

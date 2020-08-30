@@ -5,8 +5,16 @@
              xmlns:vm="clr-namespace:ClearData.ViewModels"
              xmlns:local="clr-namespace:ClearData.ViewModels"  
              xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
              Title="{Binding Title}"
              BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:TimeToStringConverter x:Key="timeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout> 
@@ -24,7 +32,7 @@
                              WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Start" />
 
             <!-- Title text -->
-            <Label Text="History of (Some Permission) Data Usage"
+            <Label Text="{Binding Path=DataType.Name, StringFormat='History of {0} Access'}"
                        Margin="21.5,5,10,0"
                        FontSize="21"
                        Grid.Row="1"
@@ -68,7 +76,8 @@
                           Grid.Row="2"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          RowHeight="25">
+                          RowHeight="25"
+                          ItemsSource="{Binding TodaysLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -85,8 +94,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
-                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
-                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                             <!-- Permission's icon on the right -->
                                             <Image Source="perm_location.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
                                         </Grid>
@@ -108,7 +119,8 @@
                           Grid.Row="5"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          RowHeight="25">
+                          RowHeight="25"
+                          ItemsSource="{Binding ThisWeeksLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -125,8 +137,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
-                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
-                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                             <!-- Permission's icon on the right -->
                                             <Image Source="perm_search.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
                                         </Grid>
@@ -148,7 +162,8 @@
                           Grid.Row="8"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          RowHeight="25">
+                          RowHeight="25"
+                          ItemsSource="{Binding LaterLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -165,8 +180,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->
-                                            <Label Text="11:32AM:" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" />
-                                            <Label Text="Accessed by Spotify " Grid.Column="1" Grid.Row="0" TextColor="White" FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                             <!-- Permission's icon on the right -->
                                             <Image Source="perm_contacts.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
                                         </Grid>

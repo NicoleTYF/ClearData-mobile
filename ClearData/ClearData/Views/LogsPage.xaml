@@ -105,7 +105,7 @@
                                             <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" 
                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="17,6,0,0" FontAttributes="Bold" />
-                                            
+
                                             <CollectionView ItemsSource="{Binding Logs}" Grid.Column="0" Grid.Row="1">
                                                 <CollectionView.ItemsLayout>
                                                     <GridItemsLayout Orientation="Vertical"/>
@@ -127,15 +127,16 @@
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
                                             </CollectionView>
-                                            
+
                                             <!--
                                             <Label Text="11:32AM:    Accessed by Spotify"   Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="Micro" Margin="24,-4,0,0" />
                                             <Label Text="10:45AM:    Accessed by Facebook"  Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="Micro" Margin="24,-10,0,0" />
                                             <Label Text="09:24AM:    Accessed by Google "   Grid.Column="0" Grid.Row="3" TextColor="White" FontSize="Micro" Margin="24,-16,0,0" Padding="0,0,0,10"/>
                                             -->
-                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" 
-                                                         BackgroundColor="Transparent" />
-                                        </Grid> 
+                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" BackgroundColor="Transparent" 
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:LogsViewModel}}, Path=HistoryBtnCommand}"		
+                                                         CommandParameter="{Binding .}"/>
+                                        </Grid>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
