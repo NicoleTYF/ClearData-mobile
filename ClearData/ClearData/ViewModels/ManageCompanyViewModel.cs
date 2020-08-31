@@ -57,11 +57,20 @@ namespace ClearData.ViewModels
             if (company.Restriction == Company.RestrictionType.ALL || 
                 company.Restriction == Company.RestrictionType.NONE)
             {
-                foreach (var companyDataType in DataTypePermissions)
+                for (int i = 0; i < DataTypePermissions.Count; i++)
                 {
-                    //update both the data stored and the variable which is being displayed
-                    companyDataType.CompanyEnabled = (company.Restriction == Company.RestrictionType.ALL);
-                    company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
+                    CompanyDataType currentCompanyDataType = DataTypePermissions[i];
+                    CompanyDataType newCompanyDataType = new CompanyDataType()
+                    {
+                        DataType = currentCompanyDataType.DataType,
+                        CompanyEnabled = (company.Restriction == Company.RestrictionType.ALL)
+                    };
+                    //then update the entry in the data type permissions collection
+                    //since it is an observable collection, need to update the full object rather than just the CompanyEnabled field
+                    DataTypePermissions[i] = newCompanyDataType;
+                    //this will trigger the SwitchToggled event for all of the switches, which updates the backend
+                    //I couldn't work out how to change the display without triggering that function a whole bunch of times
+                    //so it may run a few times but is fairly quick so should be fine
                 }
             }
         }
@@ -141,6 +150,7 @@ namespace ClearData.ViewModels
             //don't worry about tracking which switch was actually toggled
             //since we want to iterate through all switches anyway to
             //check for changing the overall permission
+            //this can also be triggered by the permission being changed so needs to be safe from that
             int trueCount = 0;
             foreach (var companyDataType in DataTypePermissions)
             {
@@ -152,19 +162,30 @@ namespace ClearData.ViewModels
                     trueCount++;
             }
             //now use the number of trues counted to update the restriction type
-            //first check updating to ALL setting, don't do if on opt in setting
+            //first check updating to ALL setting, don't do if on CUSTOM_OPT_IN setting or already on ALL
             if (trueCount == DataTypePermissions.Count &&
-                company.Restriction != Company.RestrictionType.CUSTOM_OPT_IN)
+                    company.Restriction != Company.RestrictionType.CUSTOM_OPT_IN &&
+                    company.Restriction != Company.RestrictionType.ALL)
+            {
                 company.Restriction = Company.RestrictionType.ALL;
-            else if (trueCount == 0)
+            }
+            else if (trueCount == 0 && company.Restriction != Company.RestrictionType.NONE)
+            {
                 company.Restriction = Company.RestrictionType.NONE;
+            }
+            //then update if we are now in the middle but came from one of the ends
             else if (trueCount < DataTypePermissions.Count && trueCount > 0)
             {
                 if (company.Restriction == Company.RestrictionType.NONE)
+                {
                     //coming from none restriction, change to opt in
                     company.Restriction = Company.RestrictionType.CUSTOM_OPT_IN;
-                else //coming from all restriction, change to opt out
+                }
+                else if (company.Restriction == Company.RestrictionType.ALL)
+                {
+                    //coming from all restriction, change to opt out
                     company.Restriction = Company.RestrictionType.CUSTOM_OPT_OUT;
+                }
             }
             //finally update the restriction that is being displayed
             CurrentRestriction = (int)company.Restriction;
