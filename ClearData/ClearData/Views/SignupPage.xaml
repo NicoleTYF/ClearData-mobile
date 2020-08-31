@@ -22,11 +22,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Text="Welcome to the Capture Page!" VerticalOptions="CenterAndExpand"
+            <Label Text="Sign up below!" VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" TextColor="White" 
                    BackgroundColor="Blue" Grid.Row="0" Grid.Column="0"/>
             <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                <Entry Placeholder="John Doe" Text="{Binding NameText}" HorizontalOptions="CenterAndExpand" 
+                <Entry Placeholder="Username" Text="{Binding NameText}" HorizontalOptions="CenterAndExpand" 
                        VerticalOptions="CenterAndExpand" WidthRequest="150"/>
                 <Label Text="Enter your name!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
