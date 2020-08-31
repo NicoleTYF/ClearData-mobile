@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClearData.LogsPage" 
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
+             Title="{Binding Title}"
+             BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:TimeToStringConverter x:Key="timeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout> 
+         
+            <!-- Top left logo -->
+            <ImageButton Source="logo_text.png"
+                         Margin="10,8,0,0"
+                         WidthRequest="120"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Start"/>
+
+            <!-- Page content -->
+            <Grid Margin="21.5,15,21.5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="17.3"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions> 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title text -->
+                <Label Text="Logs"
+                       FontSize="37"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       TextColor="White"
+                       FontFamily="Calibri-Light"
+                    
+                       
+                       HorizontalOptions="Start"/>
+
+                <!-- "SORT BY" image -->
+                <Image Source="img_sort_by.png"
+                       Margin="-5,0,0,0" 
+                       Grid.Row="1"       
+                       Grid.Column="0"
+                       WidthRequest="90" 
+                       HeightRequest="25"
+                       HorizontalOptions="Start"/>
+
+                <!-- White horizontal line -->
+                <Image Source="img_whiteline.png" 
+                       Grid.Row="2" 
+                       Grid.Column="0"   
+                       Grid.RowSpan="1"  
+                       Grid.ColumnSpan="2"/>
+
+                <!-- Description text -->
+                <Label Text="Click on a cell to view full log history." 
+                       Grid.Row="3"
+                       Grid.Column="0"   
+                       Grid.RowSpan="1"  
+                       Grid.ColumnSpan="2" 
+                       FontSize="Caption"
+                       TextColor="White" 
+                       LineBreakMode="NoWrap"/>
+
+                <!-- List of Services -->
+                <RefreshView x:DataType="local:LogsViewModel" Command="{Binding LoadLogsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" 
+                              Grid.Row="4"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2">
+                    <ListView x:Name="LogList"
+                              RowHeight="80"
+                              ItemsSource="{Binding TypeSortedLogs}" CachingStrategy="RecycleElement">
+
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:IndexedLogCollection">
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid ColumnSpacing="7" Padding="0,7,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height ="22" />
+                                                <RowDefinition Height ="80" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- TODO: Bind data into the labels -->
+                                            <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                            <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="21,6,0,0" FontAttributes="Bold" />
+
+                                            <CollectionView ItemsSource="{Binding Logs}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True">
+                                                <CollectionView.ItemsLayout>
+                                                    <GridItemsLayout Orientation="Vertical"/>
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="model:Log">
+                                                        <FlexLayout Padding="23,-2,0,0"
+                                                                    Direction="Row" 
+                                                                    AlignItems="Start"
+                                                                    JustifyContent="Start">
+                                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" TextColor="White" 
+                                                                   FontSize="Micro" HorizontalTextAlignment="End" MinimumWidthRequest="40"/>
+                                                            <Label Text=":   Accessed by " TextColor="White" FontSize="Micro" HorizontalTextAlignment="End"/>
+                                                            <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" HorizontalTextAlignment="Start"/>
+                                                        </FlexLayout>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Transparent" VerticalOptions="StartAndExpand" 
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:LogsViewModel}}, Path=HistoryBtnCommand}"		
+                                                         CommandParameter="{Binding .}"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RefreshView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

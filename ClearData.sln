@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30406.217
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearData.Android", "ClearData\ClearData.Android\ClearData.Android.csproj", "{AF6EFF3E-A851-4D12-ACE6-55FC2A3381AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearData.iOS", "ClearData\ClearData.iOS\ClearData.iOS.csproj", "{6BEBA156-F36F-4968-BF2B-8B94B8422E33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearData", "ClearData\ClearData\ClearData.csproj", "{944B5641-BF0A-4DE7-AFFD-8A96BFA97127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClearData", "ClearData\ClearData\ClearData.csproj", "{944B5641-BF0A-4DE7-AFFD-8A96BFA97127}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

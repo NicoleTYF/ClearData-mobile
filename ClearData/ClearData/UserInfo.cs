@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ClearData.Models;
+using ClearData.Services;
 
 
 namespace ClearData
@@ -9,7 +11,7 @@ namespace ClearData
     {
         // placeholder value
         // TODO: replace string with DataType
-        public static List<string> dataTypes { get; set; }
+        public static PermissionsDataStore permissions { get; set; }
 
         public static string name { get; set; }
 

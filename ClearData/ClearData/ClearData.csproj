@@ -11,17 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\CapturePage.xaml.cs">
-      <DependentUpon>CapturePage.xaml</DependentUpon>
+    <Compile Update="Views\ManageCompanyPage.xaml.cs">
+      <DependentUpon>ManageCompanyPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\CapturePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignupPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Compile Update="Views\ManageDataPage.xaml.cs">
+      <DependentUpon>ManageDataPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

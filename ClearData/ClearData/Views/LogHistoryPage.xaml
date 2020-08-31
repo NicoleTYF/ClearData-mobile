@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClearData.Views.LogHistoryPage" 
+             xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:local="clr-namespace:ClearData.ViewModels"  
+             xmlns:model="clr-namespace:ClearData.Models"  
+             xmlns:converters="clr-namespace:ClearData.Converters"
+             Title="{Binding Title}"
+             BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:TimeToStringConverter x:Key="timeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout> 
+
+            <!-- Top left logo -->
+            <ImageButton Source="logo_text.png"
+                         Margin="10,8,0,0"
+                         WidthRequest="120"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Start"/>
+
+            <!-- Back button -->
+            <ImageButton Source="btn_back.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="21.5,10,21.5,0"
+                             WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Start" Command="{Binding BackButtonPressed}"/>
+
+            <!-- Title text -->
+            <Label Text="{Binding Path=DataType.Name, StringFormat='History of {0} Access'}"
+                       Margin="21.5,5,10,0"
+                       FontSize="21"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextColor="White"
+                       FontFamily="Calibri-Light"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Start"/>
+
+            <!-- Page content -->
+            <ScrollView>
+                <Grid Margin="21.5,10,21.5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="3.5"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/> <!-- Space at the Bottom, may change later -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="*"  />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- "TODAY"'s collapsable -->
+                    <Button Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="TODAY" Grid.Row="0" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="0" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_Today"
+                          Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="25"
+                          ItemsSource="{Binding TodaysLogs}">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="17,0,0,0" VerticalOptions="Center" HorizontalOptions="End"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_location.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- "THIS WEEK"'s collapsable -->
+                    <Button Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="THIS WEEK" Grid.Row="3" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="3" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_ThisWeek"
+                          Grid.Row="5"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="25"
+                          ItemsSource="{Binding ThisWeeksLogs}">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="7*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="15,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_search.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center" Margin="0,0,15,0"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- "MORE THAN A WEEK AGO"'s collapsable -->
+                    <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Label  Text="MORE THAN A WEEK AGO" Grid.Row="6" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
+                        FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Image  Source="arrow_down_wt.png" Grid.Row="6" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+
+                    <Image  Source="img_whiteline.png" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <ListView x:Name="LogHistory_Past"
+                          Grid.Row="8"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="25"
+                          ItemsSource="{Binding LaterLogs}">
+                        <!-- Cell layout -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="11*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- {Binding Text} {Binding Detail} -->
+                                            <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" Grid.Column="0" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="7,0,0,0" VerticalOptions="Center" HorizontalOptions="Start" MinimumWidthRequest="40"/>
+                                            <Label Text="{Binding Path=Company.Name, StringFormat='Accessed by {0}'}" Grid.Column="1" Grid.Row="0" TextColor="White" 
+                                                   FontSize="Caption" Margin="6,0,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                            <!-- Permission's icon on the right -->
+                                            <Image Source="perm_contacts.png" Grid.Column="2" Grid.Row="0" WidthRequest="10" HeightRequest="10" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

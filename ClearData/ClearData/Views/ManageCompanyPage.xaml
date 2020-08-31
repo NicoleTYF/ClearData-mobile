@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClearData.Views.ManageCompanyPage"
+             xmlns:converters="clr-namespace:ClearData.Converters"
+             xmlns:local="clr-namespace:ClearData.ViewModels" 
+             xmlns:model="clr-namespace:ClearData.Models"  
+             Title="{Binding Title}"
+             BackgroundImageSource="bg_mobile.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <converters:PermissionTextConverter x:Key="permissionConverter"/>
+            <converters:StringCaseConverter x:Key="caseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top left logo -->
+        <ImageButton Source="logo_text.png"
+                         Margin="10,8,0,0"
+                         Grid.Row="0"
+                         WidthRequest="120"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Start"/>
+
+        <!-- Back button -->
+        <ImageButton Source="btn_back.png" Margin="21.5,10,21.5,0" Grid.Row="1" HorizontalOptions="Start"
+                     WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent" Command="{Binding BackButtonPressed}"/>
+
+        <ScrollView VerticalOptions="FillAndExpand" Grid.Row="2">
+            <StackLayout>
+                <!-- Contents -->
+                <Grid Margin="21.5,0,21.5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+
+                        <!-- INFORMATION -->
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="4" 
+                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+
+                    <Label Text="SERVICE" TextColor="#FFE88F" FontSize="Small" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontAttributes="Bold" Padding="15,20,0,0"/>
+                    <Image Source="img_no_image.png" Grid.Column="0" Grid.Row="1" Margin="20,0,0,0"/>
+                    <Label Text="{Binding Company.Name}" FontSize="Large" TextColor="White" FontAttributes="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+
+                    <Label Text="INFORMATION" TextColor="#FFE88F" FontSize="Small" FontAttributes="Bold" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Padding="15,7,0,0"/>
+                    <Label Text="{Binding Company.Description}" TextColor="White" FontSize="Small" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Padding="15,0,0,0"/>
+
+                    <!-- Permission level selection -->
+                    <Label Text="PERMISSION LEVEL" TextColor="#FFE88F" FontSize="Small" Grid.Column="3" Grid.Row="0" LineBreakMode="NoWrap" FontAttributes="Bold" Padding="0,20,0,0"/>
+                    <Picker x:Name="permission_picker" Title="Permission Setting" SelectedIndex="{Binding CurrentRestriction}" 
+                    Grid.Column="3" Grid.Row="1" SelectedIndexChanged="Picker" FontSize="Body">
+                        <!--PropertyChanged="PickerChosen"-->
+                        <!-- These written values are hard coded in here, not good but binding them was super difficult and this was easy-->
+                        <Picker.Items>
+                            <x:String>All</x:String>
+                            <x:String>Custom Opt In</x:String>
+                            <x:String>Custom Opt Out</x:String>
+                            <x:String>None</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+
+                <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}" Margin="21.5,0,21.5,0" TextColor="LightGoldenrodYellow" />
+
+                <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Margin="21.5,10,21.5,0">
+                    <CollectionView x:Name="PermissionListView" 
+                            ItemsSource="{Binding DataTypePermissions}"
+                            SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:CompanyDataType">
+                                <StackLayout>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="{Binding DataType.Name, Converter={StaticResource caseConverter}}"
+                                               LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
+                                        <Label Text="{Binding DataType.Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
+                                               TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
+                                        <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
+                                        <Switch IsToggled="{Binding CompanyEnabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
+                                                VerticalOptions="Start" OnColor="#FFCB00" ThumbColor="#e8e9dc" Toggled="SwitchToggled"/>
+                                    </Grid>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
