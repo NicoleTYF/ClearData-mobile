@@ -3,12 +3,16 @@ using ClearData.Views;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using System.Net.Http;
 
 namespace ClearData.ViewModels
 {
     public class SignupViewModel : BaseViewModel
     {
         public Command CreateAccCom { get; }
+
+        private HttpClient client;
+        private const string BaseURL = "https://cleardata-webapp.uqcloud.net/api/consumer_profiles/";
 
         private string uText;
         public string UsernameText
@@ -33,6 +37,8 @@ namespace ClearData.ViewModels
 
         public SignupViewModel() 
         {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(BaseURL);
             CreateAccCom = new Command(createAccount);
         }
 
@@ -45,7 +51,7 @@ namespace ClearData.ViewModels
             }
             else
             {
-                // Success
+                // Success + remember to set the static class elements
                 await Application.Current.MainPage.DisplayAlert("Alert", "Well done, you made it", "Hooray!");
             }
         }
