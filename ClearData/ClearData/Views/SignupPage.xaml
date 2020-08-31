@@ -11,42 +11,44 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="Sign up below!" VerticalOptions="CenterAndExpand"
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Sign up below!" VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" TextColor="White" 
                    BackgroundColor="Blue" Grid.Row="0" Grid.Column="0"/>
-            <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                <Entry Placeholder="Username" Text="{Binding NameText}" HorizontalOptions="CenterAndExpand" 
+                <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <Entry Placeholder="Username" Text="{Binding UsernameText}" HorizontalOptions="CenterAndExpand" 
                        VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                <Label Text="Enter your name!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                    <Label Text="Enter your name!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                <DatePicker Date="{Binding DateVal}" HorizontalOptions="CenterAndExpand" 
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <DatePicker Date="{Binding DOB}" HorizontalOptions="CenterAndExpand" 
                        VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                <Label Text="Enter your date of birth!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                    <Label Text="Enter your date of birth!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
-                <Entry Placeholder="Australia" Text="{Binding PlaceText}" HorizontalOptions="CenterAndExpand" 
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
+                    <Entry Placeholder="Australia" Text="{Binding Birthplace}" HorizontalOptions="CenterAndExpand" 
                        VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                <Label Text="Country of Birth" TextColor="Blue" HorizontalOptions="CenterAndExpand"
+                    <Label Text="Country of Birth" TextColor="Blue" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-            <Button Text="View My Data!" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
+                </StackLayout>
+                <Button Text="Create Account" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
                     HorizontalOptions="Center" WidthRequest="150" HeightRequest="50" 
-                    Grid.Row="4" Grid.Column="0"/>
+                    Grid.Row="4" Grid.Column="0" Command="{Binding CreateAccCom}"/>
 
-        </Grid>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
