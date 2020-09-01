@@ -16,7 +16,7 @@ namespace ClearData.Converters
             //now do the checks, if they have the same day, then display it as a time
             if (difference <= 0)
             {
-                return String.Format("{0}:{1}", registeredTime.Hour, registeredTime.Minute);
+                return String.Format("{0}:{1:00}", registeredTime.Hour, registeredTime.Minute);
             }
             else if (difference == 1)
             {
