@@ -85,7 +85,7 @@
                               Grid.ColumnSpan="2">
                     <ListView x:Name="LogList"
                               RowHeight="80"
-                              ItemsSource="{Binding TypeSortedLogs}" CachingStrategy="RecycleElement">
+                              ItemsSource="{Binding TypeSortedLogs}"  CachingStrategy="RecycleElement">
 
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
@@ -107,7 +107,7 @@
                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="21,6,0,0" FontAttributes="Bold" />
 
-                                            <CollectionView ItemsSource="{Binding Logs}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True">
+                                            <CollectionView ItemsSource="{Binding LogsWithMaxElements}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True" >
                                                 <CollectionView.ItemsLayout>
                                                     <GridItemsLayout Orientation="Vertical"/>
                                                 </CollectionView.ItemsLayout>

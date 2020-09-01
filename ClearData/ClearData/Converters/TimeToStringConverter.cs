@@ -34,7 +34,7 @@ namespace ClearData.Converters
             {
                 return String.Format("{0} weeks ago", difference / 7);
             }
-            return "Over a month ago";
+            return "Months ago";
             
         }
 

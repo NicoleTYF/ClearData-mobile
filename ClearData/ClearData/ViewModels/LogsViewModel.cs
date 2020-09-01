@@ -63,7 +63,8 @@ namespace ClearData.ViewModels
                 {
                     if (dataType.Enabled)
                     {
-                        TypeSortedLogs.Add(new IndexedLogCollection() { DataType = dataType, Logs = new ObservableCollection<Log>()});
+                        TypeSortedLogs.Add(new IndexedLogCollection() { DataType = dataType, Logs = new ObservableCollection<Log>(), 
+                            LogsWithMaxElements = new ObservableCollection<Log>()});
                     }
                 }
                 //now that we have the creations for each of the datatypes, go through all the companies and add all their usage
@@ -93,14 +94,23 @@ namespace ClearData.ViewModels
                 }
                 
                 //now because we wouldn't want to be finished, we need to sort each of the log collections by time
+                //and only add up to MAX_ELEMENTS into the other log list
                 foreach (var typeSortedLog in TypeSortedLogs)
                 {
                     ObservableCollection<Log> temp;
                     temp = new ObservableCollection<Log>(typeSortedLog.Logs.OrderByDescending(log => log.Time));
                     typeSortedLog.Logs.Clear();
+                    typeSortedLog.LogsWithMaxElements.Clear();
+                    int count = 0;
                     foreach (Log log in temp)
                     {
                         typeSortedLog.Logs.Add(log);
+                        //have a cap on the number which can be added to this extra display list
+                        if (count < IndexedLogCollection.MAX_ELEMENTS)
+                        {
+                            count++;
+                            typeSortedLog.LogsWithMaxElements.Add(log);
+                        }
                     }
                 }
             }

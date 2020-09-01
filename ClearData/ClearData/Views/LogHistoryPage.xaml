@@ -131,8 +131,8 @@
                                                 <RowDefinition Height="25" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*"/>
-                                                <ColumnDefinition Width="7*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="9*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
@@ -175,8 +175,8 @@
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="11*"/>
-                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- {Binding Text} {Binding Detail} -->

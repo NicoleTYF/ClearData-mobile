@@ -9,8 +9,11 @@ namespace ClearData.Models
     //if there is a better way of doing this, I would love to hear it
     public class IndexedLogCollection
     {
+        //the max number of elements going in LogsWithMaxElements, caps logs page display
+        public static int MAX_ELEMENTS = 3; 
         public DataType DataType { get; set; }
         public Company Company { get; set; }
         public ObservableCollection<Log> Logs { get; set;  }
+        public ObservableCollection<Log> LogsWithMaxElements { get; set; }
     }
 }
