@@ -118,7 +118,7 @@
                                                                     AlignItems="Start"
                                                                     JustifyContent="Start">
                                                             <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" TextColor="White" 
-                                                                   FontSize="Micro" HorizontalTextAlignment="End" MinimumWidthRequest="40"/>
+                                                                   FontSize="Micro" HorizontalTextAlignment="End" WidthRequest="70"/>
                                                             <Label Text=":   Accessed by " TextColor="White" FontSize="Micro" HorizontalTextAlignment="End"/>
                                                             <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" HorizontalTextAlignment="Start"/>
                                                         </FlexLayout>

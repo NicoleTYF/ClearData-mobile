@@ -37,7 +37,7 @@ namespace ClearData.Services
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
                                                         (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.ADVERTISING},
                 DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(4, 0, 0) },
+                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(500, 0, 0) },
                                                                     { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(0, 14, 13) },
                                                                     { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(28, 0, 0) },
                                                                     { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(100, 2, 0) },
