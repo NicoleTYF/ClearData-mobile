@@ -8,12 +8,11 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-using ClearData.Models;
 using ClearData.Views;
 
 namespace ClearData.ViewModels
 {
-    public class ManageDataViewModel : BaseViewModel
+    public class ManageDataViewModel : SwitchingViewModel
     {
         public ObservableCollection<DataType> DataTypes { get; }
         public ObservableCollection<Company> Companies { get; }
@@ -22,37 +21,8 @@ namespace ClearData.ViewModels
 
         public Command<Company> CompanyTapped { get; }
 
-        /* whole bunch of variables for the button displays and which section to display
-         * the SetProperty is important for updating the display so I think it needs to be this verbose
-         */
-        private bool servicesVisible;
-        private bool dataTypesVisible;
-        bool isDataTypeDisplayBusy = false; //add a different IsBusy parameter for each to stop infinite loops
-        bool isServicesDisplayBusy = false;
 
-        public bool ServicesVisible
-        {
-            get => servicesVisible;
-            set => SetProperty(ref servicesVisible, value);
-        }
-        public bool DataTypesVisible
-        {
-            get => dataTypesVisible;
-            set => SetProperty(ref dataTypesVisible, value);
-        }
-        
-        public bool IsDataTypeDisplayBusy
-        {
-            get { return isDataTypeDisplayBusy; }
-            set { SetProperty(ref isDataTypeDisplayBusy, value); }
-        }
-        
-        public bool IsServicesDisplayBusy
-        {
-            get { return isServicesDisplayBusy; }
-            set { SetProperty(ref isServicesDisplayBusy, value); }
-        }
-        public ManageDataViewModel()
+        public ManageDataViewModel() : base()
         {
             Title = "Manage Data";
             DataTypes = new ObservableCollection<DataType>();
@@ -61,12 +31,9 @@ namespace ClearData.ViewModels
             LoadCompaniesCommand = new Command(async () => await ExecuteLoadCompaniesCommand());
             CompanyTapped = new Command<Company>(OnCompanySelected);
             IsBusy = false;
-
-            DataTypesVisible = true; //start with data visible, services not
-            ServicesVisible = false;
         }
 
-        async Task ExecuteLoadDataTypesCommand()
+        public override async Task ExecuteLoadDataTypesCommand()
         {
             IsDataTypeDisplayBusy = true;
 
@@ -97,7 +64,7 @@ namespace ClearData.ViewModels
             
         }
 
-        async Task ExecuteLoadCompaniesCommand()
+        public override async Task ExecuteLoadCompaniesCommand()
         {
             IsServicesDisplayBusy = true;
 
@@ -139,42 +106,7 @@ namespace ClearData.ViewModels
             
         }
 
-        public async void OnAppearing()
-        {
-            //when the page appears, load the data types or companies, only need to load one
-            if (dataTypesVisible)
-                await ExecuteLoadDataTypesCommand();
-            else
-                await ExecuteLoadCompaniesCommand(); 
 
-        }
-
-        /**
-         * Update the variables which are used to display the button colours and which view to make
-         * visible, this is called when the services button is pressed
-         */
-        public async Task UpdateToServicesDisplay()
-        {
-            if (servicesVisible) { return; } //already set, don't need to reset every button push
-            DataTypesVisible = false;
-            ServicesVisible = true;
-            IsBusy = true;
-            await ExecuteLoadCompaniesCommand(); //reload the companies when we switch to this view
-        }
-
-        /**
-         * Update the variables which are used to display the button colours and which view to make
-         * visible, this is called when the services button is pressed, this is also default so called upon
-         * instantiation. Set DataTypesVisible false before calling for instantiation
-         */
-        public async Task UpdateToDataTypesDisplay()
-        {
-            if (DataTypesVisible) { return; } //already set, bail
-            ServicesVisible = false;
-            DataTypesVisible = true;
-            IsBusy = true;
-            await ExecuteLoadDataTypesCommand(); //reload the data type info
-        }
 
     }
 }

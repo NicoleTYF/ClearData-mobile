@@ -100,6 +100,7 @@
     -->
     <ShellContent Route="LoginPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:LoginPage}" />
     <ShellContent Route="SignupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:SignupPage}" />
+    <ShellContent Route="ManageDataPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:ManageDataPage}" />
 
 
     <!-- Optional Templates 
