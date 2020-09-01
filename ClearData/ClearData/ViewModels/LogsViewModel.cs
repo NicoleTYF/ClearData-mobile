@@ -14,26 +14,25 @@ using ClearData.Views;
 
 namespace ClearData.ViewModels
 {
-	public class LogsViewModel: BaseViewModel
+	public class LogsViewModel: SwitchingViewModel
 	{
 
         public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; set; }
+        public ObservableCollection<IndexedLogCollection> CompanySortedLogs { get; set; }
         public Command<IndexedLogCollection> HistoryBtnCommand { get; }
-        public Command LoadLogsCommand { get; }
+        public Command LoadDataTypeLogsCommand { get; }
 
         public LogsViewModel ()
 	    {
             Title = "Logs";
-            LoadLogsCommand = new Command(async () => await ExecuteLoadLogsCommand());
+            LoadDataTypeLogsCommand = new Command(async () => await ExecuteLoadDataTypesCommand());
             TypeSortedLogs = new ObservableCollection<IndexedLogCollection>();
-           
+            CompanySortedLogs = new ObservableCollection<IndexedLogCollection>();
+
+
             HistoryBtnCommand = new Command<IndexedLogCollection>(OnHistoryButtonSelected);
         }
 
-        public void OnAppearing()
-        {
-            IsBusy = true;
-        }
 
         async void OnHistoryButtonSelected(IndexedLogCollection indexedLogCollection)
         {
@@ -45,9 +44,9 @@ namespace ClearData.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new LogHistoryPage(logHistoryViewModel));
         }
 
-        async Task ExecuteLoadLogsCommand()
+        public override async Task ExecuteLoadDataTypesCommand()
         {
-            IsBusy = true;
+            IsDataTypeDisplayBusy = true;
             try
             {
                 //first check the permissions data store exists
@@ -120,7 +119,73 @@ namespace ClearData.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                IsDataTypeDisplayBusy = false;
+            }
+        }
+
+        public override async Task ExecuteLoadCompaniesCommand()
+        {
+            IsServicesDisplayBusy = true;
+            try
+            {
+                //first check the permissions data store exists
+                if (UserInfo.permissions == null)
+                {
+                    UserInfo.permissions = new PermissionsDataStore();
+                }
+                CompanySortedLogs.Clear(); //clear the list
+
+                //go through all the companies and create their
+                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
+                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
+                foreach (var company in companies)
+                {
+                    if (company.Restriction == Company.RestrictionType.NONE)
+                        continue; //this company is restricted, don't display anything for the company
+                    IndexedLogCollection thisIndexedLog = new IndexedLogCollection() { Company = company, Logs = new ObservableCollection<Log>(), 
+                        LogsWithMaxElements = new ObservableCollection<Log>() };
+                    CompanySortedLogs.Add(thisIndexedLog);
+                    foreach (var dataType in dataTypes)
+                    {
+                        //if there is an entry to be made, find where to enter it
+                        //for an entry to be made, it must be enabled by the user and the company and have a last accessed time
+                        ManageCompanyViewModel.EnsureDataTypeEnabledEntry(company, dataType); //ensure the entry exists
+                        if (dataType.Enabled && company.DataTypeEnabled[dataType.Id] &&
+                            company.LastAccessed.TryGetValue(dataType.Id, out DateTime result))
+                        {
+                            thisIndexedLog.Logs.Add(new Log(dataType, company, company.LastAccessed[dataType.Id]));
+                        }
+                    }
+                }
+
+                //now because we wouldn't want to be finished, we need to sort each of the log collections by time
+                //and only add up to MAX_ELEMENTS into the other log list
+                foreach (var companySortedLog in CompanySortedLogs)
+                {
+                    ObservableCollection<Log> temp;
+                    temp = new ObservableCollection<Log>(companySortedLog.Logs.OrderByDescending(log => log.Time));
+                    companySortedLog.Logs.Clear();
+                    companySortedLog.LogsWithMaxElements.Clear();
+                    int count = 0;
+                    foreach (Log log in temp)
+                    {
+                        companySortedLog.Logs.Add(log);
+                        //have a cap on the number which can be added to this extra display list
+                        if (count < IndexedLogCollection.MAX_ELEMENTS)
+                        {
+                            count++;
+                            companySortedLog.LogsWithMaxElements.Add(log);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsServicesDisplayBusy = false;
             }
         }
     }

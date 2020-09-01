@@ -24,5 +24,15 @@ namespace ClearData
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
+        private async void OnDataTypesPushed(object sender, System.EventArgs e)
+        {
+            await _viewModel.UpdateToDataTypesDisplay();
+        }
+
+        private async void OnServicePushed(object sender, System.EventArgs e)
+        {
+            await _viewModel.UpdateToServicesDisplay();
+        }
     }
 }
