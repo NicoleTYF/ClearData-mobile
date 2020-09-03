@@ -12,18 +12,16 @@ namespace ClearData.ViewModels
 {
 	public class LogHistoryViewModel : BaseViewModel
 	{
-        public DataType DataType { get; set; }
         public ObservableCollection<Log> TodaysLogs { get; }
         public ObservableCollection<Log> ThisWeeksLogs { get; }
         public ObservableCollection<Log> LaterLogs { get; }
 
         public Command BackButtonPressed { get; }
 
-        public LogHistoryViewModel(DataType dataType, ObservableCollection<Log> allLogs)
+        public LogHistoryViewModel(ObservableCollection<Log> allLogs)
         {
             Title = "Log History";
             BackButtonPressed = new Command(async () => await ExecuteBackButtonPressed());
-            DataType = dataType;
             TodaysLogs = new ObservableCollection<Log>();
             ThisWeeksLogs = new ObservableCollection<Log>();
             LaterLogs = new ObservableCollection<Log>();

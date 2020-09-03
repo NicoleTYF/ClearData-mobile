@@ -19,7 +19,8 @@ namespace ClearData.ViewModels
 
         public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; set; }
         public ObservableCollection<IndexedLogCollection> CompanySortedLogs { get; set; }
-        public Command<IndexedLogCollection> HistoryBtnCommand { get; }
+        public Command<IndexedLogCollection> DataTypeHistoryBtnCommand { get; }
+        public Command<IndexedLogCollection> CompanyHistoryBtnCommand { get; }
         public Command LoadDataTypeLogsCommand { get; }
 
         public LogsViewModel ()
@@ -29,19 +30,29 @@ namespace ClearData.ViewModels
             TypeSortedLogs = new ObservableCollection<IndexedLogCollection>();
             CompanySortedLogs = new ObservableCollection<IndexedLogCollection>();
 
-
-            HistoryBtnCommand = new Command<IndexedLogCollection>(OnHistoryButtonSelected);
+            DataTypeHistoryBtnCommand = new Command<IndexedLogCollection>(OnDataTypeHistoryButtonSelected);
+            CompanyHistoryBtnCommand = new Command<IndexedLogCollection>(OnCompanyHistoryButtonSelected);
         }
 
 
-        async void OnHistoryButtonSelected(IndexedLogCollection indexedLogCollection)
+        async void OnDataTypeHistoryButtonSelected(IndexedLogCollection indexedLogCollection)
         {
             if (indexedLogCollection == null)
                 return;
 
-            LogHistoryViewModel logHistoryViewModel = new LogHistoryViewModel(indexedLogCollection.DataType, indexedLogCollection.Logs);
+            LogHistoryDataTypeViewModel logHistoryDataTypeViewModel = new LogHistoryDataTypeViewModel(indexedLogCollection.DataType, indexedLogCollection.Logs);
 
-            await Application.Current.MainPage.Navigation.PushAsync(new LogHistoryPage(logHistoryViewModel));
+            await Application.Current.MainPage.Navigation.PushAsync(new LogHistoryDataTypePage(logHistoryDataTypeViewModel));
+        }
+
+        async void OnCompanyHistoryButtonSelected(IndexedLogCollection indexedLogCollection)
+        {
+            if (indexedLogCollection == null)
+                return;
+
+            LogHistoryCompanyViewModel logHistoryCompanyViewModel = new LogHistoryCompanyViewModel(indexedLogCollection.Company, indexedLogCollection.Logs);
+
+            await Application.Current.MainPage.Navigation.PushAsync(new LogHistoryCompanyPage(logHistoryCompanyViewModel));
         }
 
         public override async Task ExecuteLoadDataTypesCommand()
