@@ -14,6 +14,7 @@
             <Color x:Key="Accent">#96d1ff</Color>
             <converters:TimeToStringConverter x:Key="timeToStringConverter"/>
             <converters:BoolToColorConverter x:Key="colorConverter"/>
+            <converters:IsEmptyConverter x:Key="isEmptyConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -117,7 +118,10 @@
                                             <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="21,6,0,0" FontAttributes="Bold" />
-
+                                            
+                                            <!-- label for if there is no data to display -->
+                                            <Label Text="Nothing to display" Grid.Column="1" Grid.Row="1" 
+                                                   IsVisible="{Binding LogsWithMaxElements, Converter={StaticResource isEmptyConverter}}"/>
                                             <CollectionView ItemsSource="{Binding LogsWithMaxElements}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True" >
                                                 <CollectionView.ItemsLayout>
                                                     <GridItemsLayout Orientation="Vertical"/>
@@ -175,6 +179,10 @@
                                             <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                             <Label Text="{Binding Company.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="21,6,0,0" FontAttributes="Bold" />
+
+                                            <!-- label for if there is no data to display -->
+                                            <Label Text="Nothing to display" Grid.Column="0" Grid.Row="1" FontSize="Micro" TextColor="White" HorizontalOptions="Center"
+                                                   IsVisible="{Binding LogsWithMaxElements, Converter={StaticResource isEmptyConverter}}"/>
 
                                             <CollectionView ItemsSource="{Binding LogsWithMaxElements}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True" >
                                                 <CollectionView.ItemsLayout>
