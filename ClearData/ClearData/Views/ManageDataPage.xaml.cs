@@ -14,7 +14,6 @@ namespace ClearData.Views
         public ManageDataPage()
         {
             InitializeComponent();
-
             BindingContext = _viewModel = new ManageDataViewModel();
         }
 
