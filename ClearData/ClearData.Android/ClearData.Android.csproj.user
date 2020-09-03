@@ -4,5 +4,6 @@
     <SelectedDevice>Samsung SM-G950F</SelectedDevice>
     <DefaultDevice>first_emulator</DefaultDevice>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
+    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
   </PropertyGroup>
 </Project>
