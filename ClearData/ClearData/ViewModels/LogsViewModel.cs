@@ -22,11 +22,13 @@ namespace ClearData.ViewModels
         public Command<IndexedLogCollection> DataTypeHistoryBtnCommand { get; }
         public Command<IndexedLogCollection> CompanyHistoryBtnCommand { get; }
         public Command LoadDataTypeLogsCommand { get; }
+        public Command LoadCompanyLogsCommand { get; }
 
-        public LogsViewModel ()
+        public LogsViewModel () : base()
 	    {
             Title = "Logs";
             LoadDataTypeLogsCommand = new Command(async () => await ExecuteLoadDataTypesCommand());
+            LoadCompanyLogsCommand = new Command(async () => await ExecuteLoadCompaniesCommand());
             TypeSortedLogs = new ObservableCollection<IndexedLogCollection>();
             CompanySortedLogs = new ObservableCollection<IndexedLogCollection>();
 

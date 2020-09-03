@@ -147,7 +147,7 @@
                     </ListView>
                 </RefreshView>
 
-                <RefreshView x:DataType="local:LogsViewModel" Command="{Binding LoadDataTypeLogsCommand}" IsRefreshing="{Binding IsDataTypeDisplayBusy, Mode=TwoWay}" 
+                <RefreshView x:DataType="local:LogsViewModel" Command="{Binding LoadCompanyLogsCommand}" IsRefreshing="{Binding IsServicesDisplayBusy, Mode=TwoWay}" 
                              IsVisible="{Binding ServicesVisible}"
                               Grid.Row="4"
                               Grid.Column="0"
