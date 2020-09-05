@@ -2,8 +2,11 @@
 using ClearData.Views;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
+using System.Diagnostics;
 using System.Net.Http;
+using Xamarin.Forms;
+using Newtonsoft.Json;
+using ClearData.Models;
 
 namespace ClearData.ViewModels
 {
@@ -21,11 +24,11 @@ namespace ClearData.ViewModels
             set => SetProperty(ref uText, value);
         }
 
-        private DateTime dob;
-        public DateTime DOB
+        private DateTime DOB;
+        public DateTime DateofBirth
         {
-            get => dob;
-            set => SetProperty(ref dob, value);
+            get => DOB;
+            set => SetProperty(ref DOB, value);
         }
 
         private string place;
@@ -51,6 +54,16 @@ namespace ClearData.ViewModels
             }
             else
             {
+                Uri uri = new Uri(string.Format(BaseURL, string.Empty));
+                var userInfo = new UserDataJson()
+                {
+                    username = UsernameText,
+                    dob = DateofBirth,
+                    birthplace = Birthplace
+                };
+                var jsonstring = JsonConvert.SerializeObject(userInfo);
+                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, jsonContent);
                 // Success + remember to set the static class elements
                 await Application.Current.MainPage.DisplayAlert("Alert", "Well done, you made it", "Hooray!");
             }
