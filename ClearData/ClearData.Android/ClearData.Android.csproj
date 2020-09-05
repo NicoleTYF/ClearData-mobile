@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="Resources\CustomBtnRenderer.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Resources\LoginEntryRenderer.cs" />
+    <Compile Include="Resources\CustomEntryRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

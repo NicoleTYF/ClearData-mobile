@@ -50,8 +50,6 @@
                        Grid.Column="0"
                        TextColor="White"
                        FontFamily="Calibri-Light"
-                    
-                       
                        HorizontalOptions="Start"/>
 
                 <!-- "SORT BY" image -->

@@ -5,12 +5,12 @@ using ClearData.Controls;
 using ClearData.Android;
 using Android.Content;
 
-[assembly: ExportRenderer(typeof(LoginEntry), typeof(LoginEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
 namespace ClearData.Android
 {
-    public class LoginEntryRenderer : EntryRenderer
+    public class CustomEntryRenderer : EntryRenderer
     {
-        public LoginEntryRenderer(Context context) : base(context)
+        public CustomEntryRenderer(Context context) : base(context)
         {
         }
 
