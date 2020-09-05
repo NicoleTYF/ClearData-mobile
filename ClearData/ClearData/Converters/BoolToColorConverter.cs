@@ -11,10 +11,10 @@ namespace ClearData.Converters
         {
             if (Equals((string)parameter, "primary"))
             {
-                return ((bool)value == true) ? Color.White : Color.DarkGray; //hardcoded colours, may need to change
+                return ((bool)value == true) ? Color.White : Color.FromHex("#416369"); // change hardcoded colours  
             } else //secondary
             {
-                return ((bool)value == true) ? Color.CornflowerBlue : Color.LightGray;
+                return ((bool)value == true) ? Color.FromHex("#26A2C9") : Color.FromHex("#7D7D7D");
             }
         }
 
