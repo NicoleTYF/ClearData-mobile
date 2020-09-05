@@ -88,8 +88,8 @@
                                                 <RowDefinition Height="25" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="175"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
@@ -131,8 +131,8 @@
                                                 <RowDefinition Height="25" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="175"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
@@ -174,8 +174,8 @@
                                                 <RowDefinition Height="25" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*"/>
-                                                <ColumnDefinition Width="9*"/>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="175"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 

@@ -37,6 +37,7 @@
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
@@ -118,7 +119,7 @@
                                             <Label Text="{Binding DataType.Name}" Grid.Column="0" Grid.Row="0" TextColor="#FFE88F" FontSize="Caption" Margin="21,6,0,0" FontAttributes="Bold" />
                                             
                                             <!-- label for if there is no data to display -->
-                                            <Label Text="Nothing to display" Grid.Column="1" Grid.Row="1" Margin="-10,6,0,0" 
+                                            <Label Text="Nothing to display" Grid.Column="1" Grid.Row="1" Margin="10,6,0,0" HorizontalOptions="StartAndExpand" 
                                                    IsVisible="{Binding LogsWithMaxElements, Converter={StaticResource isEmptyConverter}}"/>
                                             <CollectionView ItemsSource="{Binding LogsWithMaxElements}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" InputTransparent="True" >
                                                 <CollectionView.ItemsLayout>
@@ -126,12 +127,12 @@
                                                 </CollectionView.ItemsLayout>
                                                 <CollectionView.ItemTemplate>
                                                     <DataTemplate x:DataType="model:Log">
-                                                        <FlexLayout Padding="10,-2,0,0"
+                                                        <FlexLayout Padding="23,-2,0,0"
                                                                     Direction="Row" 
                                                                     AlignItems="Start"
                                                                     JustifyContent="Start">
                                                             <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" TextColor="White" 
-                                                                   FontSize="Micro" HorizontalTextAlignment="End" WidthRequest="70"/>
+                                                                   FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" WidthRequest="60"/>
                                                             <Label Text=":   Accessed by " TextColor="White" FontSize="Micro" HorizontalTextAlignment="End"/>
                                                             <Label Text="{Binding Company.Name}" TextColor="White" FontSize="Micro" HorizontalTextAlignment="Start"/>
                                                         </FlexLayout>
@@ -193,7 +194,7 @@
                                                                     AlignItems="Start"
                                                                     JustifyContent="Start">
                                                             <Label Text="{Binding Time, Converter={StaticResource timeToStringConverter}}" TextColor="White" 
-                                                                   FontSize="Micro" HorizontalTextAlignment="End" WidthRequest="70"/>
+                                                                   FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" WidthRequest="60"/>
                                                             <Label Text=":   " TextColor="White" FontSize="Micro" HorizontalTextAlignment="End"/>
                                                             <Label Text="{Binding DataType.Name}" TextColor="White" FontSize="Micro" HorizontalTextAlignment="Start"/>
                                                         </FlexLayout>
