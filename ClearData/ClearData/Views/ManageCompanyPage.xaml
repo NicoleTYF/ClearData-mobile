@@ -65,12 +65,12 @@
                     <Label Text="{Binding Company.Name}" FontSize="Large" TextColor="White" FontAttributes="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
                     <Label Text="INFORMATION" TextColor="#FFE88F" FontSize="Small" FontAttributes="Bold" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Padding="15,7,0,0"/>
-                    <Label Text="{Binding Company.Description}" TextColor="White" FontSize="Small" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Padding="15,0,0,0"/>
+                    <Label Text="{Binding Company.Description}" TextColor="White" FontSize="Small" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Padding="15,0,15,0"/>
 
                     <!-- Permission level selection -->
-                    <Label Text="PERMISSION LEVEL" TextColor="#FFE88F" FontSize="Small" Grid.Column="3" Grid.Row="0" LineBreakMode="NoWrap" FontAttributes="Bold" Padding="0,20,0,0"/>
+                    <Label Text="PERMISSION LEVEL" TextColor="#FFE88F" FontSize="Small" Grid.Column="3" Grid.Row="0" LineBreakMode="NoWrap" FontAttributes="Bold" Padding="0,20,10,0"/>
                     <Picker x:Name="permission_picker" Title="Permission Setting" SelectedIndex="{Binding CurrentRestriction}" 
-                    Grid.Column="3" Grid.Row="1" SelectedIndexChanged="Picker" FontSize="Body">
+                            Grid.Column="3" Grid.Row="1" SelectedIndexChanged="Picker" FontSize="Body" Margin="0,0,10,0">
                         <!--PropertyChanged="PickerChosen"-->
                         <!-- These written values are hard coded in here, not good but binding them was super difficult and this was easy-->
                         <Picker.Items>

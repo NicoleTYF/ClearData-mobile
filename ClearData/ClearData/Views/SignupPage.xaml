@@ -3,52 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClearData.Views.SignupPage"
              xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:custom="clr-namespace:ClearData.Controls;assembly=ClearData"
              Title="{Binding Title}"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="bg_mobile.png">
 
     <ContentPage.BindingContext>
         <vm:SignupViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Sign up below!" VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" TextColor="White" 
-                   BackgroundColor="Blue" Grid.Row="0" Grid.Column="0"/>
-                <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                    <Entry Placeholder="Username" Text="{Binding UsernameText}" HorizontalOptions="CenterAndExpand" 
-                       VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                    <Label Text="Enter your name!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                    <DatePicker Date="{Binding DOB}" HorizontalOptions="CenterAndExpand" 
-                       VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                    <Label Text="Enter your date of birth!" TextColor="Blue" HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
-                    <Entry Placeholder="Australia" Text="{Binding Birthplace}" HorizontalOptions="CenterAndExpand" 
-                       VerticalOptions="CenterAndExpand" WidthRequest="150"/>
-                    <Label Text="Country of Birth" TextColor="Blue" HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"/>
-                </StackLayout>
-                <Button Text="Create Account" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
-                    HorizontalOptions="Center" WidthRequest="150" HeightRequest="50" 
-                    Grid.Row="4" Grid.Column="0" Command="{Binding CreateAccCom}"/>
+        <Grid Padding="21.5,0,21.5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            </Grid>
-        </ScrollView>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Top left logo -->
+            <ImageButton Source="logo_text.png" Margin="-11.5,8,0,0" Grid.Row="0" WidthRequest="120" HeightRequest="30"
+                         BackgroundColor="Transparent" HorizontalOptions="Start"/>
+
+            <!-- Back button -->
+            <ImageButton Source="btn_back.png" Grid.Row="1" HorizontalOptions="Start"
+                         WidthRequest="80" HeightRequest="40" BackgroundColor="Transparent"/>
+ 
+            <Label Text="Sign Up" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="37" 
+                   TextColor="White" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+            
+            <!-- Username Entry -->
+            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
+                       Source="bg_entry.png" Grid.Row="3" Grid.Column="1"/>
+            <Label Text="NEW USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="3" Grid.Column="0"/>
+            <custom:CustomEntry Text="{Binding UsernameText}" Grid.Row="3" Grid.Column="1" FontSize="Body" 
+                                HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
+
+            <Label Text="DATE OF BIRTH" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="4" Grid.Column="0"/>
+            <DatePicker Date="{Binding DOB}" Grid.Row="4" Grid.Column="1" FontSize="Body" TextColor="White" Margin="0,17,0,0" />
+
+            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
+                       Source="bg_entry.png" Grid.Row="5" Grid.Column="1"/>
+            <Label Text="COUNTRY OF BIRTH" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="5" Grid.Column="0"/>
+            <custom:CustomEntry Text="{Binding Birthplace}" Grid.Row="5" Grid.Column="1" FontSize="Body" 
+                                HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
+            <Button Text="CREATE ACCOUNT" BackgroundColor="#FFCB00" TextColor="White" VerticalOptions="Center"
+                    HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Grid.ColumnSpan="2" 
+                    Grid.Row="6" Grid.Column="0" HeightRequest="40" Margin="0,20,0,0" Command="{Binding CreateAccCom}"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

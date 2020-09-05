@@ -28,23 +28,21 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="54"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Username Entry -->
-                <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
-                <Label Text="USERNAME" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="7,0,0,10"
-                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
-                <custom:LoginEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,0,-5"/>
+                <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
+                       Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Image Source="ic_user.png" Grid.Row="0" Grid.Column="0" WidthRequest="20" HeightRequest="20" Margin="4,0,0,8" VerticalOptions="End" />
+                <custom:CustomEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,6,-5" Placeholder="username"/>
 
                 <!-- Password Entry -->
-                <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
-                <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="7,0,0,10" 
-                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0"/>
-                <custom:LoginEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,-5"/>
+                <Image HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit" 
+                       Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Image Source="ic_lock.png" Grid.Row="1" Grid.Column="0" WidthRequest="20" HeightRequest="20" Margin="4,0,0,8" VerticalOptions="End" />
+                <custom:CustomEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,6,-5" Placeholder="password" />
 
                 <!-- Invalid Username or Password Label -->
                 <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" HorizontalOptions="End"

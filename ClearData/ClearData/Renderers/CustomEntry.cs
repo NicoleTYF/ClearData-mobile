@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace ClearData.Controls
 {
-	public class LoginEntry: Entry
+	public class CustomEntry: Entry
 	{
 	}
 }
