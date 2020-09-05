@@ -82,13 +82,13 @@
                        FontSize="Caption"
                        TextColor="White" />
 
-            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="1" Clicked="OnDataTypesPushed" 
+            <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="1" Clicked="OnDataTypesPushed" Padding="0,0,0,0" FontSize="Micro"
                     BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                     TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
                     BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
-            <Button Text="Service" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" Clicked="OnServicePushed" 
+            <Button Text="Company" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" Clicked="OnServicePushed" 
                     x:DataType="local:ManageDataViewModel"  
-                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
+                    BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}" Padding="0,0,0,0" FontSize="Micro"
                     TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
                     BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
@@ -155,7 +155,7 @@
                             <Label Text="{Binding Name}" LineBreakMode="NoWrap" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
                                    TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="0,-14,0,0" />
 
-                            <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, StringFormat='Setting: {0}'}" 
+                            <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, ConverterParameter=short, StringFormat='Setting: {0}'}" 
                                    Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Micro" TextColor="White" Margin="0,-14,0,0" />
 
                             <!-- this gesture recogniser only seems to work in areas, I can't get it to work everywhere

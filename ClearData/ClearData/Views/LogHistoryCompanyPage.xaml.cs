@@ -10,16 +10,15 @@ using Xamarin.Forms.Xaml;
 namespace ClearData.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LogHistoryPage : ContentPage
+	public partial class LogHistoryCompanyPage : ContentPage
 	{
         public ObservableCollection<string> Items { get; set; }
-        private LogHistoryViewModel _viewModel;
+        private LogHistoryCompanyViewModel _viewModel;
 
-        public LogHistoryPage(LogHistoryViewModel viewModel)  
+        public LogHistoryCompanyPage(LogHistoryCompanyViewModel viewModel)  
 		{
             InitializeComponent();
             BindingContext = _viewModel = viewModel;
-
         }
     }
 }

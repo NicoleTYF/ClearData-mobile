@@ -1,27 +1,25 @@
-﻿using System;
+﻿using ClearData.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
-    public class BoolToColorConverter : IValueConverter
+    public class IsEmptyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals((string)parameter, "primary"))
-            {
-                return ((bool)value == true) ? Color.White : Color.FromHex("#416369"); // change hardcoded colours  
-            } else //secondary
-            {
-                return ((bool)value == true) ? Color.FromHex("#26A2C9") : Color.FromHex("#7D7D7D");
-            }
+            //the goal here is to return true if the supplied list is empty
+            ObservableCollection<Log> logs = (ObservableCollection<Log>)value;
+            return logs.Count == 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //this conversion shouldn't ever be performed, may not be universally correct but shouldn't matter
-            return ((Color)value == Color.White); 
+            return new IndexedLogCollection();
         }
     }
 }

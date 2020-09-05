@@ -4,6 +4,7 @@ using System.Globalization;
 using Xamarin.Forms;
 
 using ClearData.Models;
+using System.Threading;
 
 namespace ClearData.Converters
 {
@@ -24,6 +25,20 @@ namespace ClearData.Converters
                     case Company.RestrictionType.NONE:
                     default:
                         return "On this setting, none of your data will be shared with this company";
+                }
+            } else if (Equals((string)parameter, "short"))
+            {
+                switch ((Company.RestrictionType)value)
+                {
+                    case Company.RestrictionType.ALL:
+                        return "All";
+                    case Company.RestrictionType.CUSTOM_OPT_IN:
+                        return "Opt In";
+                    case Company.RestrictionType.CUSTOM_OPT_OUT:
+                        return "Opt Out";
+                    case Company.RestrictionType.NONE:
+                    default:
+                        return "None";
                 }
             }
             else
