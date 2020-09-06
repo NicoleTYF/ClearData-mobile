@@ -66,6 +66,7 @@ namespace ClearData.ViewModels
                 var response = await client.PostAsync(uri, jsonContent);
                 // Success + remember to set the static class elements
                 await Application.Current.MainPage.DisplayAlert("Alert", "Well done, you made it", "Hooray!");
+                Console.WriteLine(response);
             }
         }
 
