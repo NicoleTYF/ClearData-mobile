@@ -1,11 +1,11 @@
-﻿using CarouselView.FormsPlugin.Abstractions;
-using ClearData.ViewModels;
+﻿using ClearData.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using CarouselView.FormsPlugin.Abstractions;
 
 namespace ClearData.Views
 {
