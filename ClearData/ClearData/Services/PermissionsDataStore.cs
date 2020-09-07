@@ -16,9 +16,9 @@ namespace ClearData.Services
 
             dataTypes = new List<DataType>()
             {
-                new DataType { Id = (int)DataType.DataTypeId.COARSE_LOCATION, Name = "Coarse Location Data", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
-                new DataType { Id = (int)DataType.DataTypeId.FINE_LOCATION, Name = "Fine Location Data", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
-                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing Data", Description = "Browsing history tracking what websites you visit", Enabled = false },
+                new DataType { Id = (int)DataType.DataTypeId.COARSE_LOCATION, Name = "Coarse Location", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
+                new DataType { Id = (int)DataType.DataTypeId.FINE_LOCATION, Name = "Fine Location", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
+                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit", Enabled = false },
                 new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery", Enabled=false},
                 new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online", Enabled=false},
                 new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll", Enabled=false},
