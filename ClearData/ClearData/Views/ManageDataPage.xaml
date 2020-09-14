@@ -169,13 +169,11 @@
 
                             <!-- this gesture recogniser only seems to work in areas, I can't get it to work everywhere
                                 I think it only works in the areas of the grid which don't have anything in them-->
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
-                                        CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </Grid.GestureRecognizers>
+                            <ImageButton Source="bg_trans.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
+                                                         BackgroundColor="Transparent" BorderColor="Transparent" Opacity="0"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ManageDataViewModel}}, Path=CompanyTapped}"		
+                                                         CommandParameter="{Binding .}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
