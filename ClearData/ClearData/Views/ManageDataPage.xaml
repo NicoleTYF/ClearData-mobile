@@ -64,7 +64,7 @@
                        Grid.Column="0"
                        WidthRequest="90" 
                        HeightRequest="25"
-                       HorizontalOptions="Start"/>
+                       HorizontalOptions="End"/>
 
             <!-- White horizontal line -->
             <Image Source="img_whiteline.png" 
