@@ -179,7 +179,6 @@ namespace ClearData.Services
                                                                     { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(0, 2, 0) },
                                                                     { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(0, 42, 0) }}
             };
-
             companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
         }
 

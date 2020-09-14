@@ -155,8 +155,8 @@
                             <Label Text="{Binding Name}" LineBreakMode="NoWrap" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
                                    TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="0,-14,0,0" />
 
-                            <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, ConverterParameter=short, StringFormat='Setting: {0}'}" 
-                                   Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Micro" TextColor="White" Margin="0,-14,0,0" />
+                            <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, StringFormat='Setting: {0}'}" 
+                                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Micro" TextColor="White" Margin="0,-14,0,0" />
 
                             <!-- this gesture recogniser only seems to work in areas, I can't get it to work everywhere
                                 I think it only works in the areas of the grid which don't have anything in them-->

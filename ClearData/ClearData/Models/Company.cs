@@ -5,7 +5,7 @@ namespace ClearData.Models
 {
     public class Company : DataObject
     {
-        public enum RestrictionType {ALL = 0, CUSTOM_OPT_IN = 1, CUSTOM_OPT_OUT = 2, NONE = 3}; //Possible types of restrictions
+        public enum RestrictionType {ALL = 0, CUSTOM = 1, NONE = 2}; //Possible types of restrictions
         public SortedSet<int> WantedDataTypes { get; set; } //all data types wanted by the company, entry is the data type id
         
         public RestrictionType Restriction { get; set; } 

@@ -84,7 +84,7 @@ namespace ClearData.ViewModels
                 switch (company.Restriction)
                 {
                     case Company.RestrictionType.ALL:
-                    case Company.RestrictionType.CUSTOM_OPT_OUT:
+                    case Company.RestrictionType.CUSTOM:
                         company.DataTypeEnabled.Add(dataType.Id, true);
                         break;
                     default:
@@ -162,9 +162,8 @@ namespace ClearData.ViewModels
                     trueCount++;
             }
             //now use the number of trues counted to update the restriction type
-            //first check updating to ALL setting, don't do if on CUSTOM_OPT_IN setting or already on ALL
+            //first check updating to ALL setting, don't do if already on ALL
             if (trueCount == DataTypePermissions.Count &&
-                    company.Restriction != Company.RestrictionType.CUSTOM_OPT_IN &&
                     company.Restriction != Company.RestrictionType.ALL)
             {
                 company.Restriction = Company.RestrictionType.ALL;
@@ -174,18 +173,10 @@ namespace ClearData.ViewModels
                 company.Restriction = Company.RestrictionType.NONE;
             }
             //then update if we are now in the middle but came from one of the ends
-            else if (trueCount < DataTypePermissions.Count && trueCount > 0)
+            else if (trueCount < DataTypePermissions.Count && trueCount > 0 && 
+                company.Restriction != Company.RestrictionType.CUSTOM)
             {
-                if (company.Restriction == Company.RestrictionType.NONE)
-                {
-                    //coming from none restriction, change to opt in
-                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_IN;
-                }
-                else if (company.Restriction == Company.RestrictionType.ALL)
-                {
-                    //coming from all restriction, change to opt out
-                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_OUT;
-                }
+                company.Restriction = Company.RestrictionType.CUSTOM;
             }
             //finally update the restriction that is being displayed
             CurrentRestriction = (int)company.Restriction;
