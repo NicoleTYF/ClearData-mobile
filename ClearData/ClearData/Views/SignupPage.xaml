@@ -50,7 +50,7 @@
 
             <Label Text="DATE OF BIRTH" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="4" Grid.Column="0"/>
-            <DatePicker Date="{Binding DOB}" Grid.Row="4" Grid.Column="1" FontSize="Body" TextColor="White" Margin="0,17,0,0" />
+            <DatePicker Date="{Binding DateofBirth}" Grid.Row="4" Grid.Column="1" FontSize="Body" TextColor="White" Margin="0,17,0,0" />
 
             <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
                        Source="bg_entry.png" Grid.Row="5" Grid.Column="1"/>
