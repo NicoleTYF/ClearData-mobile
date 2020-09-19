@@ -8,7 +8,7 @@ namespace ClearData.Models
     {
         public string username { get; set; }
 
-        public DateTime dob { get; set;}
+        public string date_of_birth { get; set;}
 
         public string birthplace { get; set; }
     }
