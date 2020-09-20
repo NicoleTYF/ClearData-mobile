@@ -16,13 +16,13 @@ namespace ClearData.Services
 
             dataTypes = new List<DataType>()
             {
-                new DataType { Id = (int)DataType.DataTypeId.COARSE_LOCATION, Name = "Coarse Location", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
-                new DataType { Id = (int)DataType.DataTypeId.FINE_LOCATION, Name = "Fine Location", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
-                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit", Enabled = false },
-                new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.ADVERTISING, Name = "Advertising", Description = "Your interactions with advertisements including which ones you engage with", Enabled=false}
+                new DataType { Id = (int)DataType.DataTypeId.COARSE_LOCATION, Name = "Coarse Location", Description = "General location data tracking your rough location such as your current suburb"},
+                new DataType { Id = (int)DataType.DataTypeId.FINE_LOCATION, Name = "Fine Location", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres"},
+                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit"},
+                new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery"},
+                new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online"},
+                new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll"},
+                new DataType { Id = (int)DataType.DataTypeId.ADVERTISING, Name = "Advertising", Description = "Your interactions with advertisements including which ones you engage with"}
             };
 
             Company Google = new Company
@@ -198,6 +198,44 @@ namespace ClearData.Services
                 }
             }
             return false;
+        }
+
+        public void SetDataTypeGlobalPermission(int dataTypeId, bool setting)
+        {
+            foreach (Company company in companies)
+            {
+                if (setting == false && company.WantedDataTypes.Contains(dataTypeId))
+                {
+                    company.DataTypeEnabled[dataTypeId] = setting;
+                }
+                else if (setting == true && company.WantedDataTypes.Contains(dataTypeId))
+                {
+                    //update the settings, unless we are on the none setting for the company and are trying to switch it on
+                    //this is a weird one, because once we update one of them, it then treats the data type as being on for determining
+                    //whether the current setting is ALL or NONE, so we need to actually do that manually here, and not consider this
+                    //data type
+                    //so we want to set it on if there are any enabled permissions OR there are no other wanted data types that are permitted globally
+                    bool companySetting = true;
+                    foreach (int otherDataTypeId in company.WantedDataTypes)
+                    {
+                        if (otherDataTypeId != dataTypeId && company.DataTypeEnabled[otherDataTypeId])
+                        {
+                            //this company must not be on the NONE setting, so we are good to set its permissions on
+                            companySetting = true;
+                            break;
+                        }
+                        else if (companySetting == true && otherDataTypeId != dataTypeId && IsDataTypeEnabled(otherDataTypeId))
+                        {
+                            companySetting = false; //there is at least one other data type which is globally enabled but not enabled for this company
+                            //in this case, we set the flag to false, but we don't break because this can be overridden by finding one that is turned on
+                            //if this is set false and we never fall into the first clause, then and only then will the setting be false
+                        }
+                    }
+                    company.DataTypeEnabled[dataTypeId] = companySetting;
+                }
+                
+
+            }
         }
 
         private Dictionary<int, bool> InitialiseEnabledDictionary(SortedSet<int> wantedDataTypes)

@@ -167,8 +167,6 @@
                             <Label Text="{Binding Path=Restriction, Converter={StaticResource permissionConverter}, StringFormat='Setting: {0}'}" 
                                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Micro" TextColor="White" Margin="0,-14,0,0" />
 
-                            <!-- this gesture recogniser only seems to work in areas, I can't get it to work everywhere
-                                I think it only works in the areas of the grid which don't have anything in them-->
                             <ImageButton Source="bg_trans.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" 
                                                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
                                                          BackgroundColor="Transparent" BorderColor="Transparent" Opacity="0"
