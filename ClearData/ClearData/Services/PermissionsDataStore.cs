@@ -233,7 +233,7 @@ namespace ClearData.Services
                     }
                     company.DataTypeEnabled[dataTypeId] = companySetting;
                 }
-                
+                //i am aware how horrificly inefficient this is, but I am trying to not save any information that isn't in the database, and its weird to do
 
             }
         }
