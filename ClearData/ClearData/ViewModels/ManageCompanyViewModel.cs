@@ -105,15 +105,9 @@ namespace ClearData.ViewModels
 
             try
             {
-                //first check to see if the permissions object exists. I am a little unsure where we are instantiating
-                //these static variables, potentially this needs to move somewhere else
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 //then we clear the observable collection and replace it
                 DataTypePermissions.Clear();
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true); //get the data types
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true); //get the data types
                 foreach (var dataType in dataTypes)
                 {
                     //first check for overlap between the wanted data types and the enabled data types and only display those

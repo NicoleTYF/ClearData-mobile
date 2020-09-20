@@ -62,15 +62,10 @@ namespace ClearData.ViewModels
             IsDataTypeDisplayBusy = true;
             try
             {
-                //first check the permissions data store exists
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 TypeSortedLogs.Clear(); //clear the list
 
                 //then create all the observable lists of logs, one for each datatype that is being tracked
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
                 foreach (var dataType in dataTypes)
                 {
                     if (dataType.Enabled)
@@ -80,7 +75,7 @@ namespace ClearData.ViewModels
                     }
                 }
                 //now that we have the creations for each of the datatypes, go through all the companies and add all their usage
-                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
+                var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
                 foreach (var company in companies)
                 {
                     foreach (var dataType in dataTypes)
@@ -141,16 +136,11 @@ namespace ClearData.ViewModels
             IsServicesDisplayBusy = true;
             try
             {
-                //first check the permissions data store exists
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 CompanySortedLogs.Clear(); //clear the list
 
                 //go through all the companies and create their
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
-                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
+                var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
                 foreach (var company in companies)
                 {
                     if (company.Restriction == Company.RestrictionType.NONE)

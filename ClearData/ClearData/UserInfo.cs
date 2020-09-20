@@ -9,9 +9,17 @@ namespace ClearData
 {
     public static class UserInfo
     {
-        // placeholder value
-        // TODO: replace string with DataType
-        public static PermissionsDataStore permissions { get; set; }
+        private static PermissionsDataStore permissions;
+
+        public static PermissionsDataStore GetPermissions()
+        {
+            //if the permissions data store doesn't exist yet, create it, otherwise return it
+            if (permissions == null)
+            {
+                permissions = new PermissionsDataStore();
+            }
+            return permissions;
+        }
 
         public static string name { get; set; }
 

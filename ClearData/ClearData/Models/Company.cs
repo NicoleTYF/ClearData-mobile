@@ -23,45 +23,58 @@ namespace ClearData.Models
 
         }
 
+        /**
+         * Infer the restriction type from the current enabled values, if they are all on then its ALL
+         * if none on, NONE, if inbetween, CUSTOM
+         */
         private RestrictionType GetRestrictionType()
         {
+            Console.WriteLine("YELLOW!");
             int onCount = 0;
             int totalCount = 0;
-            foreach (KeyValuePair<int, bool> entry in DataTypeEnabled)
+            foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
             {
-                if (entry.Value == true)
+                if (DataTypeEnabled[dataType.Id] == true)
                 {
                     onCount += 1;
                 }
                 totalCount += 1;
             }
+            Console.WriteLine(String.Format("YELLOWW {0} {1}", onCount, totalCount));
             if (totalCount == onCount)
             {
+                Console.WriteLine("yellow 1");
                 return RestrictionType.ALL;
             } 
             else if (onCount == 0)
             {
+                Console.WriteLine("yellow 2");
                 return RestrictionType.NONE;
             } 
             else
             {
+                Console.WriteLine("yellow 3");
                 return RestrictionType.CUSTOM;
             }
         }
 
+        /**
+         * Set the restriction type by updating all the values, custom makes no change
+         * This needs to only go through the data types which 
+         */
         private void SetRestrictionType(RestrictionType restriction)
         {
             if (restriction == RestrictionType.ALL)
             {
-                foreach (KeyValuePair<int, bool> entry in DataTypeEnabled)
+                foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
                 {
-                    DataTypeEnabled[entry.Key] = true;
+                    DataTypeEnabled[dataType.Id] = true;
                 }
             } else if (restriction == RestrictionType.NONE)
             {
-                foreach (KeyValuePair<int,bool> entry in DataTypeEnabled)
+                foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
                 {
-                    DataTypeEnabled[entry.Key] = false;
+                    DataTypeEnabled[dataType.Id] = false;
                 }
             }
         }

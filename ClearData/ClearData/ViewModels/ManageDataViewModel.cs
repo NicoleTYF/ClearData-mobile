@@ -39,15 +39,9 @@ namespace ClearData.ViewModels
 
             try
             {
-                //first check to see if the permissions object exists. I am a little unsure where we are instantiating
-                //these static variables, potentially this needs to move somewhere else
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 //then we clear the observable collection and replace it
                 DataTypes.Clear();
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
                 foreach (var dataType in dataTypes)
                 {
                     DataTypes.Add(dataType);
@@ -70,15 +64,9 @@ namespace ClearData.ViewModels
 
             try
             {
-                //first check to see if the permissions object exists. I am a little unsure where we are instantiating
-                //these static variables, potentially this needs to move somewhere else
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 //then we clear the observable collection and replace it
                 Companies.Clear();
-                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
+                var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
                 foreach (var company in companies)
                 {
                     Companies.Add(company);
@@ -105,8 +93,5 @@ namespace ClearData.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new ManageCompanyPage(manageCompanyViewModel));
             
         }
-
-
-
     }
 }
