@@ -33,7 +33,6 @@ namespace ClearData.Services
                 "company that specializes in Internet-related services and products, which include online advertising technologies, " +
                 "a search engine, cloud computing, software, and hardware. It is considered one of the Big Four technology companies " +
                 "alongside Amazon, Apple and Microsoft.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
                                                         (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.ADVERTISING},
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -51,7 +50,6 @@ namespace ClearData.Services
                 Description = "Amazon.com, Inc., is an American multinational technology company based in Seattle, Washington. " +
                 "Amazon focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is considered one " +
                 "of the Big Four technology companies, along with Google, Apple, and Facebook.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE, 
                                                         (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -69,7 +67,6 @@ namespace ClearData.Services
                 Description = "Spotify is a Swedish music streaming and media services provider. It is operated by Spotify AB, " +
                 "which is publicly traded in the NYSE through Luxembourg-domiciled holding company Spotify Technology S.A., " +
                 "itself a constituent of the Russell 1000 Index.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.COARSE_LOCATION, 
                                                         (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.PHOTOS},
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -86,7 +83,6 @@ namespace ClearData.Services
                 Description = "Mozilla is a free software community founded in 1998 by members of Netscape. The Mozilla community uses, develops, spreads and " +
                 "supports Mozilla products, thereby promoting exclusively free software and open standards, with only minor exceptions. " +
                 "The community is supported institutionally by the not-for-profit Mozilla Foundation and its tax-paying subsidiary, the Mozilla Corporation.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING,
                                                         (int)DataType.DataTypeId.ADVERTISING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -103,7 +99,6 @@ namespace ClearData.Services
                 "freight transportation, and, through a partnership with Lime, electric bicycle and motorized scooter rental. The company is based in San " +
                 "Francisco and has operations in over 900 metropolitan areas worldwide. It is one of the largest providers in the gig economy and is also a pioneer " +
                 "in the development of self-driving cars.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.PHONE_USAGE,
                                                         (int)DataType.DataTypeId.PHOTOS },
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -119,7 +114,6 @@ namespace ClearData.Services
                 Description = "eBay Inc. is an American multinational e-commerce corporation based in San Jose, California, that facilitates consumer-to-consumer" +
                 " and business-to-consumer sales through its website. eBay was founded by Pierre Omidyar in 1995, and became a notable success story of the dot-com " +
                 "bubble. eBay is a multibillion-dollar business with operations in about 32 countries, as of 2019.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING,
                                                         (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -136,7 +130,6 @@ namespace ClearData.Services
                 "Launched on May 5, 2003, it is mainly used for professional networking, including employers posting jobs and job seekers posting their CVs. " +
                 "As of 2015, most of the company's revenue came from selling access to information about its members to recruiters and sales professionals. " +
                 "Since December 2016 it has been a wholly owned subsidiary of Microsoft. As of May 2020, LinkedIn had 706 million registered members in 150 countries.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.COARSE_LOCATION },
                 DataTypeEnabled = new Dictionary<int, bool>(),
                 LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(700, 26, 13) },
@@ -151,7 +144,6 @@ namespace ClearData.Services
                 "manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services. " +
                 "Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer " +
                 "and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, 
                                                         (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.ADVERTISING },
                 DataTypeEnabled = new Dictionary<int, bool>(),
@@ -168,7 +160,6 @@ namespace ClearData.Services
                 Description = "Facebook is an American online social media and social networking service based in Menlo Park, California and a flagship service " +
                 "of the namesake company Facebook, Inc. It was founded by Mark Zuckerberg, along with fellow Harvard College students and roommates " +
                 "Eduardo Saverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
                                                         (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING, (int)DataType.DataTypeId.PHOTOS },
                 DataTypeEnabled = new Dictionary<int, bool>(),
