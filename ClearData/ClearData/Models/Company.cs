@@ -12,15 +12,10 @@ namespace ClearData.Models
         //the Restriction setting
         public Dictionary<int, bool> DataTypeEnabled { get; set; } 
 
-        //dictionary to store the last time any data was accessed by the company
-        //null if company hasn't accessed the data type
-        public Dictionary<int, DateTime> LastAccessed { get; set; }
-
         public RestrictionType Restriction
         {
             get => GetRestrictionType();
             set => SetRestrictionType(value);
-
         }
 
         /**
@@ -29,7 +24,6 @@ namespace ClearData.Models
          */
         private RestrictionType GetRestrictionType()
         {
-            Console.WriteLine("YELLOW!");
             int onCount = 0;
             int totalCount = 0;
             foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
@@ -40,20 +34,16 @@ namespace ClearData.Models
                 }
                 totalCount += 1;
             }
-            Console.WriteLine(String.Format("YELLOWW {0} {1}", onCount, totalCount));
             if (totalCount == onCount)
             {
-                Console.WriteLine("yellow 1");
                 return RestrictionType.ALL;
             } 
             else if (onCount == 0)
             {
-                Console.WriteLine("yellow 2");
                 return RestrictionType.NONE;
             } 
             else
             {
-                Console.WriteLine("yellow 3");
                 return RestrictionType.CUSTOM;
             }
         }
