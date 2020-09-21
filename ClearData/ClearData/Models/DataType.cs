@@ -4,7 +4,7 @@ namespace ClearData.Models
 {
     public class DataType : DataObject
     {
-        public enum DataTypeId { COARSE_LOCATION = 0, FINE_LOCATION = 1, BROWSING = 2, PHONE_USAGE = 3, PAYMENT_HISTORY = 4, PHOTOS = 5, ADVERTISING = 6}
+        public enum DataTypeId { LOCATION = 0, BROWSING = 1, PHONE_USAGE = 2, PAYMENT_HISTORY = 3, PHOTOS = 4, ADVERTISING = 5}
         
         //whether this data type is enabled globally, need to infer this from the company settings
         public bool Enabled {
