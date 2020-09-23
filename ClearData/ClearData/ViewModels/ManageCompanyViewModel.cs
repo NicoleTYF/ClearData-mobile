@@ -54,8 +54,8 @@ namespace ClearData.ViewModels
 
             //next update the sliders and permissions to reflect this
             //only done if changing to ALL or NONE
-            if (company.Restriction == Company.RestrictionType.ALL || 
-                company.Restriction == Company.RestrictionType.NONE)
+            if (currentRestriction == (int)Company.RestrictionType.ALL || 
+                currentRestriction == (int)Company.RestrictionType.NONE)
             {
                 for (int i = 0; i < DataTypePermissions.Count; i++)
                 {
