@@ -12,6 +12,8 @@ namespace ClearData.Services
         readonly List<Company> companies;
         private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
+        private const string DataTypesURL = "https://cleardata-webapp.uqcloud.net/api/data_types/";
+
         public PermissionsDataStore()
         {
 
@@ -213,7 +215,6 @@ namespace ClearData.Services
                     SetEnabled(dataTypeId, company.Id, companySetting);
                 }
                 //i am aware how horrificly inefficient this is, but I am trying to not save any information that isn't in the database, and its weird to do
-
             }
         }
 

@@ -15,9 +15,6 @@ namespace ClearData.ViewModels
     {
         public Command CreateAccCom { get; }
 
-        private HttpClient client;
-        private const string BaseURL = "https://cleardata-webapp.uqcloud.net/api/consumer_profiles/";
-
         private string uText;
         public string UsernameText
         {
@@ -41,8 +38,6 @@ namespace ClearData.ViewModels
 
         public SignupViewModel()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(BaseURL);
             CreateAccCom = new Command(createAccount);
             DateofBirth = DateTime.Now;
         }
@@ -66,14 +61,8 @@ namespace ClearData.ViewModels
             }
             else
             {
-                string basicUsername = "admin";
-                string basicPWord = "BakedBeans3";
-                var authdata = string.Format("{0}:{1}", basicUsername, basicPWord);
-                var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authdata));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
 
                 string dateofbirth = string.Format("{0}-{1:00}-{2:00}", DateofBirth.Year, DateofBirth.Month, DateofBirth.Day);
-                Uri uri = new Uri(string.Format(BaseURL, string.Empty));
                 var userInfo = new UserDataJson()
                 {
                     username = UsernameText,
@@ -83,7 +72,7 @@ namespace ClearData.ViewModels
                 var jsonstring = JsonConvert.SerializeObject(userInfo);
                 Console.WriteLine(jsonstring);
                 var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, jsonContent);
+                var response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.SIGNUP, jsonContent);
                 // Success + remember to set the static class elements
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
