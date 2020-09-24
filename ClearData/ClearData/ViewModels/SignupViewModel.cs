@@ -76,6 +76,7 @@ namespace ClearData.ViewModels
                 // Success + remember to set the static class elements
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
+                    await UserInfo.LoadPermissionsDataStore();
                     await Shell.Current.GoToAsync($"//AboutPage");
                 }
                 else

@@ -41,6 +41,7 @@ namespace ClearData.ViewModels
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             if (Username == "BakedBeans1" && Password == "BakedBeans2")
             {
+                await UserInfo.LoadPermissionsDataStore(); //load all the permissions before we get started
                 await Shell.Current.GoToAsync($"//AboutPage");
             }
             else

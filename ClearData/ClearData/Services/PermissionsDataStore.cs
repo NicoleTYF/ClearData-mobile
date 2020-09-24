@@ -9,12 +9,15 @@ namespace ClearData.Services
     public class PermissionsDataStore
     {
         public List<DataType> dataTypes;
-        readonly List<Company> companies;
+        private List<Company> companies;
         private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
-        private const string DataTypesURL = "https://cleardata-webapp.uqcloud.net/api/data_types/";
-
         public PermissionsDataStore()
+        {
+            
+        }
+
+        public async Task LoadDataStore()
         {
 
             dataTypes = new List<DataType>()
@@ -131,7 +134,9 @@ namespace ClearData.Services
             companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
 
             enabledSet = new HashSet<(int, int)>();
-            
+
+            var response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, null);
+
         }
 
         public bool InEnabledSet(int dataTypeId, int companyId)
