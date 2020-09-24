@@ -74,25 +74,6 @@ namespace ClearData.ViewModels
                 }
             }
         }
-
-        public static void EnsureDataTypeEnabledEntry(Company company, DataType dataType)
-        {
-            if (!company.DataTypeEnabled.TryGetValue(dataType.Id, out bool result))
-            {
-                //if we are in here, there wasn't an entry in the dictionary
-                //add the entry in the dictionary depending on the current restriction setting
-                switch (company.Restriction)
-                {
-                    case Company.RestrictionType.ALL:
-                    case Company.RestrictionType.CUSTOM:
-                        company.DataTypeEnabled.Add(dataType.Id, true);
-                        break;
-                    default:
-                        company.DataTypeEnabled.Add(dataType.Id, false);
-                        break;
-                }
-            }
-        }
             
         async Task ExecuteBackButtonPressed()
         {
@@ -113,12 +94,11 @@ namespace ClearData.ViewModels
                     //first check for overlap between the wanted data types and the enabled data types and only display those
                     if (dataType.Enabled && company.WantedDataTypes.Contains(dataType.Id))
                     {
-                        EnsureDataTypeEnabledEntry(Company, dataType);
                         //now make an entry into the tuple observable collection which we use for our display
                         DataTypePermissions.Add(new CompanyDataType()
                         {
                             DataType = dataType,
-                            CompanyEnabled = company.DataTypeEnabled[dataType.Id]
+                            CompanyEnabled = UserInfo.GetPermissions().InEnabledSet(dataType.Id, company.Id)
                         });
                     }
                 }
@@ -150,9 +130,9 @@ namespace ClearData.ViewModels
             {
                 //first do the updating of the backend to reflect the change to the switch
                 //switch bound to company enabled, not the dictionary
-                company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
+                UserInfo.GetPermissions().SetEnabled(companyDataType.DataType.Id, company.Id, companyDataType.CompanyEnabled);
                 //next increment the true count, this is counting the new status
-                if (company.DataTypeEnabled[companyDataType.DataType.Id])
+                if (UserInfo.GetPermissions().InEnabledSet(companyDataType.DataType.Id, company.Id))
                     trueCount++;
             }
             //now use the number of trues counted to update the restriction type
