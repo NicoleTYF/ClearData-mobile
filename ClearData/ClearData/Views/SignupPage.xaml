@@ -21,6 +21,8 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -53,6 +55,7 @@
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="4" Grid.Column="0"/>
             <DatePicker Date="{Binding DateofBirth}" Grid.Row="4" Grid.Column="1" FontSize="Body" TextColor="White" Margin="0,17,0,0" />
 
+            <!-- Country Entry-->
             <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
                        Source="bg_entry.png" Grid.Row="5" Grid.Column="1"/>
             <Label Text="COUNTRY OF BIRTH" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
@@ -60,11 +63,26 @@
             <custom:CustomEntry Text="{Binding Birthplace}" Grid.Row="5" Grid.Column="1" FontSize="Body" 
                                 HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
             
-            
-            
+            <!-- Password Entry -->
+            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
+                       Source="bg_entry.png" Grid.Row="6" Grid.Column="1"/>
+            <Label Text="PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="6" Grid.Column="0"/>
+            <custom:CustomEntry Text="{Binding Password}" IsPassword="True" Grid.Row="6" Grid.Column="1" FontSize="Body" 
+                                HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
+
+            <!-- Repeat Password Entry -->
+            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
+                       Source="bg_entry.png" Grid.Row="7" Grid.Column="1"/>
+            <Label Text="CONFIRM PASSWORD" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
+                       FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="7" Grid.Column="0"/>
+            <custom:CustomEntry Text="{Binding PasswordCheck}" IsPassword="True" Grid.Row="7" Grid.Column="1" FontSize="Body" 
+                                HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
+
+
             <Button Text="CREATE ACCOUNT" BackgroundColor="#FFCB00" TextColor="White" VerticalOptions="Center"
                     HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Grid.ColumnSpan="2" 
-                    Grid.Row="6" Grid.Column="0" HeightRequest="40" Margin="0,20,0,0" Command="{Binding CreateAccCom}"/>
+                    Grid.Row="8" Grid.Column="0" HeightRequest="40" Margin="0,20,0,0" Command="{Binding CreateAccCom}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
