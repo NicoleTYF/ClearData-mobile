@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using ClearData.Models;
+using Newtonsoft.Json;
 
 namespace ClearData.Services
 {
@@ -135,7 +137,13 @@ namespace ClearData.Services
 
             enabledSet = new HashSet<(int, int)>();
 
-            var response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, null);
+            HttpResponseMessage response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (response != null)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                dataTypes = JsonConvert.DeserializeObject<List<DataType>>(jsonString);
+            }
 
         }
 

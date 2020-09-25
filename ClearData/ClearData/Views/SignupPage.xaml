@@ -48,6 +48,7 @@
             <custom:CustomEntry Text="{Binding UsernameText}" Grid.Row="3" Grid.Column="1" FontSize="Body" 
                                 HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
 
+            <!-- Date of Birth Entry-->
             <Label Text="DATE OF BIRTH" FontSize="Micro" TextColor="#FFE88F" VerticalOptions="End" Margin="0,0,0,10"
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="4" Grid.Column="0"/>
             <DatePicker Date="{Binding DateofBirth}" Grid.Row="4" Grid.Column="1" FontSize="Body" TextColor="White" Margin="0,17,0,0" />
@@ -58,6 +59,9 @@
                        FontAttributes="Bold" BackgroundColor="Transparent" Grid.Row="5" Grid.Column="0"/>
             <custom:CustomEntry Text="{Binding Birthplace}" Grid.Row="5" Grid.Column="1" FontSize="Body" 
                                 HeightRequest="60" VerticalOptions="EndAndExpand" Margin="10,0,0,-8"/>
+            
+            
+            
             <Button Text="CREATE ACCOUNT" BackgroundColor="#FFCB00" TextColor="White" VerticalOptions="Center"
                     HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Grid.ColumnSpan="2" 
                     Grid.Row="6" Grid.Column="0" HeightRequest="40" Margin="0,20,0,0" Command="{Binding CreateAccCom}"/>
