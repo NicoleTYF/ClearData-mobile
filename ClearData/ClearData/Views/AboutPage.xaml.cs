@@ -1,36 +1,45 @@
-﻿using ClearData.ViewModels;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClearData.ViewModels;
+using Microcharts;
+using SkiaSharp;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using CarouselView.FormsPlugin.Abstractions;
+
 
 namespace ClearData.Views
 {
     public partial class AboutPage : ContentPage
     {
+
+        AboutViewModel _viewModel;
+
         public AboutPage()
         {
             InitializeComponent();
-            BindingContext = new AboutViewModel();
+            BindingContext = _viewModel = new AboutViewModel();
+            OnAppearing();
+
+            /*
             var myCarousel = new CarouselViewControl();
             myCarousel.ItemsSource = new ObservableCollection<int> { 1, 2 }; 
             myCarousel.Position = 0; //default
             myCarousel.InterPageSpacing = 10;
             myCarousel.Orientation = CarouselViewOrientation.Horizontal;
+            */
+
         }
 
-        void Handle_PositionSelected(object sender, CarouselView.FormsPlugin.Abstractions.PositionSelectedEventArgs e)
+        protected override void OnAppearing()
         {
-            Debug.WriteLine("Position " + e.NewValue + " selected.");
-        }
+            base.OnAppearing();
 
-        void Handle_Scrolled(object sender, CarouselView.FormsPlugin.Abstractions.ScrolledEventArgs e)
-        {
-            Debug.WriteLine("Scrolled to " + e.NewValue + " percent.");
-            Debug.WriteLine("Direction = " + e.Direction);
+            // ... our chart data and chart type here ...
+
+            chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
         }
     }
 }
