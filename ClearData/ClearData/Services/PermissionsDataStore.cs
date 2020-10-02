@@ -137,12 +137,20 @@ namespace ClearData.Services
 
             enabledSet = new HashSet<(int, int)>();
 
-            HttpResponseMessage response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
+            HttpResponseMessage dataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
                                                                                         DatabaseInteraction.HttpRequestType.GET, null);
-            if (response != null)
+            if (dataTypesResponse != null)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonString = await dataTypesResponse.Content.ReadAsStringAsync();
                 dataTypes = JsonConvert.DeserializeObject<List<DataType>>(jsonString);
+            }
+
+            HttpResponseMessage companiesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.ENTERPRISES,
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (companiesResponse != null)
+            {
+                var jsonString = await companiesResponse.Content.ReadAsStringAsync();
+                companies = JsonConvert.DeserializeObject<List<Company>>(jsonString);
             }
 
         }

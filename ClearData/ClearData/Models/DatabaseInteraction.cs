@@ -20,7 +20,7 @@ namespace ClearData.Models
         private static string webpage = "https://cleardata-webapp.uqcloud.net/api";
         private static HttpClient client;
 
-        public enum DatabaseRequest { SIGNUP, DATATYPES }
+        public enum DatabaseRequest { SIGNUP, DATATYPES, ENTERPRISES }
         public enum HttpRequestType { POST, GET }
 
         private static Uri GetUri(DatabaseRequest requestType)
@@ -30,6 +30,9 @@ namespace ClearData.Models
             {
                 case DatabaseRequest.SIGNUP:
                     address = "consumer_profiles";
+                    break;
+                case DatabaseRequest.ENTERPRISES:
+                    address = "enterprises";
                     break;
                 case DatabaseRequest.DATATYPES:
                 default: //never uses default
