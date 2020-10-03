@@ -21,7 +21,7 @@ namespace ClearData.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new AboutViewModel();
-            OnAppearing();
+            //OnAppearing();
 
             /*
             var myCarousel = new CarouselViewControl();
@@ -33,6 +33,7 @@ namespace ClearData.Views
 
         }
 
+        /*
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -41,5 +42,6 @@ namespace ClearData.Views
 
             //chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
         }
+        */
     }
 }

@@ -14,27 +14,22 @@
 
     <StackLayout>
         <!-- Top left logo -->
-        <!--
         <ImageButton Source="logo_text.png"
                          Margin="10,8,0,0"
                          WidthRequest="120"
                          HeightRequest="30"
                          BackgroundColor="Transparent"
                          HorizontalOptions="Start"/>
--->
         <!-- Title text -->
-        <!--
         <Label Text="Welcome Home!"
                     Margin="21.5,15,21.5,0"
                     FontSize="37"
                     TextColor="White"
                     FontFamily="Calibri-Light"
                     HorizontalOptions="Start"/>
-        -->
 
-        <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="400" WidthRequest="400" 
-                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True"  />
-<!--
+        
+
         <Grid Margin="14,0,16,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -46,6 +41,8 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
+                
+                
 
             <Image Source="bg_card.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" 
                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
@@ -54,6 +51,8 @@
             <Label Text="$846.84" TextColor="Black" FontSize="37" Margin="34,0,0,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalOptions="End" />
             <Label Text="$34.15 (+4.2%)" TextColor="ForestGreen" FontSize="Caption" Margin="16,0,27,0" Grid.Column="1" Grid.Row="2" 
                    HorizontalOptions="EndAndExpand" VerticalOptions="End" />
+            
+            
 
             <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="19,0,19,0" >
                 <Grid.RowDefinitions>
@@ -73,11 +72,13 @@
                 <Button Text="Weekly" BackgroundColor="White" TextColor="#747474" FontSize="Caption" Grid.Column="1" Grid.Row="1" />
                 <Button Text="Monthly" BackgroundColor="White" TextColor="#27B3DF" FontSize="Caption" Grid.Column="2" Grid.Row="1" />
 
-                 The "Chart" attribute is set in the .cs file 
-                
+                <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="200" 
+                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+
             </Grid>
+            
         </Grid>
-                -->
+                
         <!-- 
         <carousel:CarouselViewControl x:Name="carousel"
                                         Scrolled="Handle_Scrolled"

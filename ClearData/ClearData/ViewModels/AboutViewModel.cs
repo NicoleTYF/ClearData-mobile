@@ -12,7 +12,7 @@ namespace ClearData.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         public AboutViewModel()
         {
@@ -55,11 +55,9 @@ namespace ClearData.ViewModels
                 return _myItemsSource;
             }
         }
+        
 
         public Command MyCommand { protected set; get; }
-
-        public Microcharts.Entry[] entries { protected set; get; }
-
         */
 
         private Chart donutChart;
@@ -69,9 +67,11 @@ namespace ClearData.ViewModels
             set => SetProperty(ref donutChart, value);
         }
 
+        /*
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        */
     }
 }
