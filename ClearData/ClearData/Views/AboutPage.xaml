@@ -14,24 +14,27 @@
 
     <StackLayout>
         <!-- Top left logo -->
+        <!--
         <ImageButton Source="logo_text.png"
                          Margin="10,8,0,0"
                          WidthRequest="120"
                          HeightRequest="30"
                          BackgroundColor="Transparent"
                          HorizontalOptions="Start"/>
-
+-->
         <!-- Title text -->
+        <!--
         <Label Text="Welcome Home!"
                     Margin="21.5,15,21.5,0"
                     FontSize="37"
                     TextColor="White"
                     FontFamily="Calibri-Light"
                     HorizontalOptions="Start"/>
+        -->
 
-        <microcharts:ChartView x:Name="chartViewLine" HeightRequest="400" WidthRequest="400" 
+        <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="400" WidthRequest="400" 
                                HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True"  />
-
+<!--
         <Grid Margin="14,0,16,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -70,10 +73,11 @@
                 <Button Text="Weekly" BackgroundColor="White" TextColor="#747474" FontSize="Caption" Grid.Column="1" Grid.Row="1" />
                 <Button Text="Monthly" BackgroundColor="White" TextColor="#27B3DF" FontSize="Caption" Grid.Column="2" Grid.Row="1" />
 
-                <!-- The "Chart" attribute is set in the .cs file -->
+                 The "Chart" attribute is set in the .cs file 
                 
             </Grid>
         </Grid>
+                -->
         <!-- 
         <carousel:CarouselViewControl x:Name="carousel"
                                         Scrolled="Handle_Scrolled"

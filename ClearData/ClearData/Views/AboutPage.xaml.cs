@@ -39,7 +39,7 @@ namespace ClearData.Views
 
             // ... our chart data and chart type here ...
 
-            chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
+            //chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
         }
     }
 }

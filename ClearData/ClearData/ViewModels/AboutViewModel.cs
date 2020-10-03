@@ -7,7 +7,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Microcharts;
 using SkiaSharp;
-using Xamarin.Forms;
 
 namespace ClearData.ViewModels
 {
@@ -17,31 +16,35 @@ namespace ClearData.ViewModels
 
         public AboutViewModel()
         {
-
-             MyItemsSource = new ObservableCollection<View>()
+            /*
+            MyItemsSource = new ObservableCollection<View>()
             {
                 new CachedImage() { Source = "c1.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill },
                 new CachedImage() { Source = "c2.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill },
                 new CachedImage() { Source = "c3.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill }
             };
+            */
 
-            var entries = new ChartEntry[]
+            var entries = new Microcharts.Entry[]
             {
-                new ChartEntry(600) { ValueLabel = "600", Label = "January", Color = SKColor.Parse("#266489") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "February", Color = SKColor.Parse("#68B9C0") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "March", Color = SKColor.Parse("#90D585") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "April", Color = SKColor.Parse("#F3C151")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "May", Color = SKColor.Parse("#F37F64")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "June", Color = SKColor.Parse("#424856") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "July", Color = SKColor.Parse("#8F97A4")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "August", Color = SKColor.Parse("#DAC096") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "September", Color = SKColor.Parse("#76846E") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "October", Color = SKColor.Parse("#A65B69") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "November", Color = SKColor.Parse("#DABFAF") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "December", Color = SKColor.Parse("#97A69D") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "January", Color = SKColor.Parse("#266489") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "February", Color = SKColor.Parse("#68B9C0") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "March", Color = SKColor.Parse("#90D585") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "April", Color = SKColor.Parse("#F3C151")},
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "May", Color = SKColor.Parse("#F37F64")},
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "June", Color = SKColor.Parse("#424856") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "July", Color = SKColor.Parse("#8F97A4")},
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "August", Color = SKColor.Parse("#DAC096") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "September", Color = SKColor.Parse("#76846E") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "October", Color = SKColor.Parse("#A65B69") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "November", Color = SKColor.Parse("#DABFAF") },
+                new Microcharts.Entry(600) { ValueLabel = "600", Label = "December", Color = SKColor.Parse("#97A69D") },
             };
+
+            DonutChart = new DonutChart() { Entries = entries };
         }
 
+        /*
         ObservableCollection<View> _myItemsSource;
         public ObservableCollection<View> MyItemsSource {
             set {
@@ -55,7 +58,16 @@ namespace ClearData.ViewModels
 
         public Command MyCommand { protected set; get; }
 
-        public ChartEntry[] entries { protected set; get;}
+        public Microcharts.Entry[] entries { protected set; get; }
+
+        */
+
+        private Chart donutChart;
+        public Chart DonutChart
+        {
+            get => donutChart;
+            set => SetProperty(ref donutChart, value);
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
