@@ -60,7 +60,7 @@
                        Grid.Column="0"
                        WidthRequest="90" 
                        HeightRequest="25"
-                       HorizontalOptions="Start"/>
+                       HorizontalOptions="End"/>
 
                 <!-- White horizontal line -->
                 <Image Source="img_whiteline.png" 
@@ -139,7 +139,9 @@
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
                                             </CollectionView>
-                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Transparent" VerticalOptions="StartAndExpand" 
+                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Transparent" VerticalOptions="StartAndExpand"/>
+                                            <ImageButton Source="bg_trans.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" BackgroundColor="Transparent" BorderColor="Transparent" Opacity="0"
                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:LogsViewModel}}, Path=DataTypeHistoryBtnCommand}"		
                                                          CommandParameter="{Binding .}"/>
                                         </Grid>
@@ -201,7 +203,9 @@
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
                                             </CollectionView>
-                                            <ImageButton Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Transparent" VerticalOptions="StartAndExpand" 
+                                            <Image Source="ic_history.png" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Transparent" VerticalOptions="StartAndExpand"/>
+                                            <ImageButton Source="bg_trans.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" BackgroundColor="Transparent" BorderColor="Transparent" Opacity="0"
                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:LogsViewModel}}, Path=CompanyHistoryBtnCommand}"		
                                                          CommandParameter="{Binding .}"/>
                                         </Grid>
@@ -211,8 +215,6 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </RefreshView>
-
-
             </Grid>
         </StackLayout>
     </ContentPage.Content>

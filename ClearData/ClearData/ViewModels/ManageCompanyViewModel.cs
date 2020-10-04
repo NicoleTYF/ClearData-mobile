@@ -54,8 +54,8 @@ namespace ClearData.ViewModels
 
             //next update the sliders and permissions to reflect this
             //only done if changing to ALL or NONE
-            if (company.Restriction == Company.RestrictionType.ALL || 
-                company.Restriction == Company.RestrictionType.NONE)
+            if (currentRestriction == (int)Company.RestrictionType.ALL || 
+                currentRestriction == (int)Company.RestrictionType.NONE)
             {
                 for (int i = 0; i < DataTypePermissions.Count; i++)
                 {
@@ -74,25 +74,6 @@ namespace ClearData.ViewModels
                 }
             }
         }
-
-        public static void EnsureDataTypeEnabledEntry(Company company, DataType dataType)
-        {
-            if (!company.DataTypeEnabled.TryGetValue(dataType.Id, out bool result))
-            {
-                //if we are in here, there wasn't an entry in the dictionary
-                //add the entry in the dictionary depending on the current restriction setting
-                switch (company.Restriction)
-                {
-                    case Company.RestrictionType.ALL:
-                    case Company.RestrictionType.CUSTOM_OPT_OUT:
-                        company.DataTypeEnabled.Add(dataType.Id, true);
-                        break;
-                    default:
-                        company.DataTypeEnabled.Add(dataType.Id, false);
-                        break;
-                }
-            }
-        }
             
         async Task ExecuteBackButtonPressed()
         {
@@ -105,26 +86,19 @@ namespace ClearData.ViewModels
 
             try
             {
-                //first check to see if the permissions object exists. I am a little unsure where we are instantiating
-                //these static variables, potentially this needs to move somewhere else
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 //then we clear the observable collection and replace it
                 DataTypePermissions.Clear();
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true); //get the data types
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true); //get the data types
                 foreach (var dataType in dataTypes)
                 {
                     //first check for overlap between the wanted data types and the enabled data types and only display those
                     if (dataType.Enabled && company.WantedDataTypes.Contains(dataType.Id))
                     {
-                        EnsureDataTypeEnabledEntry(Company, dataType);
                         //now make an entry into the tuple observable collection which we use for our display
                         DataTypePermissions.Add(new CompanyDataType()
                         {
                             DataType = dataType,
-                            CompanyEnabled = company.DataTypeEnabled[dataType.Id]
+                            CompanyEnabled = UserInfo.GetPermissions().InEnabledSet(dataType.Id, company.Id)
                         });
                     }
                 }
@@ -156,15 +130,14 @@ namespace ClearData.ViewModels
             {
                 //first do the updating of the backend to reflect the change to the switch
                 //switch bound to company enabled, not the dictionary
-                company.DataTypeEnabled[companyDataType.DataType.Id] = companyDataType.CompanyEnabled;
+                UserInfo.GetPermissions().SetEnabled(companyDataType.DataType.Id, company.Id, companyDataType.CompanyEnabled);
                 //next increment the true count, this is counting the new status
-                if (company.DataTypeEnabled[companyDataType.DataType.Id])
+                if (UserInfo.GetPermissions().InEnabledSet(companyDataType.DataType.Id, company.Id))
                     trueCount++;
             }
             //now use the number of trues counted to update the restriction type
-            //first check updating to ALL setting, don't do if on CUSTOM_OPT_IN setting or already on ALL
+            //first check updating to ALL setting, don't do if already on ALL
             if (trueCount == DataTypePermissions.Count &&
-                    company.Restriction != Company.RestrictionType.CUSTOM_OPT_IN &&
                     company.Restriction != Company.RestrictionType.ALL)
             {
                 company.Restriction = Company.RestrictionType.ALL;
@@ -174,18 +147,10 @@ namespace ClearData.ViewModels
                 company.Restriction = Company.RestrictionType.NONE;
             }
             //then update if we are now in the middle but came from one of the ends
-            else if (trueCount < DataTypePermissions.Count && trueCount > 0)
+            else if (trueCount < DataTypePermissions.Count && trueCount > 0 && 
+                company.Restriction != Company.RestrictionType.CUSTOM)
             {
-                if (company.Restriction == Company.RestrictionType.NONE)
-                {
-                    //coming from none restriction, change to opt in
-                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_IN;
-                }
-                else if (company.Restriction == Company.RestrictionType.ALL)
-                {
-                    //coming from all restriction, change to opt out
-                    company.Restriction = Company.RestrictionType.CUSTOM_OPT_OUT;
-                }
+                company.Restriction = Company.RestrictionType.CUSTOM;
             }
             //finally update the restriction that is being displayed
             CurrentRestriction = (int)company.Restriction;

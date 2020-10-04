@@ -62,69 +62,41 @@ namespace ClearData.ViewModels
             IsDataTypeDisplayBusy = true;
             try
             {
-                //first check the permissions data store exists
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 TypeSortedLogs.Clear(); //clear the list
 
-                //then create all the observable lists of logs, one for each datatype that is being tracked
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
-                foreach (var dataType in dataTypes)
+                //go through each of the datatypes and work out all the company accesses for each
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
+                var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
+                var logDictionary = UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+                foreach (DataType dataType in dataTypes)
                 {
-                    if (dataType.Enabled)
+                    //create an indexed log collection, create this for all datatypes, but only add it to the TypeSortedLogs if it has an entry
+                    IndexedLogCollection dataTypeLogCollection = new IndexedLogCollection()
                     {
-                        TypeSortedLogs.Add(new IndexedLogCollection() { DataType = dataType, Logs = new ObservableCollection<Log>(), 
-                            LogsWithMaxElements = new ObservableCollection<Log>()});
-                    }
-                }
-                //now that we have the creations for each of the datatypes, go through all the companies and add all their usage
-                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
-                foreach (var company in companies)
-                {
-                    foreach (var dataType in dataTypes)
+                        DataType = dataType,
+                        Logs = new ObservableCollection<Log>(),
+                        LogsWithMaxElements = new ObservableCollection<Log>()
+                    };
+                    bool toAdd = false; //whether to add this indexed log collection to the full list, set true if there is a log added
+                    foreach (Company company in companies)
                     {
-                        //if there is an entry to be made, find where to enter it
-                        //for an entry to be made, it must be enabled by the user and the company and have a last accessed time
-                        ManageCompanyViewModel.EnsureDataTypeEnabledEntry(company, dataType); //ensure the entry exists
-                        if (dataType.Enabled && company.DataTypeEnabled[dataType.Id] &&
-                            company.LastAccessed.TryGetValue(dataType.Id, out DateTime result))
+                        if (logDictionary.ContainsKey((dataType.Id, company.Id)))
                         {
-                            //this hurts my soul a bit with the remarkable inefficiency, but we won't be doing anything big
-                            //so it is kinda fine, and to do it better I would need to track indices and stuff
-                            foreach (var typeSortedLog in TypeSortedLogs)
+                            toAdd = true; //there was at least one entry, this data type should be displayed
+                            //there is a list, iterate through it and add all the 
+                            foreach (DateTime dateTime in logDictionary[(dataType.Id, company.Id)])
                             {
-                                if (typeSortedLog.DataType.Id == dataType.Id)
-                                {
-                                    typeSortedLog.Logs.Add(new Log(dataType, company, company.LastAccessed[dataType.Id]));
-                                    break;
-                                }
+                                dataTypeLogCollection.Logs.Add(new Log(dataType, company, dateTime));
                             }
                         }
                     }
-                }
-                
-                //now because we wouldn't want to be finished, we need to sort each of the log collections by time
-                //and only add up to MAX_ELEMENTS into the other log list
-                foreach (var typeSortedLog in TypeSortedLogs)
-                {
-                    ObservableCollection<Log> temp;
-                    temp = new ObservableCollection<Log>(typeSortedLog.Logs.OrderByDescending(log => log.Time));
-                    typeSortedLog.Logs.Clear();
-                    typeSortedLog.LogsWithMaxElements.Clear();
-                    int count = 0;
-                    foreach (Log log in temp)
+                    if (toAdd)
                     {
-                        typeSortedLog.Logs.Add(log);
-                        //have a cap on the number which can be added to this extra display list
-                        if (count < IndexedLogCollection.MAX_ELEMENTS)
-                        {
-                            count++;
-                            typeSortedLog.LogsWithMaxElements.Add(log);
-                        }
+                        TypeSortedLogs.Add(dataTypeLogCollection);
                     }
                 }
+
+                SortAndTrimEntries(TypeSortedLogs);
             }
             catch (Exception ex)
             {
@@ -141,56 +113,41 @@ namespace ClearData.ViewModels
             IsServicesDisplayBusy = true;
             try
             {
-                //first check the permissions data store exists
-                if (UserInfo.permissions == null)
-                {
-                    UserInfo.permissions = new PermissionsDataStore();
-                }
                 CompanySortedLogs.Clear(); //clear the list
 
-                //go through all the companies and create their
-                var dataTypes = await UserInfo.permissions.GetDataTypesAsync(true);
-                var companies = await UserInfo.permissions.GetCompaniesAsync(true);
-                foreach (var company in companies)
+                //go through each of the companies and work out all the data type accesses for each
+                var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
+                var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
+                var logDictionary = UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+                foreach (Company company in companies)
                 {
-                    if (company.Restriction == Company.RestrictionType.NONE)
-                        continue; //this company is restricted, don't display anything for the company
-                    IndexedLogCollection thisIndexedLog = new IndexedLogCollection() { Company = company, Logs = new ObservableCollection<Log>(), 
-                        LogsWithMaxElements = new ObservableCollection<Log>() };
-                    CompanySortedLogs.Add(thisIndexedLog);
-                    foreach (var dataType in dataTypes)
+                    //create an indexed log collection, create this for all datatypes, but only add it to the TypeSortedLogs if it has an entry
+                    IndexedLogCollection companyLogCollection = new IndexedLogCollection()
                     {
-                        //if there is an entry to be made, find where to enter it
-                        //for an entry to be made, it must be enabled by the user and the company and have a last accessed time
-                        ManageCompanyViewModel.EnsureDataTypeEnabledEntry(company, dataType); //ensure the entry exists
-                        if (dataType.Enabled && company.DataTypeEnabled[dataType.Id] &&
-                            company.LastAccessed.TryGetValue(dataType.Id, out DateTime result))
+                        Company = company,
+                        Logs = new ObservableCollection<Log>(),
+                        LogsWithMaxElements = new ObservableCollection<Log>()
+                    };
+                    bool toAdd = false; //whether to add this indexed log collection to the full list, set true if there is a log added
+                    foreach (DataType dataType in dataTypes)
+                    {
+                        if (logDictionary.ContainsKey((dataType.Id, company.Id)))
                         {
-                            thisIndexedLog.Logs.Add(new Log(dataType, company, company.LastAccessed[dataType.Id]));
+                            toAdd = true; //there was at least one entry, this data type should be displayed
+                            //there is a list, iterate through it and add all the 
+                            foreach (DateTime dateTime in logDictionary[(dataType.Id, company.Id)])
+                            {
+                                companyLogCollection.Logs.Add(new Log(dataType, company, dateTime));
+                            }
                         }
+                    }
+                    if (toAdd)
+                    {
+                        CompanySortedLogs.Add(companyLogCollection);
                     }
                 }
 
-                //now because we wouldn't want to be finished, we need to sort each of the log collections by time
-                //and only add up to MAX_ELEMENTS into the other log list
-                foreach (var companySortedLog in CompanySortedLogs)
-                {
-                    ObservableCollection<Log> temp;
-                    temp = new ObservableCollection<Log>(companySortedLog.Logs.OrderByDescending(log => log.Time));
-                    companySortedLog.Logs.Clear();
-                    companySortedLog.LogsWithMaxElements.Clear();
-                    int count = 0;
-                    foreach (Log log in temp)
-                    {
-                        companySortedLog.Logs.Add(log);
-                        //have a cap on the number which can be added to this extra display list
-                        if (count < IndexedLogCollection.MAX_ELEMENTS)
-                        {
-                            count++;
-                            companySortedLog.LogsWithMaxElements.Add(log);
-                        }
-                    }
-                }
+                SortAndTrimEntries(CompanySortedLogs);
             }
             catch (Exception ex)
             {
@@ -199,6 +156,33 @@ namespace ClearData.ViewModels
             finally
             {
                 IsServicesDisplayBusy = false;
+            }
+        }
+
+
+        /**
+         * takes all of the logs which have been added, and makes sure that they are all sorted, and the LogsWithMaxElements
+         * are created containing the first MAX_ELEMENTS entries
+         */
+        private void SortAndTrimEntries(ObservableCollection<IndexedLogCollection> sortedLogs)
+        {
+            foreach (var logCollection in sortedLogs)
+            {
+                ObservableCollection<Log> temp;
+                temp = new ObservableCollection<Log>(logCollection.Logs.OrderByDescending(log => log.Time));
+                logCollection.Logs.Clear();
+                logCollection.LogsWithMaxElements.Clear();
+                int count = 0;
+                foreach (Log log in temp)
+                {
+                    logCollection.Logs.Add(log);
+                    //have a cap on the number which can be added to this extra display list
+                    if (count < IndexedLogCollection.MAX_ELEMENTS)
+                    {
+                        count++;
+                        logCollection.LogsWithMaxElements.Add(log);
+                    }
+                }
             }
         }
     }

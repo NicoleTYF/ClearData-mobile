@@ -78,8 +78,7 @@
                         <!-- These written values are hard coded in here, not good but binding them was super difficult and this was easy-->
                         <Picker.Items>
                             <x:String>All</x:String>
-                            <x:String>Custom Opt In</x:String>
-                            <x:String>Custom Opt Out</x:String>
+                            <x:String>Custom</x:String>
                             <x:String>None</x:String>
                         </Picker.Items>
                     </Picker>

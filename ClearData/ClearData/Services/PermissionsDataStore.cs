@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using ClearData.Models;
+using Newtonsoft.Json;
 
 namespace ClearData.Services
 {
     public class PermissionsDataStore
     {
         public List<DataType> dataTypes;
-        readonly List<Company> companies;
+        private List<Company> companies;
+        private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
         public PermissionsDataStore()
+        {
+            
+        }
+
+        public async Task LoadDataStore()
         {
 
             dataTypes = new List<DataType>()
             {
-                new DataType { Id = (int)DataType.DataTypeId.COARSE_LOCATION, Name = "Coarse Location", Description = "General location data tracking your rough location such as your current suburb", Enabled = false},
-                new DataType { Id = (int)DataType.DataTypeId.FINE_LOCATION, Name = "Fine Location", Description = "GPS location data tracking your specific position, usually accurate to within 5 metres", Enabled = false },
-                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit", Enabled = false },
-                new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll", Enabled=false},
-                new DataType { Id = (int)DataType.DataTypeId.ADVERTISING, Name = "Advertising", Description = "Your interactions with advertisements including which ones you engage with", Enabled=false}
+                new DataType { Id = (int)DataType.DataTypeId.LOCATION, Name = "Location", Description = "Data tracking your current location"},
+                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit"},
+                new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery"},
+                new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online"},
+                new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll"},
+                new DataType { Id = (int)DataType.DataTypeId.ADVERTISING, Name = "Advertising", Description = "Your interactions with advertisements including which ones you engage with"}
             };
 
             Company Google = new Company
@@ -33,15 +40,8 @@ namespace ClearData.Services
                 "company that specializes in Internet-related services and products, which include online advertising technologies, " +
                 "a search engine, cloud computing, software, and hardware. It is considered one of the Big Four technology companies " +
                 "alongside Amazon, Apple and Microsoft.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
-                                                        (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.ADVERTISING},
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(500, 0, 0) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(0, 14, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(28, 0, 0) },
-                                                                    { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(100, 2, 0) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
+                                                        (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.ADVERTISING}
             };
 
             Company Amazon = new Company
@@ -51,15 +51,8 @@ namespace ClearData.Services
                 Description = "Amazon.com, Inc., is an American multinational technology company based in Seattle, Washington. " +
                 "Amazon focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is considered one " +
                 "of the Big Four technology companies, along with Google, Apple, and Facebook.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE, 
-                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, DateTime.Now - new TimeSpan(2, 26, 13) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(42, 2, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(1, 0, 0) },
-                                                                    { (int)DataType.DataTypeId.PAYMENT_HISTORY, DateTime.Now - new TimeSpan(9, 2, 0) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(25, 2, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE, 
+                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING }
             };
 
             Company Spotify = new Company
@@ -69,14 +62,8 @@ namespace ClearData.Services
                 Description = "Spotify is a Swedish music streaming and media services provider. It is operated by Spotify AB, " +
                 "which is publicly traded in the NYSE through Luxembourg-domiciled holding company Spotify Technology S.A., " +
                 "itself a constituent of the Russell 1000 Index.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.COARSE_LOCATION, 
-                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.PHOTOS},
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(3, 42, 13) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(0, 8, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(4, 19, 0) },
-                                                                    { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(0, 35, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.LOCATION, 
+                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.PHOTOS}
             };
 
             Company Mozilla = new Company
@@ -86,13 +73,8 @@ namespace ClearData.Services
                 Description = "Mozilla is a free software community founded in 1998 by members of Netscape. The Mozilla community uses, develops, spreads and " +
                 "supports Mozilla products, thereby promoting exclusively free software and open standards, with only minor exceptions. " +
                 "The community is supported institutionally by the not-for-profit Mozilla Foundation and its tax-paying subsidiary, the Mozilla Corporation.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.COARSE_LOCATION, (int)DataType.DataTypeId.BROWSING,
-                                                        (int)DataType.DataTypeId.ADVERTISING },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(0, 2, 13) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(85, 2, 13) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(600, 4, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING,
+                                                        (int)DataType.DataTypeId.ADVERTISING }
             };
 
             Company Uber = new Company
@@ -103,13 +85,8 @@ namespace ClearData.Services
                 "freight transportation, and, through a partnership with Lime, electric bicycle and motorized scooter rental. The company is based in San " +
                 "Francisco and has operations in over 900 metropolitan areas worldwide. It is one of the largest providers in the gig economy and is also a pioneer " +
                 "in the development of self-driving cars.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.PHONE_USAGE,
-                                                        (int)DataType.DataTypeId.PHOTOS },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, DateTime.Now - new TimeSpan(67, 26, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(1, 0, 0) },
-                                                                    { (int)DataType.DataTypeId.PHOTOS, DateTime.Now}}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.PHONE_USAGE,
+                                                        (int)DataType.DataTypeId.PHOTOS }
             };
 
             Company Ebay = new Company
@@ -119,13 +96,8 @@ namespace ClearData.Services
                 Description = "eBay Inc. is an American multinational e-commerce corporation based in San Jose, California, that facilitates consumer-to-consumer" +
                 " and business-to-consumer sales through its website. eBay was founded by Pierre Omidyar in 1995, and became a notable success story of the dot-com " +
                 "bubble. eBay is a multibillion-dollar business with operations in about 32 countries, as of 2019.",
-                Restriction = Company.RestrictionType.ALL,
                 WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING,
-                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.PAYMENT_HISTORY, DateTime.Now - new TimeSpan(14, 26, 13) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(1400, 2, 13) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(300, 2, 0) }}
+                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING }
             };
 
             Company LinkedIn = new Company
@@ -136,11 +108,7 @@ namespace ClearData.Services
                 "Launched on May 5, 2003, it is mainly used for professional networking, including employers posting jobs and job seekers posting their CVs. " +
                 "As of 2015, most of the company's revenue came from selling access to information about its members to recruiters and sales professionals. " +
                 "Since December 2016 it has been a wholly owned subsidiary of Microsoft. As of May 2020, LinkedIn had 706 million registered members in 150 countries.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.COARSE_LOCATION },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(700, 26, 13) },
-                                                                    { (int)DataType.DataTypeId.COARSE_LOCATION, DateTime.Now - new TimeSpan(400, 2, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.LOCATION }
             };
 
             Company Microsoft = new Company
@@ -151,14 +119,8 @@ namespace ClearData.Services
                 "manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services. " +
                 "Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer " +
                 "and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, 
-                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.ADVERTISING },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, DateTime.Now },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(2, 2, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(5, 0, 0) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(10, 2, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, 
+                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.ADVERTISING }
             };
 
             Company Facebook = new Company
@@ -168,19 +130,137 @@ namespace ClearData.Services
                 Description = "Facebook is an American online social media and social networking service based in Menlo Park, California and a flagship service " +
                 "of the namesake company Facebook, Inc. It was founded by Mark Zuckerberg, along with fellow Harvard College students and roommates " +
                 "Eduardo Saverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes.",
-                Restriction = Company.RestrictionType.ALL,
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.FINE_LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
-                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING, (int)DataType.DataTypeId.PHOTOS },
-                DataTypeEnabled = new Dictionary<int, bool>(),
-                LastAccessed = new Dictionary<int, DateTime>() { { (int)DataType.DataTypeId.FINE_LOCATION, DateTime.Now - new TimeSpan(0, 50, 13) },
-                                                                    { (int)DataType.DataTypeId.BROWSING, DateTime.Now - new TimeSpan(0, 4, 13) },
-                                                                    { (int)DataType.DataTypeId.PHONE_USAGE, DateTime.Now - new TimeSpan(0, 5, 45) },
-                                                                    { (int)DataType.DataTypeId.PAYMENT_HISTORY, DateTime.Now - new TimeSpan(0, 9, 0) },
-                                                                    { (int)DataType.DataTypeId.PHOTOS, DateTime.Now - new TimeSpan(0, 2, 0) },
-                                                                    { (int)DataType.DataTypeId.ADVERTISING, DateTime.Now - new TimeSpan(0, 42, 0) }}
+                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
+                    (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING, (int)DataType.DataTypeId.PHOTOS }
             };
-
             companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
+
+            enabledSet = new HashSet<(int, int)>();
+
+            HttpResponseMessage response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (response != null)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                dataTypes = JsonConvert.DeserializeObject<List<DataType>>(jsonString);
+            }
+
+        }
+
+        public bool InEnabledSet(int dataTypeId, int companyId)
+        {
+            return enabledSet.Contains((dataTypeId, companyId));
+        }
+
+        public void SetEnabled(int dataTypeId, int companyId, bool setting)
+        {
+            if (setting)
+            {
+                enabledSet.Add((dataTypeId, companyId));
+            } 
+            else
+            {
+                enabledSet.Remove((dataTypeId, companyId));
+            }
+        }
+
+        /**
+         * get the data types that the company wants, which overlap with the data types that are globally enabled
+         */
+        public List<DataType> GetWantedDataTypesOverlap(Company company)
+        {
+            List<DataType> wantedDataTypesOverlap = new List<DataType>();
+            //for each data type, if it is wanted by the company
+            foreach (DataType dataType in dataTypes)
+            {
+                if (company.WantedDataTypes.Contains(dataType.Id) && IsDataTypeEnabledGlobally(dataType.Id))
+                {
+                    wantedDataTypesOverlap.Add(dataType);
+                }
+            }
+            return wantedDataTypesOverlap;
+        } 
+
+        //infer whether a data type is enabled from all the internal values
+        public bool IsDataTypeEnabledGlobally(int dataTypeId)
+        {
+            foreach (Company company in companies)
+            {
+                if (company.WantedDataTypes.Contains(dataTypeId) && InEnabledSet(dataTypeId, company.Id))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void SetDataTypeGlobalPermission(int dataTypeId, bool setting)
+        {
+            foreach (Company company in companies)
+            {
+                if (setting == false && company.WantedDataTypes.Contains(dataTypeId))
+                {
+                    SetEnabled(dataTypeId, company.Id, setting);
+                }
+                else if (setting == true && company.WantedDataTypes.Contains(dataTypeId))
+                {
+                    //update the settings, unless we are on the none setting for the company and are trying to switch it on
+                    //this is a weird one, because once we update one of them, it then treats the data type as being on for determining
+                    //whether the current setting is ALL or NONE, so we need to actually do that manually here, and not consider this
+                    //data type
+                    //so we want to set it on if there are any enabled permissions OR there are no other wanted data types that are permitted globally
+                    bool companySetting = true;
+                    foreach (int otherDataTypeId in company.WantedDataTypes)
+                    {
+                        if (otherDataTypeId != dataTypeId && InEnabledSet(otherDataTypeId, company.Id))
+                        {
+                            //this company must not be on the NONE setting, so we are good to set its permissions on
+                            companySetting = true;
+                            break;
+                        }
+                        else if (companySetting == true && otherDataTypeId != dataTypeId && IsDataTypeEnabledGlobally(otherDataTypeId))
+                        {
+                            companySetting = false; //there is at least one other data type which is globally enabled but not enabled for this company
+                            //in this case, we set the flag to false, but we don't break because this can be overridden by finding one that is turned on
+                            //if this is set false and we never fall into the first clause, then and only then will the setting be false
+                        }
+                    }
+                    SetEnabled(dataTypeId, company.Id, companySetting);
+                }
+                //i am aware how horrificly inefficient this is, but I am trying to not save any information that isn't in the database, and its weird to do
+            }
+        }
+
+        //this will get removed and replaced with a database call
+        // tuple order is datatype then company
+        private static readonly List<(int, int, DateTime)> ExampleLogs = new List<(int, int, DateTime)>
+        {
+            (1,1, DateTime.Now - new TimeSpan(0, 0, 13)),
+            (1,2, DateTime.Now - new TimeSpan(0, 1, 13)),
+            (2,1, DateTime.Now - new TimeSpan(0, 2, 13)),
+            (2,3, DateTime.Now - new TimeSpan(0, 3, 13)),
+            (2,4, DateTime.Now - new TimeSpan(0, 4, 13)),
+            (3,1, DateTime.Now - new TimeSpan(0, 5, 13)),
+            (3,4, DateTime.Now - new TimeSpan(0, 6, 13)),
+            (3,4, DateTime.Now - new TimeSpan(0, 1000, 13)),
+        };
+
+        public Dictionary<(int,int),List<DateTime>> RetrieveAllRelevantLogs()
+        {
+            //this part will be replaced by a database call which will handle all the filtering
+            //at the moment just pretend that we don't care about permissions
+
+            Dictionary<(int, int), List<DateTime>> dict = new Dictionary<(int, int), List<DateTime>>();
+
+            //go through all the return values and create a dictionary, which will make finding these things much easier
+            foreach (var entry in ExampleLogs) {
+                if (!dict.ContainsKey((entry.Item1, entry.Item2)))
+                {
+                    dict[(entry.Item1, entry.Item2)] = new List<DateTime>();
+                }
+                dict[(entry.Item1, entry.Item2)].Add(entry.Item3);
+            }
+            return dict;
         }
 
         public async Task<IEnumerable<DataType>> GetDataTypesAsync(bool forceRefresh = false)

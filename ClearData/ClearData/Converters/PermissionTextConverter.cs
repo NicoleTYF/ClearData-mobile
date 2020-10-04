@@ -17,28 +17,12 @@ namespace ClearData.Converters
                 switch ((Company.RestrictionType)value)
                 {
                     case Company.RestrictionType.ALL:
-                        return "On this setting, any data you are sharing will be accessible by this company";
-                    case Company.RestrictionType.CUSTOM_OPT_IN:
-                        return "On this setting, your settings below will apply and any new data you choose to share will not be shared with this company unless you opt in";
-                    case Company.RestrictionType.CUSTOM_OPT_OUT:
-                        return "On this setting, your settings below will apply and any new data you choose to share will be shared with this company unless you opt out";
+                        return "On this setting (All), any data you are sharing will be accessible by this company";
+                    case Company.RestrictionType.CUSTOM:
+                        return "On this setting (Custom), you can toggle access to any data types";
                     case Company.RestrictionType.NONE:
                     default:
-                        return "On this setting, none of your data will be shared with this company";
-                }
-            } else if (Equals((string)parameter, "short"))
-            {
-                switch ((Company.RestrictionType)value)
-                {
-                    case Company.RestrictionType.ALL:
-                        return "All";
-                    case Company.RestrictionType.CUSTOM_OPT_IN:
-                        return "Opt In";
-                    case Company.RestrictionType.CUSTOM_OPT_OUT:
-                        return "Opt Out";
-                    case Company.RestrictionType.NONE:
-                    default:
-                        return "None";
+                        return "On this setting (None), none of your data will be shared with this company";
                 }
             }
             else
@@ -47,10 +31,8 @@ namespace ClearData.Converters
                 {
                     case Company.RestrictionType.ALL:
                         return "All";
-                    case Company.RestrictionType.CUSTOM_OPT_IN:
-                        return "Custom Opt In";
-                    case Company.RestrictionType.CUSTOM_OPT_OUT:
-                        return "Custom Opt Out";
+                    case Company.RestrictionType.CUSTOM:
+                        return "Custom";
                     case Company.RestrictionType.NONE:
                     default:
                         return "None";
@@ -64,10 +46,8 @@ namespace ClearData.Converters
             {
                 case "All":
                     return Company.RestrictionType.ALL;
-                case "Custom Opt In":
-                    return Company.RestrictionType.CUSTOM_OPT_IN;
-                case "Custom Opt Out":
-                    return Company.RestrictionType.CUSTOM_OPT_OUT;
+                case "Custom":
+                    return Company.RestrictionType.CUSTOM;
                 default:
                     return Company.RestrictionType.NONE;
             }
