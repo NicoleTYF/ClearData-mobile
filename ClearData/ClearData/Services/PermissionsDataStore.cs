@@ -21,7 +21,7 @@ namespace ClearData.Services
 
         public async Task LoadDataStore()
         {
-
+            /*
             dataTypes = new List<DataType>()
             {
                 new DataType { Id = (int)DataType.DataTypeId.LOCATION, Name = "Location", Description = "Data tracking your current location"},
@@ -134,15 +134,52 @@ namespace ClearData.Services
                     (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING, (int)DataType.DataTypeId.PHOTOS }
             };
             companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
+            */
 
             enabledSet = new HashSet<(int, int)>();
 
-            HttpResponseMessage response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
+            //load data types information
+            HttpResponseMessage dataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
                                                                                         DatabaseInteraction.HttpRequestType.GET, null);
-            if (response != null)
+            if (dataTypesResponse != null)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonString = await dataTypesResponse.Content.ReadAsStringAsync();
                 dataTypes = JsonConvert.DeserializeObject<List<DataType>>(jsonString);
+            }
+
+            //load company information
+            HttpResponseMessage companiesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.ENTERPRISES,
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (companiesResponse != null)
+            {
+                var jsonString = await companiesResponse.Content.ReadAsStringAsync();
+                companies = JsonConvert.DeserializeObject<List<Company>>(jsonString);
+            }
+
+            foreach (Company company in companies)
+            {
+                company.WantedDataTypes = new SortedSet<int>();
+            }
+            //get the wanted data types of all the companies
+            HttpResponseMessage wantedDataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.WANTED_DATA_TYPES,
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (wantedDataTypesResponse != null)
+            {
+                var jsonString = await wantedDataTypesResponse.Content.ReadAsStringAsync();
+                List<IdPair> idPairs = JsonConvert.DeserializeObject<List<IdPair>>(jsonString);
+                foreach (IdPair idPair in idPairs)
+                {
+                    //now I constructed all this structure in such a way that I never thought I would have to do this, but here we go!
+                    //iterating through all of them is sad, but what are you going to do?
+                    foreach (Company company in companies)
+                    {
+                        if (company.Id == idPair.enterprise)
+                        {
+                            company.WantedDataTypes.Add(idPair.data_type);
+                            break;
+                        }
+                    }
+                }
             }
 
         }
