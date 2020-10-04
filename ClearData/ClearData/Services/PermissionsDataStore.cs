@@ -270,16 +270,16 @@ namespace ClearData.Services
 
         //this will get removed and replaced with a database call
         // tuple order is datatype then company
-        private static readonly List<(int, int, DateTime)> ExampleLogs = new List<(int, int, DateTime)>
+        private static readonly List<BasicLog> ExampleLogs = new List<BasicLog>
         {
-            (1,1, DateTime.Now - new TimeSpan(0, 0, 13)),
-            (1,2, DateTime.Now - new TimeSpan(0, 1, 13)),
-            (2,1, DateTime.Now - new TimeSpan(0, 2, 13)),
-            (2,3, DateTime.Now - new TimeSpan(0, 3, 13)),
-            (2,4, DateTime.Now - new TimeSpan(0, 4, 13)),
-            (3,1, DateTime.Now - new TimeSpan(0, 5, 13)),
-            (3,4, DateTime.Now - new TimeSpan(0, 6, 13)),
-            (3,4, DateTime.Now - new TimeSpan(0, 1000, 13)),
+            new BasicLog{data_type=1, enterprise=1, time=DateTime.Now - new TimeSpan(0, 0, 13) },
+            new BasicLog{data_type=1, enterprise=2, time=DateTime.Now - new TimeSpan(0, 1, 13) },
+            new BasicLog{data_type=2, enterprise=1, time=DateTime.Now - new TimeSpan(0, 2, 13) },
+            new BasicLog{data_type=2, enterprise=3, time=DateTime.Now - new TimeSpan(0, 3, 13) },
+            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(1, 0, 13) },
+            new BasicLog{data_type=3, enterprise=1, time=DateTime.Now - new TimeSpan(4, 0, 13) },
+            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(5, 0, 13) },
+            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(90, 0, 13) },
         };
 
         public Dictionary<(int,int),List<DateTime>> RetrieveAllRelevantLogs()
@@ -290,12 +290,12 @@ namespace ClearData.Services
             Dictionary<(int, int), List<DateTime>> dict = new Dictionary<(int, int), List<DateTime>>();
 
             //go through all the return values and create a dictionary, which will make finding these things much easier
-            foreach (var entry in ExampleLogs) {
-                if (!dict.ContainsKey((entry.Item1, entry.Item2)))
+            foreach (var basicLog in ExampleLogs) {
+                if (!dict.ContainsKey((basicLog.data_type, basicLog.enterprise)))
                 {
-                    dict[(entry.Item1, entry.Item2)] = new List<DateTime>();
+                    dict[(basicLog.data_type, basicLog.enterprise)] = new List<DateTime>();
                 }
-                dict[(entry.Item1, entry.Item2)].Add(entry.Item3);
+                dict[(basicLog.data_type, basicLog.enterprise)].Add(basicLog.time);
             }
             return dict;
         }
