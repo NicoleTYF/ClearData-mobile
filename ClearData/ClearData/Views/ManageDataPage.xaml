@@ -82,14 +82,14 @@
                        FontSize="Caption"
                        TextColor="White" />
 
-          <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="1" Clicked="OnDataTypesPushed" Padding="0,0,0,0" FontSize="Micro"
+          <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="2" Clicked="OnDataTypesPushed" Padding="0,0,0,0" FontSize="Micro"
                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                    TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
                    BorderColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
-          <Button Text="Company" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" Clicked="OnServicePushed"
-              BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}" Padding="0,0,0,0" FontSize="Micro"
-              TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
-              BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
+          <Button Text="Company" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" Grid.Row="2" Clicked="OnServicePushed"
+                  BackgroundColor = "{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}" Padding="0,0,0,0" FontSize="Micro"
+                  TextColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
+                  BorderColor="{Binding ServicesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"/>
         </Grid>
 
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}"  IsRefreshing="{Binding IsDataTypeDisplayBusy, Mode=TwoWay}"

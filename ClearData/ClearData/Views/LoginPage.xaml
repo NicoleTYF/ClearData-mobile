@@ -14,7 +14,7 @@
             <Image Source="logo_textonly.png" Scale="0.7" Margin="0,15,0,0"/>
 
             <!-- "Fair Use Plaform..." text -->
-            <Label Text="Fair-use Data Platform" TextColor="#77DBFF" FontSize="Caption" HorizontalTextAlignment="Center" Margin="0,-20,0,0"/>
+            <Label Text="Fair-use Data Platform" TextColor="#ffffff" FontSize="Caption" HorizontalTextAlignment="Center" Margin="0,-20,0,0"/>
 
             <!-- Logo -->
             <Image Source="logo.png" Scale="0.6" Margin="10,-40,0,0"/>
@@ -84,7 +84,7 @@
                     FontAttributes="Bold" 
                     BackgroundColor="Transparent"
                     FlexLayout.AlignSelf="Start"
-                Command="{Binding SignupCommand}"/>
+                    Command="{Binding SignupCommand}"/>
 
                 <Label
                     Text="." 
