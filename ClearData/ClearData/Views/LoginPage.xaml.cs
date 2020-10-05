@@ -16,6 +16,7 @@ namespace ClearData.Views
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel();
+            this.usernameEntry.ReturnCommand = new Command(() => this.pswdEntry.Focus());
         }
     }
 }

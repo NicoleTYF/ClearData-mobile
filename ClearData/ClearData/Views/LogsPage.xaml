@@ -70,7 +70,7 @@
                        Grid.ColumnSpan="2"/>
 
                 <!-- Description text -->
-                <Label Text="Click on a cell to view full log history." 
+                <Label Text="Click on a data type or service provider to view full log history." 
                        Grid.Row="3"
                        Grid.Column="0"   
                        Grid.RowSpan="1"  
@@ -103,7 +103,7 @@
                             <DataTemplate x:DataType="model:IndexedLogCollection">
                                 <ViewCell>
                                     <StackLayout>
-                                        <Grid ColumnSpacing="7" Padding="0,7,0,0">
+                                        <Grid ColumnSpacing="0" Padding="0,7,0,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height ="22" />
                                                 <RowDefinition Height ="80" />

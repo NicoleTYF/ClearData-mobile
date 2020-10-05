@@ -41,9 +41,9 @@
             <Label Text="Country of Birth" TextColor="Blue" HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
         </StackLayout>
-        <Button Text="View My Data!" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
+        <Button Text="Create New Account" BackgroundColor="Green" TextColor="White" VerticalOptions="Center"
                 HorizontalOptions="Center" WidthRequest="150" HeightRequest="50" 
-                Grid.Row="4" Grid.Column="0"/>
+                Grid.Row="4" Grid.Column="0" />
 
     </Grid>
     
