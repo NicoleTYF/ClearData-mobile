@@ -11,7 +11,7 @@ namespace ClearData.Services
     public class PermissionsDataStore
     {
         public List<DataType> dataTypes;
-        private List<Company> companies;
+        public List<Company> companies;
         private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
         public PermissionsDataStore()

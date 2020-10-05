@@ -85,9 +85,9 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Home" Icon="nav_home.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Logs" Icon="nav_logs.png" ContentTemplate="{DataTemplate logsPage:LogsPage}" />
-        <ShellContent Title="Manage Data" Icon="nav_manage_data.png" ContentTemplate="{DataTemplate local:ManageDataPage}"/>
+    <!--    <ShellContent Title="Home" Icon="nav_home.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" /> -->
+    <!--    <ShellContent Title="Logs" Icon="nav_logs.png" ContentTemplate="{DataTemplate logsPage:LogsPage}" /> -->
+    <!--    <ShellContent Title="Manage Data" Icon="nav_manage_data.png" ContentTemplate="{DataTemplate local:ManageDataPage}"/> -->
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
@@ -101,7 +101,8 @@
         await Shell.Current.GoToAsync("//LoginPage");
     -->
     <ShellContent Route="LoginPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:LoginPage}" />
-     <ShellContent Route="SignupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:SignupPage}" /> 
+     <ShellContent Route="SignupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:SignupPage}" />
+    <ShellContent Route="AboutPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:AboutPage}" />
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
