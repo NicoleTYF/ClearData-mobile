@@ -37,22 +37,6 @@ namespace ClearData.ViewModels
             Display = (int)DisplayType.COMPANIES;
             DisplayPrice = "$10.23";
 
-            var entries = new ChartEntry[]
-            {
-                new ChartEntry(600) { ValueLabel = "600", Label = "January", Color = SKColor.Parse("#266489") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "February", Color = SKColor.Parse("#68B9C0") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "March", Color = SKColor.Parse("#90D585") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "April", Color = SKColor.Parse("#F3C151")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "May", Color = SKColor.Parse("#F37F64")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "June", Color = SKColor.Parse("#424856") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "July", Color = SKColor.Parse("#8F97A4")},
-                new ChartEntry(600) { ValueLabel = "600", Label = "August", Color = SKColor.Parse("#DAC096") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "September", Color = SKColor.Parse("#76846E") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "October", Color = SKColor.Parse("#A65B69") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "November", Color = SKColor.Parse("#DABFAF") },
-                new ChartEntry(600) { ValueLabel = "600", Label = "December", Color = SKColor.Parse("#97A69D") },
-            };
-
             //DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
             UpdateDonutChart();
         }

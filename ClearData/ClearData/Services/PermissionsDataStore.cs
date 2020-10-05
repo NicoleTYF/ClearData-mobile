@@ -272,12 +272,12 @@ namespace ClearData.Services
         // tuple order is datatype then company
         private static readonly List<BasicLog> ExampleLogs = new List<BasicLog>
         {
-            new BasicLog{data_type=1, enterprise=1, time=DateTime.Now - new TimeSpan(0, 0, 13), price=4.53 },
-            new BasicLog{data_type=1, enterprise=2, time=DateTime.Now - new TimeSpan(0, 1, 13), price=2.34 },
-            new BasicLog{data_type=2, enterprise=1, time=DateTime.Now - new TimeSpan(0, 2, 13), price=1.04 },
+            new BasicLog{data_type=1, enterprise=6, time=DateTime.Now - new TimeSpan(0, 0, 13), price=4.53 },
+            new BasicLog{data_type=1, enterprise=5, time=DateTime.Now - new TimeSpan(0, 1, 13), price=2.34 },
+            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(35*24, 2, 13), price=1.04 },
             new BasicLog{data_type=2, enterprise=3, time=DateTime.Now - new TimeSpan(0, 3, 13), price=8.32 },
-            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(1, 0, 13), price=4.23 },
-            new BasicLog{data_type=3, enterprise=1, time=DateTime.Now - new TimeSpan(4, 0, 13), price=0.23 },
+            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(8*24, 0, 13), price=4.23 },
+            new BasicLog{data_type=3, enterprise=5, time=DateTime.Now - new TimeSpan(4, 0, 13), price=0.23 },
             new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(5, 0, 13), price=0.45 },
             new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(90, 0, 13), price=0.32 },
         };
