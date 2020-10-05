@@ -7,6 +7,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Microcharts;
 using SkiaSharp;
+using ClearData.Models;
+using System.Collections.Generic;
 
 namespace ClearData.ViewModels
 {
@@ -47,7 +49,65 @@ namespace ClearData.ViewModels
                 new ChartEntry(600) { ValueLabel = "600", Label = "December", Color = SKColor.Parse("#97A69D") },
             };
 
-            DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
+            // DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
+            UpdateDonutChart();
+        }
+
+        private void UpdateDonutChart()
+        {
+            //get all the logs
+            List<BasicLog> logList = UserInfo.GetPermissions().RetrieveAllLogsList();
+
+            //work out the price associated with each datatype by creating a dictionary which maps ids to their price
+            Dictionary<int, double> profits = new Dictionary<int, double>();
+
+            foreach (BasicLog basicLog in logList)
+            {
+                //check the time to see if its within the range we are talking about
+                if ((Period == (int)TimePeriod.MONTHLY && basicLog.time < DateTime.Now - new TimeSpan(30*24,0,0)) ||
+                     (Period == (int)TimePeriod.WEEKLY && basicLog.time < DateTime.Now - new TimeSpan(7 * 24, 0, 0)))
+                {
+                    continue;
+                }
+                //then work out the ID that we are concerned with
+                int id;
+                if (Display == (int)DisplayType.COMPANIES)
+                {
+                    id = basicLog.enterprise;
+                } else
+                {
+                    id = basicLog.data_type;
+                }
+                //then add the value to the profits dictionary
+                if (!profits.TryGetValue(id, out double result))
+                {
+                    profits[id] = 0;
+                }
+                profits[id] += basicLog.price;
+            }
+
+            //now we have all the profits for each id, lets create the entries for the donut chart
+            var entryList = new List<ChartEntry>();
+            if (Display == (int)DisplayType.COMPANIES)
+            {
+                foreach (Company company in UserInfo.GetPermissions().companies)
+                {
+                    if (profits.TryGetValue(company.Id, out double result))
+                    {
+                        entryList.Add(new ChartEntry((float)profits[company.Id]) { Label = company.Name, ValueLabel = String.Format("${0}", profits[company.Id]) });
+                    }
+                }
+            } else
+            {
+                foreach (DataType dataType in UserInfo.GetPermissions().dataTypes)
+                {
+                    if (profits.TryGetValue(dataType.Id, out double result))
+                    {
+                        entryList.Add(new ChartEntry((float)profits[dataType.Id]) { Label = dataType.Name, ValueLabel = String.Format("${0}", profits[dataType.Id]) });
+                    }
+                }
+            }
+            DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray() };
         }
 
         /*
