@@ -53,12 +53,16 @@ namespace ClearData.ViewModels
                 new ChartEntry(600) { ValueLabel = "600", Label = "December", Color = SKColor.Parse("#97A69D") },
             };
 
-            // DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
+            //DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
             UpdateDonutChart();
         }
 
-        private void UpdateDonutChart()
+        public void UpdateDonutChart()
         {
+            if (UserInfo.GetPermissions() == null)
+            {
+                return;
+            }
             //get all the logs
             List<BasicLog> logList = UserInfo.GetPermissions().RetrieveAllLogsList();
 

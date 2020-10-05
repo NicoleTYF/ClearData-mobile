@@ -45,7 +45,8 @@
         <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="200" 
                                HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" />
 
-        <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0">
+        <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0"
+                SelectedIndexChanged="Picker">
             <Picker.Items>
                 <x:String>All Time</x:String>
                 <x:String>Monthly</x:String>
@@ -53,7 +54,8 @@
             </Picker.Items>
         </Picker>
 
-        <Picker x:Name="type_picker" Title="Display Type:" SelectedIndex="{Binding Display}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0">
+        <Picker x:Name="type_picker" Title="Display Type:" SelectedIndex="{Binding Display}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0"
+                SelectedIndexChanged="Picker">
             <Picker.Items>
                 <x:String>Companies</x:String>
                 <x:String>Data Types</x:String>
