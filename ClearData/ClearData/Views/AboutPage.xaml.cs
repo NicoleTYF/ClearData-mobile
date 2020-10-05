@@ -19,7 +19,7 @@ namespace ClearData.Views
             myCarousel.ItemsSource = new ObservableCollection<int> { 1, 2 }; 
             myCarousel.Position = 0; //default
             myCarousel.InterPageSpacing = 10;
-            myCarousel.Orientation = CarouselViewOrientation.Horizontal;
+            myCarousel.Orientation = CarouselViewOrientation.Horizontal;  
         }
     }
 }
