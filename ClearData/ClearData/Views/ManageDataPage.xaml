@@ -53,9 +53,16 @@
                        Grid.ColumnSpan="2"
                        TextColor="White"
                        FontFamily="Calibri-Light"
-                    
-                       
                        HorizontalOptions="Start"/>
+
+            <!-- Description text -->
+            <Label Text="Select 'Service' to enable/disable data individually, or 'Data types' to enable/disable data types shared to all service providers." 
+                       Grid.Row="1"
+                       Grid.RowSpan="2"
+                       Grid.Column="0"    
+                       Grid.ColumnSpan="3" 
+                       FontSize="Caption"
+                       TextColor="White" />
 
             <!-- "SORT BY" image -->
             <Image Source="img_sort_by.png"
@@ -72,15 +79,6 @@
                        Grid.Column="0"   
                        Grid.RowSpan="1"  
                        Grid.ColumnSpan="3"/>
-
-            <!-- Description text -->
-            <Label Text="Select 'Service' to enable/disable data individually, or 'Data types' to enable/disable data types shared to all service providers." 
-                       Grid.Row="3"
-                       Grid.RowSpan="2"
-                       Grid.Column="0"    
-                       Grid.ColumnSpan="3" 
-                       FontSize="Caption"
-                       TextColor="White" />
 
           <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="2" Clicked="OnDataTypesPushed" Padding="0,0,0,0" FontSize="Micro"
                    BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
