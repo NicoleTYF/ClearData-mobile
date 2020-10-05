@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using ClearData.Models;
+using Newtonsoft.Json;
 
 namespace ClearData.Services
 {
     public class PermissionsDataStore
     {
         public List<DataType> dataTypes;
-        readonly List<Company> companies;
+        private List<Company> companies;
+        private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
         public PermissionsDataStore()
+        {
+            
+        }
+
+        public async Task LoadDataStore()
         {
 
             dataTypes = new List<DataType>()
@@ -127,10 +135,32 @@ namespace ClearData.Services
             };
             companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
 
-            //for now, go through and add all the data type enabled dictionaries at the end here
-            foreach (Company company in companies)
+            enabledSet = new HashSet<(int, int)>();
+
+            HttpResponseMessage response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null);
+            if (response != null)
             {
-                company.DataTypeEnabled = InitialiseEnabledDictionary(company.WantedDataTypes);
+                var jsonString = await response.Content.ReadAsStringAsync();
+                dataTypes = JsonConvert.DeserializeObject<List<DataType>>(jsonString);
+            }
+
+        }
+
+        public bool InEnabledSet(int dataTypeId, int companyId)
+        {
+            return enabledSet.Contains((dataTypeId, companyId));
+        }
+
+        public void SetEnabled(int dataTypeId, int companyId, bool setting)
+        {
+            if (setting)
+            {
+                enabledSet.Add((dataTypeId, companyId));
+            } 
+            else
+            {
+                enabledSet.Remove((dataTypeId, companyId));
             }
         }
 
@@ -143,7 +173,7 @@ namespace ClearData.Services
             //for each data type, if it is wanted by the company
             foreach (DataType dataType in dataTypes)
             {
-                if (company.WantedDataTypes.Contains(dataType.Id) && IsDataTypeEnabled(dataType.Id))
+                if (company.WantedDataTypes.Contains(dataType.Id) && IsDataTypeEnabledGlobally(dataType.Id))
                 {
                     wantedDataTypesOverlap.Add(dataType);
                 }
@@ -152,11 +182,11 @@ namespace ClearData.Services
         } 
 
         //infer whether a data type is enabled from all the internal values
-        public bool IsDataTypeEnabled(int dataTypeId)
+        public bool IsDataTypeEnabledGlobally(int dataTypeId)
         {
             foreach (Company company in companies)
             {
-                if (company.WantedDataTypes.Contains(dataTypeId) && company.DataTypeEnabled[dataTypeId])
+                if (company.WantedDataTypes.Contains(dataTypeId) && InEnabledSet(dataTypeId, company.Id))
                 {
                     return true;
                 }
@@ -170,7 +200,7 @@ namespace ClearData.Services
             {
                 if (setting == false && company.WantedDataTypes.Contains(dataTypeId))
                 {
-                    company.DataTypeEnabled[dataTypeId] = setting;
+                    SetEnabled(dataTypeId, company.Id, setting);
                 }
                 else if (setting == true && company.WantedDataTypes.Contains(dataTypeId))
                 {
@@ -182,36 +212,23 @@ namespace ClearData.Services
                     bool companySetting = true;
                     foreach (int otherDataTypeId in company.WantedDataTypes)
                     {
-                        if (otherDataTypeId != dataTypeId && company.DataTypeEnabled[otherDataTypeId])
+                        if (otherDataTypeId != dataTypeId && InEnabledSet(otherDataTypeId, company.Id))
                         {
                             //this company must not be on the NONE setting, so we are good to set its permissions on
                             companySetting = true;
                             break;
                         }
-                        else if (companySetting == true && otherDataTypeId != dataTypeId && IsDataTypeEnabled(otherDataTypeId))
+                        else if (companySetting == true && otherDataTypeId != dataTypeId && IsDataTypeEnabledGlobally(otherDataTypeId))
                         {
                             companySetting = false; //there is at least one other data type which is globally enabled but not enabled for this company
                             //in this case, we set the flag to false, but we don't break because this can be overridden by finding one that is turned on
                             //if this is set false and we never fall into the first clause, then and only then will the setting be false
                         }
                     }
-                    company.DataTypeEnabled[dataTypeId] = companySetting;
+                    SetEnabled(dataTypeId, company.Id, companySetting);
                 }
                 //i am aware how horrificly inefficient this is, but I am trying to not save any information that isn't in the database, and its weird to do
-
             }
-        }
-
-        private Dictionary<int, bool> InitialiseEnabledDictionary(SortedSet<int> wantedDataTypes)
-        {
-            Dictionary<int, bool> dict = new Dictionary<int, bool>();
-            //add an entry for all data type which is false, so they all start disabled
-            //only need to do so for the companies wanted data types
-            foreach (int dataTypeId in wantedDataTypes)
-            {
-                dict[dataTypeId] = false;
-            }
-            return dict;
         }
 
         //this will get removed and replaced with a database call

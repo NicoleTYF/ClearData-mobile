@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClearData.Services;
+using System;
 using System.Collections.Generic;
 
 namespace ClearData.Models
@@ -7,10 +8,6 @@ namespace ClearData.Models
     {
         public enum RestrictionType { ALL = 0, CUSTOM = 1, NONE = 2}
         public SortedSet<int> WantedDataTypes { get; set; } //all data types wanted by the company, entry is the data type id
-        
-        //dictionary which maintains whether any data type has been enabled or disabled, if an entry doesn't exist, base it off
-        //the Restriction setting
-        public Dictionary<int, bool> DataTypeEnabled { get; set; } 
 
         public RestrictionType Restriction
         {
@@ -28,7 +25,7 @@ namespace ClearData.Models
             int totalCount = 0;
             foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
             {
-                if (DataTypeEnabled[dataType.Id] == true)
+                if (UserInfo.GetPermissions().InEnabledSet(dataType.Id, this.Id))
                 {
                     onCount += 1;
                 }
@@ -54,17 +51,18 @@ namespace ClearData.Models
          */
         private void SetRestrictionType(RestrictionType restriction)
         {
+            PermissionsDataStore permissions = UserInfo.GetPermissions();
             if (restriction == RestrictionType.ALL)
             {
-                foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
+                foreach (DataType dataType in permissions.GetWantedDataTypesOverlap(this))
                 {
-                    DataTypeEnabled[dataType.Id] = true;
+                    permissions.SetEnabled(dataType.Id, this.Id, true);
                 }
             } else if (restriction == RestrictionType.NONE)
             {
-                foreach (DataType dataType in UserInfo.GetPermissions().GetWantedDataTypesOverlap(this))
+                foreach (DataType dataType in permissions.GetWantedDataTypesOverlap(this))
                 {
-                    DataTypeEnabled[dataType.Id] = false;
+                    permissions.SetEnabled(dataType.Id, this.Id, false);
                 }
             }
         }

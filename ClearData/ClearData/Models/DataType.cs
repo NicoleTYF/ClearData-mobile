@@ -14,7 +14,7 @@ namespace ClearData.Models
 
         private bool GetEnabled()
         {
-            return UserInfo.GetPermissions().IsDataTypeEnabled(Id);
+            return UserInfo.GetPermissions().IsDataTypeEnabledGlobally(Id);
         }
 
         private void SetEnabled(bool setting)

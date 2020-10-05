@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using ClearData.Models;
 using ClearData.Services;
 
@@ -11,13 +12,14 @@ namespace ClearData
     {
         private static PermissionsDataStore permissions;
 
+        public static async Task LoadPermissionsDataStore()
+        {
+            permissions = new PermissionsDataStore();
+            await permissions.LoadDataStore();
+        }
+
         public static PermissionsDataStore GetPermissions()
         {
-            //if the permissions data store doesn't exist yet, create it, otherwise return it
-            if (permissions == null)
-            {
-                permissions = new PermissionsDataStore();
-            }
             return permissions;
         }
 
