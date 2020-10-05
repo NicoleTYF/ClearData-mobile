@@ -25,6 +25,7 @@ namespace ClearData.Views
             companyInfo.MaxLines = 3;
             setPermImage();
             setPermText();
+            PermissionListView.HeightRequest = _viewModel.DataTypePermissions.Count * 60;
         }
 
         public void Picker(object sender, System.EventArgs e)
