@@ -29,5 +29,9 @@ namespace ClearData
 
         public static string birthPlace { get; set; }
 
+        public static bool locationEnabled { get; set; }
+
+        public static bool locationPossible { get; set; }
+
     }
 }

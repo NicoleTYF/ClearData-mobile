@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using Xamarin.Essentials;
+using Plugin.Permissions;
 
 namespace ClearData.Models
 {
@@ -23,9 +27,72 @@ namespace ClearData.Models
             //and then only update if we are changing. This prevents everything from getting overridden when we load the page (because this counts as
             //pressing the switch and there is no way of distinguishing whether it was pressed or just the page was opened)
             bool currentSetting = GetEnabled(); //read the current value
-            if (setting != currentSetting)
+            bool canToggle = true;
+            if (Id == 1) // This is location TODO: FIX THE IDS
+            {
+                ToggleLocationCapture(setting);
+                canToggle = UserInfo.locationPossible;
+            }
+            if (setting != currentSetting && canToggle)
             {
                 UserInfo.GetPermissions().SetDataTypeGlobalPermission(Id, setting);
+            }
+        }
+
+        private async void ToggleLocationCapture(bool setting)
+        {
+            UserInfo.locationEnabled = setting;
+            if (setting)
+            {
+                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                {
+                    Task.Run(async () =>
+                    {
+                        var permStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationWhenInUsePermission>();
+                        if (permStatus != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                        {
+                            try
+                            {
+                                permStatus = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();                      
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        if (permStatus != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                        {
+                            UserInfo.locationPossible = false;
+                            UserInfo.locationEnabled = false;
+                            return;
+                        }
+                        else
+                        {
+                            UserInfo.locationPossible = true;
+                        }
+                        try
+                        {
+                            var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                            var location = await Geolocation.GetLocationAsync(request);
+
+                            if (location != null)
+                            {
+                                Console.WriteLine("LOCATION HERE!");
+                                Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                            }
+                        }
+                        catch (PermissionException PEx)
+                        {
+                            Console.WriteLine("WE HAD A PERMISSION PROBLEM!");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("AWW NUTS SOMETHING WENT WRONG!");
+                        }
+                    });
+                    // we return true here if we are wanting to keep the timer going
+                    return UserInfo.locationEnabled;
+                });
             }
         }
     }
