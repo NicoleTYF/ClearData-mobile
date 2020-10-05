@@ -11,7 +11,7 @@ namespace ClearData.Models
         public int data_type { get; set; }
         public int enterprise { get; set; }
         public DateTime time { get; set; }
-        public float price { get; set; }
+        public double price { get; set; }
 
     }
 }

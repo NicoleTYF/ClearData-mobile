@@ -272,15 +272,20 @@ namespace ClearData.Services
         // tuple order is datatype then company
         private static readonly List<BasicLog> ExampleLogs = new List<BasicLog>
         {
-            new BasicLog{data_type=1, enterprise=1, time=DateTime.Now - new TimeSpan(0, 0, 13) },
-            new BasicLog{data_type=1, enterprise=2, time=DateTime.Now - new TimeSpan(0, 1, 13) },
-            new BasicLog{data_type=2, enterprise=1, time=DateTime.Now - new TimeSpan(0, 2, 13) },
-            new BasicLog{data_type=2, enterprise=3, time=DateTime.Now - new TimeSpan(0, 3, 13) },
-            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(1, 0, 13) },
-            new BasicLog{data_type=3, enterprise=1, time=DateTime.Now - new TimeSpan(4, 0, 13) },
-            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(5, 0, 13) },
-            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(90, 0, 13) },
+            new BasicLog{data_type=1, enterprise=1, time=DateTime.Now - new TimeSpan(0, 0, 13), price=4.53 },
+            new BasicLog{data_type=1, enterprise=2, time=DateTime.Now - new TimeSpan(0, 1, 13), price=2.34 },
+            new BasicLog{data_type=2, enterprise=1, time=DateTime.Now - new TimeSpan(0, 2, 13), price=1.04 },
+            new BasicLog{data_type=2, enterprise=3, time=DateTime.Now - new TimeSpan(0, 3, 13), price=8.32 },
+            new BasicLog{data_type=2, enterprise=4, time=DateTime.Now - new TimeSpan(1, 0, 13), price=4.23 },
+            new BasicLog{data_type=3, enterprise=1, time=DateTime.Now - new TimeSpan(4, 0, 13), price=0.23 },
+            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(5, 0, 13), price=0.45 },
+            new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(90, 0, 13), price=0.32 },
         };
+
+        public List<BasicLog> RetrieveAllLogsList()
+        {
+            return ExampleLogs;
+        }
 
         public Dictionary<(int,int),List<DateTime>> RetrieveAllRelevantLogs()
         {
@@ -290,7 +295,8 @@ namespace ClearData.Services
             Dictionary<(int, int), List<DateTime>> dict = new Dictionary<(int, int), List<DateTime>>();
 
             //go through all the return values and create a dictionary, which will make finding these things much easier
-            foreach (var basicLog in ExampleLogs) {
+            List<BasicLog> logList = ExampleLogs; //this will be replaced by a call to the database
+            foreach (var basicLog in logList) {
                 if (!dict.ContainsKey((basicLog.data_type, basicLog.enterprise)))
                 {
                     dict[(basicLog.data_type, basicLog.enterprise)] = new List<DateTime>();

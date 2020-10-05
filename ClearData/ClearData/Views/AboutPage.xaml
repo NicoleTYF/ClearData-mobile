@@ -3,11 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClearData.Views.AboutPage"
              xmlns:vm="clr-namespace:ClearData.ViewModels"
+             xmlns:converters="clr-namespace:ClearData.Converters"
              xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
              Title="{Binding Title}"
              BackgroundImageSource="bg_mobile.png">
-
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AboutPageTextConverter x:Key="textConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
@@ -28,7 +36,32 @@
                     FontFamily="Calibri-Light"
                     HorizontalOptions="Start"/>
 
-        
+        <Label Text="{Binding Period, Converter={StaticResource textConverter}, ConverterParameter=intro}" TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="34,16,21.5,0" />
+
+        <Label Text="{Binding DisplayPrice}"  TextColor="Black" FontSize="37" VerticalOptions="End" Margin="34,16,21.5,0"/>
+
+        <Label Text="{Binding Display, Converter={StaticResource textConverter}, ConverterParameter=breakdown}"  TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="34,16,21.5,0" />
+
+        <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="200" 
+                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" />
+
+        <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0">
+            <Picker.Items>
+                <x:String>All Time</x:String>
+                <x:String>Monthly</x:String>
+                <x:String>Weekly</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <Picker x:Name="type_picker" Title="Display Type:" SelectedIndex="{Binding Display}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0">
+            <Picker.Items>
+                <x:String>Companies</x:String>
+                <x:String>Data Types</x:String>
+            </Picker.Items>
+        </Picker>
+
+
+        <!--
 
         <Grid Margin="14,0,16,0">
             <Grid.RowDefinitions>
@@ -78,6 +111,7 @@
             </Grid>
             
         </Grid>
+        -->
                 
         <!-- 
         <carousel:CarouselViewControl x:Name="carousel"

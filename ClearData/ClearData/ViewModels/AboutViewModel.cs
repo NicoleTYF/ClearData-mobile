@@ -14,6 +14,9 @@ namespace ClearData.ViewModels
     {
         //public event PropertyChangedEventHandler PropertyChanged;
 
+        public enum TimePeriod { ALL_TIME = 0, MONTHLY = 1, WEEKLY = 2}
+        public enum DisplayType { COMPANIES = 0, DATATYPES = 1}
+
         public AboutViewModel()
         {
             /*
@@ -24,6 +27,9 @@ namespace ClearData.ViewModels
                 new CachedImage() { Source = "c3.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill }
             };
             */
+            Period = (int)TimePeriod.ALL_TIME;
+            Display = (int)DisplayType.COMPANIES;
+            DisplayPrice = "$10.23";
 
             var entries = new ChartEntry[]
             {
@@ -59,6 +65,26 @@ namespace ClearData.ViewModels
 
         public Command MyCommand { protected set; get; }
         */
+
+        private String displayPrice;
+        public String DisplayPrice
+        {
+            get => displayPrice;
+            set => SetProperty(ref displayPrice, value);
+        }
+
+        //these two are ints not the enums themselves because of interacting with a picker
+        private int period;
+        public int Period {
+            get => period;
+            set => SetProperty(ref period, value);
+        }
+        private int display;
+        public int Display {
+            get => display;
+            set => SetProperty(ref display, value);
+        }
+        
 
         private Chart donutChart;
         public Chart DonutChart
