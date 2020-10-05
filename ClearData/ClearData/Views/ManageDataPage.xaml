@@ -37,7 +37,6 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="17.3"/>
                 <RowDefinition Height="8"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
@@ -53,9 +52,16 @@
                        Grid.ColumnSpan="2"
                        TextColor="White"
                        FontFamily="Calibri-Light"
-                    
-                       
                        HorizontalOptions="Start"/>
+
+            <!-- Description text -->
+            <Label Text="Select 'Service' to enable/disable data individually, or 'Data types' to enable/disable data types shared to all service providers." 
+                       Grid.Row="1"
+                       Grid.RowSpan="2"
+                       Grid.Column="0"    
+                       Grid.ColumnSpan="3" 
+                       FontSize="Caption"
+                       TextColor="White" />
 
             <!-- "SORT BY" image -->
             <Image Source="img_sort_by.png"
@@ -73,24 +79,6 @@
                        Grid.RowSpan="1"  
                        Grid.ColumnSpan="3"/>
 
-            <Label Text="From here you can manage which data types you are comforable sharing. Click on a company to see how they are accessing your data."
-                   Grid.Row="1"
-                   Grid.RowSpan="1"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="3"
-                   FontSize="Caption"
-                   TextColor="White" />
-            <!-- Description text -->
-            <!--
-            <Label Text="Select a service provider to manage data, or switch button to enable/disable data types to share." 
-                       Grid.Row="3"
-                       Grid.RowSpan="2"
-                       Grid.Column="0"    
-                       Grid.ColumnSpan="3" 
-                       FontSize="Caption"
-                       TextColor="White" />
-            -->
-           
             <Button Text="Data Type" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="2" Clicked="OnDataTypesPushed" Padding="0,0,0,0" FontSize="Micro"
                     BackgroundColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='primary'}"
                     TextColor="{Binding DataTypesVisible, Converter={StaticResource colorConverter}, ConverterParameter='secondary'}"
@@ -136,7 +124,7 @@
         </RefreshView>
 
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadCompaniesCommand}" 
-                     IsRefreshing="{Binding IsServicesDisplayBusy, Mode=TwoWay}" IsVisible="{Binding ServicesVisible}" Margin="21.5,-10,21.5,0">
+                     IsRefreshing="{Binding IsServicesDisplayBusy, Mode=TwoWay}" IsVisible="{Binding ServicesVisible}" Margin="21.5,0,21.5,0" Padding="0,0,0,20">
             <CollectionView x:Name="CompanyListView"
                             ItemsSource="{Binding Companies}"
                             SelectionMode="None">

@@ -4,6 +4,7 @@
              x:Class="ClearData.Views.ManageCompanyPage"
              xmlns:converters="clr-namespace:ClearData.Converters"
              xmlns:local="clr-namespace:ClearData.ViewModels" 
+             xmlns:custom="clr-namespace:ClearData.Controls;assembly=ClearData"
              xmlns:model="clr-namespace:ClearData.Models"  
              Title="{Binding Title}"
              BackgroundImageSource="bg_mobile.png">
@@ -47,17 +48,19 @@
                         <!-- INFORMATION -->
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
 
                         <!-- Empty space -->
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="3"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="9*"/>
                     </Grid.ColumnDefinitions>
 
                     <Image Source="bg_trans.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="4" 
@@ -68,12 +71,16 @@
                     <Label Text="{Binding Company.Name}" FontSize="Large" TextColor="White" FontAttributes="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
                     <Label Text="INFORMATION" TextColor="#FFE88F" FontSize="Small" FontAttributes="Bold" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Padding="15,7,0,0"/>
-                    <Label x:Name="companyInfo" Text="{Binding Company.Description}" TextColor="White" FontSize="Small" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Padding="15,0,15,0"/>
+                    <Label x:Name="companyInfo" Text="{Binding Company.Description}" TextColor="White" FontSize="Small" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Padding="15,0,15,0" MinimumHeightRequest="30"/>
 
                     <!-- Permission level selection -->
-                    <Label Text="PERMISSION LEVEL" TextColor="#FFE88F" FontSize="Small" Grid.Column="3" Grid.Row="0" LineBreakMode="NoWrap" FontAttributes="Bold" Padding="0,20,10,0"/>
-                    <Picker x:Name="permission_picker" Title="Permission Setting" SelectedIndex="{Binding CurrentRestriction}" TextColor="White"
-                            Grid.Column="3" Grid.Row="1" SelectedIndexChanged="Picker" FontSize="Body" Margin="0,0,10,0">
+                    <Label Text="DATA LEVEL" TextColor="#FFE88F" FontSize="Small" Grid.Column="3" Grid.Row="0" LineBreakMode="NoWrap" FontAttributes="Bold" Padding="0,20,10,0" HorizontalOptions="StartAndExpand"/>
+                    <ImageButton Source="ic_info.png" Grid.Column="3" Grid.Row="0" WidthRequest="20" HeightRequest="20" Clicked="OpenPermDesc" Margin="10,0,27,0" BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="End" />
+                    <Label x:Name="permPercent" Text="75%" TextColor="White" FontAttributes="Bold" FontSize="Caption" Grid.Column="3" Grid.Row="1" WidthRequest="40" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,5,0,0" />
+                    <Image x:Name="permImage" Grid.Column="3" Grid.Row="1" HeightRequest="20"  HorizontalOptions="End" Margin="0,0,15,0" />
+                    
+                    <custom:CustomPicker x:Name="permission_picker" Title="Permission Level Setting" SelectedIndex="{Binding CurrentRestriction}" TextColor="Transparent" 
+                            Grid.Column="3" Grid.Row="1" SelectedIndexChanged="Picker" FontSize="Body" Margin="0,3,10,0" HorizontalOptions="Start">
                         <!--PropertyChanged="PickerChosen"-->
                         <!-- These written values are hard coded in here, not good but binding them was super difficult and this was easy-->
                         <Picker.Items>
@@ -81,44 +88,56 @@
                             <x:String>Custom</x:String>
                             <x:String>None</x:String>
                         </Picker.Items>
-                    </Picker>
+                    </custom:CustomPicker>
+                    
+                    <ImageButton x:Name="expandBtn" Source="arrow_down_yl.png" Clicked="expandCompanyInfo" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" BackgroundColor="Transparent" />
 
-                    <ImageButton x:Name="expandBtn" Source="arrow_down_yl.png" Clicked="expandCompanyInfo" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
-                </Grid>
+                    <!--
+                    <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}" TextColor="LightGoldenrodYellow" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" />
+                    -->
 
-                <Label Text="{Binding CurrentRestriction, Converter={StaticResource permissionConverter}, ConverterParameter=info}" Margin="21.5,0,21.5,0" TextColor="LightGoldenrodYellow" />
+                    <Label Text="HOW WOULD YOU LIKE TO SHARE YOUR DATA WITH THIS SERVICE?" TextColor="#FFE88F" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" />
 
-                <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Margin="21.5,10,21.5,0">
-                    <CollectionView x:Name="PermissionListView" 
+                    <RefreshView x:DataType="local:ManageCompanyViewModel" Command="{Binding LoadPermissionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="7">
+                        <CollectionView x:Name="PermissionListView" 
                             ItemsSource="{Binding DataTypePermissions}"
                             SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:CompanyDataType">
-                                <StackLayout>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:CompanyDataType">
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
 
-                                        <Label Text="{Binding DataType.Name, Converter={StaticResource caseConverter}}"
-                                               LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
-                                        <Label Text="{Binding DataType.Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
-                                               TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
-                                        <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
-                                        <Switch IsToggled="{Binding CompanyEnabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
+                                            <Button BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Clicked="expandPermInfo" CommandParameter="{Binding .}" />
+                                            <Label Text="{Binding DataType.Name, Converter={StaticResource caseConverter}}"
+                                               Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
+                                            <Label Text="{Binding DataType.Description}" LineBreakMode="TailTruncation" 
+                                               Grid.Column="0" Grid.Row="1" TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Tapped="expandPermInfo"
+                                                        NumberOfTapsRequired="1"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+
+                                            <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
+                                            <Switch IsToggled="{Binding CompanyEnabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
                                                 VerticalOptions="Start" OnColor="#FFCB00" ThumbColor="#e8e9dc" Toggled="SwitchToggled"/>
-                                    </Grid>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </RefreshView>
+                                        </Grid>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </Grid>
             </StackLayout>
         </ScrollView>
     </Grid>

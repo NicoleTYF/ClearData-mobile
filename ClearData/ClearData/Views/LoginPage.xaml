@@ -14,7 +14,7 @@
             <Image Source="logo_textonly.png" Scale="0.7" Margin="0,15,0,0"/>
 
             <!-- "Fair Use Plaform..." text -->
-            <Label Text="Fair-use Data Platform" TextColor="#77DBFF" FontSize="Caption" HorizontalTextAlignment="Center" Margin="0,-20,0,0"/>
+            <Label Text="Fair-use Data Platform" TextColor="#ffffff" FontSize="Caption" HorizontalTextAlignment="Center" Margin="0,-20,0,0"/>
 
             <!-- Logo -->
             <Image Source="logo.png" Scale="0.6" Margin="10,-40,0,0"/>
@@ -36,13 +36,13 @@
                 <Image HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit"
                        Source="bg_entry.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                 <Image Source="ic_user.png" Grid.Row="0" Grid.Column="0" WidthRequest="20" HeightRequest="20" Margin="4,0,0,8" VerticalOptions="End" />
-                <custom:CustomEntry Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,6,-5" Placeholder="username"/>
+                <custom:CustomEntry x:Name="usernameEntry" Text="{Binding Username}" Grid.Row="0" Grid.Column="1" Margin="0,0,6,-5" Placeholder="username"/>
 
                 <!-- Password Entry -->
                 <Image HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Aspect="AspectFit" 
                        Source="bg_entry.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
                 <Image Source="ic_lock.png" Grid.Row="1" Grid.Column="0" WidthRequest="20" HeightRequest="20" Margin="4,0,0,8" VerticalOptions="End" />
-                <custom:CustomEntry IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,6,-5" Placeholder="password" />
+                <custom:CustomEntry x:Name="pswdEntry" IsPassword="True" Text="{Binding Password}" Grid.Row="1" Grid.Column="1" Margin="0,0,6,-5" Placeholder="password" />
 
                 <!-- Invalid Username or Password Label -->
                 <Label Text="Invalid Username or Password" IsVisible="{Binding MessageVisibility}" HorizontalOptions="End"
@@ -84,7 +84,7 @@
                     FontAttributes="Bold" 
                     BackgroundColor="Transparent"
                     FlexLayout.AlignSelf="Start"
-                Command="{Binding SignupCommand}"/>
+                    Command="{Binding SignupCommand}"/>
 
                 <Label
                     Text="." 

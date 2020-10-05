@@ -39,7 +39,7 @@ namespace ClearData.ViewModels
             Company = company;
             DataTypePermissions = new ObservableCollection<CompanyDataType>();
             //get the permission options as a list
-            RestrictionChanged = new Command(OnRestrictionChanged);
+            RestrictionChanged = new Command(OnRestrictionChangedAsync);
             CurrentRestriction = (int)company.Restriction; //need a variable for this, as it won't sync directly
             LoadPermissionsCommand = new Command(async () => await ExecuteLoadPermissionsCommand());
             BackButtonPressed = new Command(async () => await ExecuteBackButtonPressed());
@@ -47,7 +47,7 @@ namespace ClearData.ViewModels
 
 
 
-        public void OnRestrictionChanged()
+        public void OnRestrictionChangedAsync()
         {
             //we have had the restriction changed, update the actual restriction
             company.Restriction = (Company.RestrictionType)currentRestriction;

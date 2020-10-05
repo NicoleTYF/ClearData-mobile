@@ -33,5 +33,16 @@ namespace ClearData.Views
             await _viewModel.UpdateToDataTypesDisplay();
         }
 
+        public void expandPermInfo(object sender, System.EventArgs e)
+        {
+            var permDesc = ((Label)sender);
+            if (permDesc.LineBreakMode == LineBreakMode.TailTruncation) {
+                permDesc.LineBreakMode = LineBreakMode.WordWrap;
+                permDesc.MaxLines = int.MaxValue;
+            } else {
+                permDesc.LineBreakMode = LineBreakMode.TailTruncation;
+                permDesc.MaxLines = 1;
+            }
+        }
     }
 }
