@@ -16,8 +16,12 @@ namespace ClearData.ViewModels
     {
         //public event PropertyChangedEventHandler PropertyChanged;
 
-        public enum TimePeriod { ALL_TIME = 0, MONTHLY = 1, WEEKLY = 2}
-        public enum DisplayType { COMPANIES = 0, DATATYPES = 1}
+        public enum TimePeriod { ALL_TIME = 0, MONTHLY = 1, WEEKLY = 2 }
+        public enum DisplayType { COMPANIES = 0, DATATYPES = 1 }
+
+        private static SKColor[] Colors = {SKColor.Parse("#266489"), SKColor.Parse("#68B9C0"), SKColor.Parse("#90D585"), SKColor.Parse("#F3C151"),
+                                           SKColor.Parse("#F37F64"), SKColor.Parse("#424856"), SKColor.Parse("#424856"), SKColor.Parse("#8F97A4"),
+                                           SKColor.Parse("#76846E"), SKColor.Parse("#A65B69"), SKColor.Parse("#DABFAF"), SKColor.Parse("#97A69D")};
 
         public AboutViewModel()
         {
@@ -94,7 +98,8 @@ namespace ClearData.ViewModels
                 {
                     if (profits.TryGetValue(company.Id, out double result))
                     {
-                        entryList.Add(new ChartEntry((float)profits[company.Id]) { Label = company.Name, ValueLabel = String.Format("${0}", profits[company.Id]) });
+                        entryList.Add(new ChartEntry((float)profits[company.Id]) { Label = company.Name, ValueLabel = String.Format("${0}", profits[company.Id]),
+                                                                                   Color = Colors[Math.Min(Colors.Length, entryList.Count)]});
                     }
                 }
             } else
@@ -103,7 +108,8 @@ namespace ClearData.ViewModels
                 {
                     if (profits.TryGetValue(dataType.Id, out double result))
                     {
-                        entryList.Add(new ChartEntry((float)profits[dataType.Id]) { Label = dataType.Name, ValueLabel = String.Format("${0}", profits[dataType.Id]) });
+                        entryList.Add(new ChartEntry((float)profits[dataType.Id]) { Label = dataType.Name, ValueLabel = String.Format("${0}", profits[dataType.Id]),
+                                                                                    Color = Colors[Math.Min(Colors.Length, entryList.Count)]});
                     }
                 }
             }
