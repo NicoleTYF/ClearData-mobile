@@ -52,7 +52,7 @@ namespace ClearData.ViewModels
 
             //work out the price associated with each datatype by creating a dictionary which maps ids to their price
             Dictionary<int, double> profits = new Dictionary<int, double>();
-
+            double totalProfit = 0;
             foreach (BasicLog basicLog in logList)
             {
                 //check the time to see if its within the range we are talking about
@@ -61,6 +61,7 @@ namespace ClearData.ViewModels
                 {
                     continue;
                 }
+                totalProfit += basicLog.price;
                 //then work out the ID that we are concerned with
                 int id;
                 if (Display == (int)DisplayType.COMPANIES)
@@ -80,6 +81,7 @@ namespace ClearData.ViewModels
 
             //now we have all the profits for each id, lets create the entries for the donut chart
             var entryList = new List<ChartEntry>();
+            
             if (Display == (int)DisplayType.COMPANIES)
             {
                 foreach (Company company in UserInfo.GetPermissions().companies)
@@ -102,6 +104,7 @@ namespace ClearData.ViewModels
                 }
             }
             DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray() };
+            DisplayPrice = String.Format("${0}", totalProfit);
         }
 
         /*
