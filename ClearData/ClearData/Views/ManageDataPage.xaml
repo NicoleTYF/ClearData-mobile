@@ -91,7 +91,7 @@
         </Grid>
 
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}"  IsRefreshing="{Binding IsDataTypeDisplayBusy, Mode=TwoWay}"
-                     IsVisible="False" Margin="21.5,0,21.5,0">
+                     IsVisible="{Binding DataTypesVisible}" Margin="21.5,0,21.5,0">
             <CollectionView x:Name="DataTypeListView"
                     ItemsSource="{Binding DataTypes}"
                     SelectionMode="None">
@@ -112,13 +112,7 @@
                                 <Label Text="{Binding Name, Converter={StaticResource caseConverter}}"
                                        LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
-                                       TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Tapped="expandPermInfo"
-                                            NumberOfTapsRequired="1"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                       TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
                                 <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
                                 <Switch IsToggled="{Binding Enabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Start"
                                         OnColor="#FFCB00" ThumbColor="#e8e9dc"/>
