@@ -66,7 +66,7 @@ namespace ClearData.Views
 
         private void setPermText()
         {
-            permLevelDesc = "Data level shows the percentage of company's customer data you opt to share with.";
+            permLevelDesc = "Data level shows the percentage of company's customer data you opt to share with. \n\n";
 
             if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.ALL)
             {
