@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using CarouselView.FormsPlugin.Android;
+using Xamarin.Forms;
 
 namespace ClearData.Droid
 {
@@ -24,6 +25,15 @@ namespace ClearData.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             CarouselViewRenderer.Init();
             LoadApplication(new App());
+
+            if (Device.Idiom == TargetIdiom.Phone)
+            {
+                RequestedOrientation = ScreenOrientation.Portrait;
+            }
+            else
+            {
+                RequestedOrientation = ScreenOrientation.SensorLandscape;
+            }
         }
         /**
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

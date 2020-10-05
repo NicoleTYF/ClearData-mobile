@@ -65,10 +65,11 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- "TODAY"'s collapsable -->
-                    <Button Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Button Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" Clicked="expandTodayList" />
                     <Label  Text="TODAY" Grid.Row="0" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
                         FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <Image  Source="arrow_down_wt.png" Grid.Row="0" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+                    <ImageButton x:Name="todayArrowImg" Source="arrow_down_wt.png" Grid.Row="0" Grid.Column="1" 
+                                 WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0" Clicked="expandTodayList"/>
 
                     <Image  Source="img_whiteline.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
 
@@ -77,6 +78,7 @@
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
                           RowHeight="25"
+                          ItemTapped="OnItemTapped"
                           ItemsSource="{Binding TodaysLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
@@ -108,10 +110,11 @@
                     </ListView>
 
                     <!-- "THIS WEEK"'s collapsable -->
-                    <Button Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Button Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" Clicked="expandWeekList" />
                     <Label  Text="THIS WEEK" Grid.Row="3" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
                         FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <Image  Source="arrow_down_wt.png" Grid.Row="3" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+                    <ImageButton x:Name="weekArrowImg" Source="arrow_down_wt.png" Grid.Row="3" Grid.Column="1" 
+                                 WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0" Clicked="expandWeekList"/>
 
                     <Image  Source="img_whiteline.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
 
@@ -120,6 +123,7 @@
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
                           RowHeight="25"
+                          ItemTapped="OnItemTapped"
                           ItemsSource="{Binding ThisWeeksLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>
@@ -151,10 +155,11 @@
                     </ListView>
 
                     <!-- "MORE THAN A WEEK AGO"'s collapsable -->
-                    <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" />
+                    <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" Clicked="expandPastList" />
                     <Label  Text="MORE THAN A WEEK AGO" Grid.Row="6" Grid.Column="0" Margin="14,7,0,0" FontSize="Caption" TextColor="#FFE88F" 
                         FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <Image  Source="arrow_down_wt.png" Grid.Row="6" Grid.Column="1" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0"/>
+                    <ImageButton x:Name="pastArrowImg" Source="arrow_down_wt.png" Grid.Row="6" Grid.Column="1" 
+                                 WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Margin="0,12,18,0" Clicked="expandPastList"/>
 
                     <Image  Source="img_whiteline.png" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
 
@@ -163,6 +168,7 @@
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
                           RowHeight="25"
+                          ItemTapped="OnItemTapped"
                           ItemsSource="{Binding LaterLogs}">
                         <!-- Cell layout -->
                         <ListView.ItemTemplate>

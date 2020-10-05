@@ -45,7 +45,7 @@ namespace ClearData.Views
             _viewModel.SwitchToggled();
         }
 
-        private void OpenPermDesc(object sender, System.EventArgs e)
+        private void OpenInfo(object sender, System.EventArgs e)
         {
             DisplayAlert(permLevelTitle , permLevelDesc, "Close");
         }
@@ -66,7 +66,7 @@ namespace ClearData.Views
 
         private void setPermText()
         {
-            permLevelDesc = "Data level shows the percentage of company's customer data you opt to share with.";
+            permLevelDesc = "Data level shows the percentage of company's customer data you opt to share with. \n\n";
 
             if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.ALL)
             {
@@ -78,7 +78,7 @@ namespace ClearData.Views
             {
                 permLevelTitle = "Custom";
                 permLevelDesc += "On this setting, you can toggle access to any data types";
-                permPercent.Text = "75%";
+                permPercent.Text = "Auto";
             } 
             else if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.NONE)
             {
