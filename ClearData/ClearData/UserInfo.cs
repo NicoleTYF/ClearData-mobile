@@ -29,5 +29,7 @@ namespace ClearData
 
         public static string birthPlace { get; set; }
 
+        public static DatabaseInfo DatabaseInfo {get; set;}
+
     }
 }

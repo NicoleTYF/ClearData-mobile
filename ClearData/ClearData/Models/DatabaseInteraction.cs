@@ -20,7 +20,7 @@ namespace ClearData.Models
         private static string webpage = "https://cleardata-webapp.uqcloud.net/api";
         private static HttpClient client;
 
-        public enum DatabaseRequest { SIGNUP, DATATYPES, ENTERPRISES, WANTED_DATA_TYPES, USER_PERMISSIONS, USER_LOGS }
+        public enum DatabaseRequest { SIGNUP, DATATYPES, ENTERPRISES, WANTED_DATA_TYPES, USER_PERMISSIONS, USER_LOGS, LOGIN }
         public enum HttpRequestType { POST, GET }
 
         private static Uri GetUri(DatabaseRequest requestType)
@@ -29,7 +29,7 @@ namespace ClearData.Models
             switch(requestType)
             {
                 case DatabaseRequest.SIGNUP:
-                    address = "consumer_profiles";
+                    address = "new_consumer";
                     break;
                 case DatabaseRequest.ENTERPRISES:
                     address = "enterprises";
@@ -43,6 +43,9 @@ namespace ClearData.Models
                 case DatabaseRequest.USER_PERMISSIONS:
                     address = "user_permissions";
                     break;
+                case DatabaseRequest.LOGIN:
+                    address = "authenticate";
+                    break;
                 case DatabaseRequest.DATATYPES:
                 default: //never uses default
                     address = "data_types";
@@ -54,13 +57,16 @@ namespace ClearData.Models
             return new Uri(uriString);
         }
 
-        public static async Task<HttpResponseMessage> SendDatabaseRequest(DatabaseRequest requestType, HttpRequestType type, HttpContent httpContent)
+        public static async Task<HttpResponseMessage> SendDatabaseRequest(DatabaseRequest requestType, HttpRequestType type, HttpContent httpContent, Boolean auth)
         {
             client = new HttpClient();
             client.BaseAddress = GetUri(requestType);
-            var authdata = string.Format("{0}:{1}", basicUsername, basicPWord);
-            var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authdata));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
+
+            if (auth)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", UserInfo.DatabaseInfo.token);
+            }
+
 
             //then send the request
             HttpResponseMessage response;

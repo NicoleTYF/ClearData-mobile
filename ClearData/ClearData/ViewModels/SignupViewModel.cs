@@ -88,29 +88,38 @@ namespace ClearData.ViewModels
             }
             else
             {
-
                 string dateofbirth = string.Format("{0}-{1:00}-{2:00}", DateofBirth.Year, DateofBirth.Month, DateofBirth.Day);
                 var userInfo = new UserDataJson()
                 {
-                    username = UsernameText,
-                    date_of_birth = dateofbirth,
-                    birthplace = Birthplace
+                    auth = new Auth()
+                    {
+                        username = UsernameText,
+                        password = Password
+                    },
+                    profile = new Profile()
+                    {
+                        birthplace = Birthplace,
+                        date_of_birth = dateofbirth
+                    }
                 };
                 var jsonstring = JsonConvert.SerializeObject(userInfo);
                 Console.WriteLine(jsonstring);
                 var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
                 var response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.SIGNUP, 
-                            DatabaseInteraction.HttpRequestType.POST, jsonContent);
+                            DatabaseInteraction.HttpRequestType.POST, jsonContent, false);
                 // Success + remember to set the static class elements
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    UserInfo.DatabaseInfo = JsonConvert.DeserializeObject<DatabaseInfo>(jsonString);
+
                     await UserInfo.LoadPermissionsDataStore(); //added this here to initialise the whole permissions structure, idk where else to put it
                     await Shell.Current.GoToAsync($"//AboutPage");
                 }
                 else
                 {
                     var msg = string.Format("Request failed with error code {0}", response.StatusCode);
-                    await Application.Current.MainPage.DisplayAlert("Alert", msg, "bummer");
+                    await Application.Current.MainPage.DisplayAlert("Alert", msg, "return");
                 }
             }
         }

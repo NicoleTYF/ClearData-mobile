@@ -38,6 +38,10 @@ namespace ClearData.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
+
+
+
+
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             if (Username == "BakedBeans1" && Password == "BakedBeans2")
             {
