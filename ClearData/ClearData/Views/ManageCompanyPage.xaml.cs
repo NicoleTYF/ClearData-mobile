@@ -72,19 +72,16 @@ namespace ClearData.Views
             {
                 permLevelTitle = "All";
                 permLevelDesc += "On this setting, any data you are sharing will be accessible by this company";
-                permPercent.Text = "100%";
             } 
             else if(_viewModel.CurrentRestriction == (int)Company.RestrictionType.CUSTOM)
             {
                 permLevelTitle = "Custom";
                 permLevelDesc += "On this setting, you can toggle access to any data types";
-                permPercent.Text = "75%";
             } 
             else if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.NONE)
             {
                 permLevelTitle = "None";
                 permLevelDesc += "On this setting, none of your data will be shared with this company";
-                permPercent.Text = "0%";
             }
             
         }

@@ -14,9 +14,6 @@ namespace ClearData.Models
 
     public class DatabaseInteraction
     {
-
-        private static string basicUsername = "admin";
-        private static string basicPWord = "BakedBeans3";
         private static string webpage = "https://cleardata-webapp.uqcloud.net/api";
         private static HttpClient client;
 

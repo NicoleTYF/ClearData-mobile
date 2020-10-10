@@ -17,6 +17,7 @@ namespace ClearData.ViewModels
 
         private int currentRestriction;
         private Company company;
+        private string displayPercentage;
         public int CurrentRestriction 
         { 
             get => currentRestriction; 
@@ -27,6 +28,12 @@ namespace ClearData.ViewModels
         {
             get => company;
             set => SetProperty(ref company, value);
+        }
+
+        public string DisplayPercentage
+        {
+            get => displayPercentage;
+            set => SetProperty(ref displayPercentage, value);
         }
         
         public Command RestrictionChanged { get; }
@@ -154,6 +161,7 @@ namespace ClearData.ViewModels
             }
             //finally update the restriction that is being displayed
             CurrentRestriction = (int)company.Restriction;
+            DisplayPercentage = String.Format("{0}%",Convert.ToInt32((1.0 * trueCount / DataTypePermissions.Count) * 100));
         }
 
     }
