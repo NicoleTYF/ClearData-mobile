@@ -35,7 +35,7 @@ namespace ClearData.Views
 
         private void OpenInfo(object sender, System.EventArgs e)
         {
-            DisplayAlert("How to use", "Select 'Service' to enable/disable data individually, \n\n Select 'Data types' to enable/disable data types shared to all service providers.", "Got it");
+            DisplayAlert("How to use", "Select 'Service' to enable/disable data individually, \n\nSelect 'Data types' to enable/disable data types shared to all service providers.", "Got it");
         }
 
         public void expandPermInfo(object sender, System.EventArgs e)
