@@ -16,6 +16,7 @@
             <converters:BoolToColorConverter x:Key="colorConverter"/>
             <converters:PermissionTextConverter x:Key="permissionConverter"/>
             <converters:StringCaseConverter x:Key="caseConverter" />
+            <converters:NameToImageUrlConverter x:Key="urlConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -147,7 +148,7 @@
                                          BackgroundColor="Transparent"
                                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
 
-                            <Image Source="img_no_image.png" Grid.Column="0" Grid.Row="0" Margin="18,0,0,0" Grid.RowSpan="2" VerticalOptions="Center"/>
+                            <Image Source="{Binding Name, Converter={StaticResource urlConverter}}" Grid.Column="0" Grid.Row="0" Margin="18,0,0,0" Grid.RowSpan="2" VerticalOptions="Center"/>
 
                             <Label Text="{Binding Name}" LineBreakMode="NoWrap" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" 
                                    TextColor="#FFE88F" FontSize="Default" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="0,-14,0,0" />

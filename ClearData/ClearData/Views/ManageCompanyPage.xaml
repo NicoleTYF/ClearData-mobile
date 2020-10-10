@@ -14,6 +14,7 @@
             <Color x:Key="Accent">#96d1ff</Color>
             <converters:PermissionTextConverter x:Key="permissionConverter"/>
             <converters:StringCaseConverter x:Key="caseConverter" />
+            <converters:NameToImageUrlConverter x:Key="urlConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -67,7 +68,7 @@
                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
 
                     <Label Text="SERVICE" TextColor="#FFE88F" FontSize="Small" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontAttributes="Bold" Padding="15,20,0,0"/>
-                    <Image Source="img_no_image.png" Grid.Column="0" Grid.Row="1" Margin="20,0,0,0"/>
+                    <Image Source="{Binding Company.Name, Converter={StaticResource urlConverter}}" Grid.Column="0" Grid.Row="1" Margin="20,0,0,0"/>
                     <Label Text="{Binding Company.Name}" FontSize="Large" TextColor="White" FontAttributes="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
                     <Label Text="INFORMATION" TextColor="#FFE88F" FontSize="Small" FontAttributes="Bold" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Padding="15,7,0,0"/>
