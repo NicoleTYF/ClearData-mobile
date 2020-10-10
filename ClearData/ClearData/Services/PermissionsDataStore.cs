@@ -140,7 +140,7 @@ namespace ClearData.Services
 
             //load data types information
             HttpResponseMessage dataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
-                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true);
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true, true);
             if (dataTypesResponse != null)
             {
                 var jsonString = await dataTypesResponse.Content.ReadAsStringAsync();
@@ -149,7 +149,7 @@ namespace ClearData.Services
 
             //load company information
             HttpResponseMessage companiesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.ENTERPRISES,
-                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true);
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true, true);
             if (companiesResponse != null)
             {
                 var jsonString = await companiesResponse.Content.ReadAsStringAsync();
@@ -162,7 +162,7 @@ namespace ClearData.Services
             }
             //get the wanted data types of all the companies
             HttpResponseMessage wantedDataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.WANTED_DATA_TYPES,
-                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true);
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true, true);
             if (wantedDataTypesResponse != null)
             {
                 var jsonString = await wantedDataTypesResponse.Content.ReadAsStringAsync();

@@ -106,20 +106,15 @@ namespace ClearData.ViewModels
                 Console.WriteLine(jsonstring);
                 var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
                 var response = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.SIGNUP, 
-                            DatabaseInteraction.HttpRequestType.POST, jsonContent, false);
+                            DatabaseInteraction.HttpRequestType.POST, jsonContent, false, true);
                 // Success + remember to set the static class elements
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
                     UserInfo.DatabaseInfo = JsonConvert.DeserializeObject<DatabaseInfo>(jsonString);
 
-                    await UserInfo.LoadPermissionsDataStore(); //added this here to initialise the whole permissions structure, idk where else to put it
+                    await UserInfo.LoadPermissionsDataStore(); //added this here to initialise the whole permissions structure
                     await Shell.Current.GoToAsync($"//AboutPage");
-                }
-                else
-                {
-                    var msg = string.Format("Request failed with error code {0}", response.StatusCode);
-                    await Application.Current.MainPage.DisplayAlert("Alert", msg, "return");
                 }
             }
         }

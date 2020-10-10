@@ -57,7 +57,7 @@ namespace ClearData.Models
             return new Uri(uriString);
         }
 
-        public static async Task<HttpResponseMessage> SendDatabaseRequest(DatabaseRequest requestType, HttpRequestType type, HttpContent httpContent, Boolean auth)
+        public static async Task<HttpResponseMessage> SendDatabaseRequest(DatabaseRequest requestType, HttpRequestType type, HttpContent httpContent, Boolean auth, Boolean displayErrors)
         {
             client = new HttpClient();
             client.BaseAddress = GetUri(requestType);
@@ -82,10 +82,10 @@ namespace ClearData.Models
 
             }
 
-            if (!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode && displayErrors)
             {
                 var msg = string.Format("Request failed with error code {0}", response.StatusCode);
-                await Application.Current.MainPage.DisplayAlert("Alert", msg, "bummer");
+                await Application.Current.MainPage.DisplayAlert("Alert", msg, "continue");
             }
             return response;
         }
