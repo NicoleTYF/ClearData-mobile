@@ -28,6 +28,7 @@ namespace ClearData.Views
             myCarousel.ItemsSource = new ObservableCollection<int> { 1, 2 }; 
             myCarousel.Position = 0; //default
             myCarousel.InterPageSpacing = 10;
+<<<<<<< HEAD
             myCarousel.Orientation = CarouselViewOrientation.Horizontal;
             */
 
@@ -57,6 +58,9 @@ namespace ClearData.Views
             // ... our chart data and chart type here ...
 
             //chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
+=======
+            myCarousel.Orientation = CarouselViewOrientation.Horizontal;  
+>>>>>>> master
         }
         
     }

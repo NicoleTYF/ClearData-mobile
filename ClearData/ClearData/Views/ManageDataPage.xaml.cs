@@ -33,6 +33,11 @@ namespace ClearData.Views
             await _viewModel.UpdateToDataTypesDisplay();
         }
 
+        private void OpenInfo(object sender, System.EventArgs e)
+        {
+            DisplayAlert("How to use", "Select 'Service' to enable/disable data individually, \n\n Select 'Data types' to enable/disable data types shared to all service providers.", "Got it");
+        }
+
         public void expandPermInfo(object sender, System.EventArgs e)
         {
             var permDesc = ((Label)sender);

@@ -34,10 +34,10 @@
         <!-- The UIs at the top (can collapse) -->
         <Grid Margin="21.5,15,21.5,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="17.3"/>
-                <RowDefinition Height="8"/>
+                <RowDefinition Height="7"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
@@ -46,14 +46,10 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title text -->
-            <Label Text="Manage Data"
-                       FontSize="37"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       TextColor="White"
-                       FontFamily="Calibri-Light"
-                       HorizontalOptions="Start"/>
+            <FlexLayout Grid.Column="0" Grid.Row="0" Direction="Row" Grid.ColumnSpan="3" AlignItems="Start" JustifyContent="Start" Margin="0,20,15,0" >
+                <Label Text="Manage Data" FontSize="37" TextColor="White" FontFamily="Calibri-Light" HorizontalOptions="Start"/>
+                <ImageButton Source="ic_info.png" WidthRequest="25" HeightRequest="25" Clicked="OpenInfo" Margin="5,0,0,0"  BackgroundColor="Transparent" FlexLayout.AlignSelf="Start" VerticalOptions="Start" />
+            </FlexLayout>
 
             <!-- Description text -->
             <Label Text="Select 'Service' to enable/disable data individually, or 'Data types' to enable/disable data types shared to all service providers." 
@@ -92,13 +88,17 @@
         </Grid>
 
         <RefreshView x:DataType="local:ManageDataViewModel" Command="{Binding LoadDataTypesCommand}"  IsRefreshing="{Binding IsDataTypeDisplayBusy, Mode=TwoWay}"
+<<<<<<< HEAD
                      IsVisible="{Binding DataTypesVisible}" Margin="21.5,0,21.5,0">
+=======
+                     IsVisible="{Binding DataTypesVisible}" Margin="21.5,5,21.5,0">
+>>>>>>> master
             <CollectionView x:Name="DataTypeListView"
                     ItemsSource="{Binding DataTypes}"
                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout x:DataType="model:DataType" Padding="0,0,0,10">
+                        <StackLayout x:Name="DataTypeView" x:DataType="model:DataType" Padding="0,0,0,10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -113,7 +113,17 @@
                                 <Label Text="{Binding Name, Converter={StaticResource caseConverter}}"
                                        LineBreakMode="NoWrap" Grid.Column="0" Grid.Row="0" TextColor="White" FontSize="Default" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="1" 
+<<<<<<< HEAD
                                        TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0" />
+=======
+                                       TextColor="#CFCFCF" FontSize="Micro" Margin="0,-4,0,0">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="expandPermInfo"
+                                            NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+>>>>>>> master
                                 <!-- by binding it to the enabled variable, it updates automatically so doesn't need to be handled-->
                                 <Switch IsToggled="{Binding Enabled}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Start"
                                         OnColor="#FFCB00" ThumbColor="#e8e9dc"/>

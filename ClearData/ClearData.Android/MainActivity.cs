@@ -26,11 +26,13 @@ namespace ClearData.Droid
             CarouselViewRenderer.Init();
             LoadApplication(new App());
 
-            // Disable landscape view
+
             if (Device.Idiom == TargetIdiom.Phone)
             {
                 RequestedOrientation = ScreenOrientation.Portrait;
-            } else {
+            }
+            else
+            {
                 RequestedOrientation = ScreenOrientation.SensorLandscape;
             }
         }

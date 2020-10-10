@@ -45,7 +45,7 @@ namespace ClearData.Views
             _viewModel.SwitchToggled();
         }
 
-        private void OpenPermDesc(object sender, System.EventArgs e)
+        private void OpenInfo(object sender, System.EventArgs e)
         {
             DisplayAlert(permLevelTitle , permLevelDesc, "Close");
         }
@@ -77,6 +77,8 @@ namespace ClearData.Views
             {
                 permLevelTitle = "Custom";
                 permLevelDesc += "On this setting, you can toggle access to any data types";
+
+                //permPercent.Text = "Auto";
             } 
             else if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.NONE)
             {
