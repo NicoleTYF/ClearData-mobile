@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using ClearData.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace ClearData.Services
 {
@@ -12,7 +13,7 @@ namespace ClearData.Services
     {
         public List<DataType> dataTypes;
         public List<Company> companies;
-        private HashSet<(int, int)> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
+        private HashSet<IdPair> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
 
         public PermissionsDataStore()
         {
@@ -21,122 +22,6 @@ namespace ClearData.Services
 
         public async Task LoadDataStore()
         {
-            /*
-            dataTypes = new List<DataType>()
-            {
-                new DataType { Id = (int)DataType.DataTypeId.LOCATION, Name = "Location", Description = "Data tracking your current location"},
-                new DataType { Id = (int)DataType.DataTypeId.BROWSING, Name = "Browsing", Description = "Browsing history tracking what websites you visit"},
-                new DataType { Id = (int)DataType.DataTypeId.PHONE_USAGE, Name = "Phone Usage", Description = "Phone usage including app and extension usage, when you use them, who you use them with and your phone battery"},
-                new DataType { Id = (int)DataType.DataTypeId.PAYMENT_HISTORY, Name = "Payments", Description = "Payments that you make online"},
-                new DataType { Id = (int)DataType.DataTypeId.PHOTOS, Name = "Photos", Description = "Photos on your camera roll"},
-                new DataType { Id = (int)DataType.DataTypeId.ADVERTISING, Name = "Advertising", Description = "Your interactions with advertisements including which ones you engage with"}
-            };
-
-            Company Google = new Company
-            {
-                Id = 0,
-                Name = "Google",
-                Description = "Google LLC is an American multinational technology" +
-                "company that specializes in Internet-related services and products, which include online advertising technologies, " +
-                "a search engine, cloud computing, software, and hardware. It is considered one of the Big Four technology companies " +
-                "alongside Amazon, Apple and Microsoft.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
-                                                        (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.ADVERTISING}
-            };
-
-            Company Amazon = new Company
-            {
-                Id = 1,
-                Name = "Amazon",
-                Description = "Amazon.com, Inc., is an American multinational technology company based in Seattle, Washington. " +
-                "Amazon focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is considered one " +
-                "of the Big Four technology companies, along with Google, Apple, and Facebook.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE, 
-                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING }
-            };
-
-            Company Spotify = new Company
-            {
-                Id = 2,
-                Name = "Spotify",
-                Description = "Spotify is a Swedish music streaming and media services provider. It is operated by Spotify AB, " +
-                "which is publicly traded in the NYSE through Luxembourg-domiciled holding company Spotify Technology S.A., " +
-                "itself a constituent of the Russell 1000 Index.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.LOCATION, 
-                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.PHOTOS}
-            };
-
-            Company Mozilla = new Company
-            {
-                Id = 3,
-                Name = "Mozilla",
-                Description = "Mozilla is a free software community founded in 1998 by members of Netscape. The Mozilla community uses, develops, spreads and " +
-                "supports Mozilla products, thereby promoting exclusively free software and open standards, with only minor exceptions. " +
-                "The community is supported institutionally by the not-for-profit Mozilla Foundation and its tax-paying subsidiary, the Mozilla Corporation.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING,
-                                                        (int)DataType.DataTypeId.ADVERTISING }
-            };
-
-            Company Uber = new Company
-            {
-                Id = 4,
-                Name = "Uber",
-                Description = "Uber Technologies, Inc., commonly known as Uber, offers vehicles for hire, food delivery (Uber Eats), package delivery, couriers, " +
-                "freight transportation, and, through a partnership with Lime, electric bicycle and motorized scooter rental. The company is based in San " +
-                "Francisco and has operations in over 900 metropolitan areas worldwide. It is one of the largest providers in the gig economy and is also a pioneer " +
-                "in the development of self-driving cars.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.PHONE_USAGE,
-                                                        (int)DataType.DataTypeId.PHOTOS }
-            };
-
-            Company Ebay = new Company
-            {
-                Id = 5,
-                Name = "eBay",
-                Description = "eBay Inc. is an American multinational e-commerce corporation based in San Jose, California, that facilitates consumer-to-consumer" +
-                " and business-to-consumer sales through its website. eBay was founded by Pierre Omidyar in 1995, and became a notable success story of the dot-com " +
-                "bubble. eBay is a multibillion-dollar business with operations in about 32 countries, as of 2019.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.BROWSING,
-                                                        (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING }
-            };
-
-            Company LinkedIn = new Company
-            {
-                Id = 6,
-                Name = "LinkedIn",
-                Description = "LinkedIn is an American business and employment-oriented online service that operates via websites and mobile apps. " +
-                "Launched on May 5, 2003, it is mainly used for professional networking, including employers posting jobs and job seekers posting their CVs. " +
-                "As of 2015, most of the company's revenue came from selling access to information about its members to recruiters and sales professionals. " +
-                "Since December 2016 it has been a wholly owned subsidiary of Microsoft. As of May 2020, LinkedIn had 706 million registered members in 150 countries.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.PHOTOS, (int)DataType.DataTypeId.LOCATION }
-            };
-
-            Company Microsoft = new Company
-            {
-                Id = 7,
-                Name = "Microsoft",
-                Description = "Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, " +
-                "manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services. " +
-                "Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer " +
-                "and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, 
-                                                        (int)DataType.DataTypeId.PHONE_USAGE, (int)DataType.DataTypeId.ADVERTISING }
-            };
-
-            Company Facebook = new Company
-            {
-                Id = 8,
-                Name = "Facebook",
-                Description = "Facebook is an American online social media and social networking service based in Menlo Park, California and a flagship service " +
-                "of the namesake company Facebook, Inc. It was founded by Mark Zuckerberg, along with fellow Harvard College students and roommates " +
-                "Eduardo Saverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes.",
-                WantedDataTypes = new SortedSet<int> { (int)DataType.DataTypeId.LOCATION, (int)DataType.DataTypeId.BROWSING, (int)DataType.DataTypeId.PHONE_USAGE,
-                    (int)DataType.DataTypeId.PAYMENT_HISTORY, (int)DataType.DataTypeId.ADVERTISING, (int)DataType.DataTypeId.PHOTOS }
-            };
-            companies = new List<Company> { Google, Amazon, Spotify, Mozilla, Uber, Ebay, LinkedIn, Microsoft, Facebook }; //add the companies
-            */
-
-            enabledSet = new HashSet<(int, int)>();
 
             //load data types information
             HttpResponseMessage dataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
@@ -156,6 +41,7 @@ namespace ClearData.Services
                 companies = JsonConvert.DeserializeObject<List<Company>>(jsonString);
             }
 
+            //initialise all the wanted data types as empty
             foreach (Company company in companies)
             {
                 company.WantedDataTypes = new SortedSet<int>();
@@ -182,22 +68,50 @@ namespace ClearData.Services
                 }
             }
 
+            //load the permissions into the enabled set
+            HttpResponseMessage permissionsResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.USER_PERMISSIONS,
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true, true);
+            enabledSet = new HashSet<IdPair>();
+            if (permissionsResponse != null)
+            {
+                var jsonString = await companiesResponse.Content.ReadAsStringAsync();
+                //cannot deserialise straight into a hashset, so instead go to a list and then build the hashset
+                List<IdPair> idsList = JsonConvert.DeserializeObject<List<IdPair>>(jsonString);
+                foreach (IdPair idPair in idsList)
+                {
+                    enabledSet.Add(idPair);
+                }
+            }
+
         }
 
         public bool InEnabledSet(int dataTypeId, int companyId)
         {
-            return enabledSet.Contains((dataTypeId, companyId));
+            return enabledSet.Contains(new IdPair(){data_type=dataTypeId, enterprise=companyId });
         }
 
-        public void SetEnabled(int dataTypeId, int companyId, bool setting)
+        public async void SetEnabled(int dataTypeId, int companyId, bool setting)
         {
-            if (setting)
+            IdPair idPair = new IdPair() { data_type = dataTypeId, enterprise = companyId };
+            if (setting && !InEnabledSet(dataTypeId, companyId))
             {
-                enabledSet.Add((dataTypeId, companyId));
+                enabledSet.Add(idPair); //update the value locally
+                //update the value on the server
+                var jsonString = JsonConvert.SerializeObject(idPair);
+                var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.ALLOW_PERMISSION,
+                            DatabaseInteraction.HttpRequestType.POST, jsonContent, true, true);
+                //error checking done in the request
             } 
-            else
+            else if (!setting && InEnabledSet(dataTypeId, companyId))
             {
-                enabledSet.Remove((dataTypeId, companyId));
+                enabledSet.Remove(idPair);
+                //update the value on the server
+                var jsonString = JsonConvert.SerializeObject(idPair);
+                var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DENY_PERMISSION,
+                            DatabaseInteraction.HttpRequestType.POST, jsonContent, true, true);
+
             }
         }
 
