@@ -74,7 +74,7 @@ namespace ClearData.Services
             enabledSet = new HashSet<IdPair>();
             if (permissionsResponse != null)
             {
-                var jsonString = await companiesResponse.Content.ReadAsStringAsync();
+                var jsonString = await permissionsResponse.Content.ReadAsStringAsync();
                 //cannot deserialise straight into a hashset, so instead go to a list and then build the hashset
                 List<IdPair> idsList = JsonConvert.DeserializeObject<List<IdPair>>(jsonString);
                 foreach (IdPair idPair in idsList)
