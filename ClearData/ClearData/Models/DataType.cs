@@ -28,7 +28,7 @@ namespace ClearData.Models
             //pressing the switch and there is no way of distinguishing whether it was pressed or just the page was opened)
             bool currentSetting = GetEnabled(); //read the current value
             bool canToggle = true;
-            if (Id == 1) // This is location TODO: FIX THE IDS
+            if (Name == "Location") 
             {
                 ToggleLocationCapture(setting);
                 canToggle = UserInfo.locationPossible;
