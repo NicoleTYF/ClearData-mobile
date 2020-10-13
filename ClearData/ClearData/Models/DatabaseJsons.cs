@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ClearData.Models
+﻿namespace ClearData.Models
 {
+    /**
+     * When unpacking jsons sent from the database, there need to be classes to unpack to, these are some
+     * of the classes that are needed to do the interaction
+     */
     public class UserDataJson
     {
         public Auth auth { get; set; }

@@ -5,6 +5,9 @@ using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
+    /**
+     * Class for determining the colour of the buttons to be display dependent on whether they are being displayed or not
+     */
     public class BoolToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

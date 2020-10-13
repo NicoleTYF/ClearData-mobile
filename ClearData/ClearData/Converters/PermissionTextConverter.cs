@@ -8,6 +8,9 @@ using System.Threading;
 
 namespace ClearData.Converters
 {
+    /**
+     * Used to determine the text to display for showing the current permission setting
+     */
     public class PermissionTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -4,11 +4,19 @@ using System.Collections.Generic;
 
 namespace ClearData.Models
 {
+    /**
+     * A class representing a company/enterprise
+     */
     public class Company : DataObject
     {
-        public enum RestrictionType { ALL = 0, CUSTOM = 1, NONE = 2}
+        public enum RestrictionType { ALL = 0, CUSTOM = 1, NONE = 2} //the possible restriction settings
         public SortedSet<int> WantedDataTypes { get; set; } //all data types wanted by the company, entry is the data type id
 
+        /**
+         * The restriction type is something that we want to be able to access, however, we don't want to actually store this
+         * anywhere to ensure consistency with the user/company permissions. So whenever there is an access to this 'variable'
+         * infer the actual value or update other values for consistency.
+         */
         public RestrictionType Restriction
         {
             get => GetRestrictionType();
@@ -47,7 +55,7 @@ namespace ClearData.Models
 
         /**
          * Set the restriction type by updating all the values, custom makes no change
-         * This needs to only go through the data types which 
+         * This needs to only go through the data types which are wanted by the company
          */
         private void SetRestrictionType(RestrictionType restriction)
         {

@@ -25,14 +25,6 @@ namespace ClearData.ViewModels
 
         public AboutViewModel()
         {
-            /*
-            MyItemsSource = new ObservableCollection<View>()
-            {
-                new CachedImage() { Source = "c1.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill },
-                new CachedImage() { Source = "c2.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill },
-                new CachedImage() { Source = "c3.jpg", DownsampleToViewSize = true, Aspect = Aspect.AspectFill }
-            };
-            */
             Period = (int)TimePeriod.ALL_TIME;
             Display = (int)DisplayType.COMPANIES;
             DisplayPrice = "$10.23";

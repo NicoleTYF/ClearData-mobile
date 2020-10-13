@@ -10,8 +10,10 @@ using System.Net.Http.Headers;
 
 namespace ClearData.Models
 {
-    
-
+    /**
+     * class for interaction with the database, allows put, post and get requests and handles all the endpoint locations
+     * the SendDatabaseRequest is the bulk of this class and the interesting part
+     */
     public class DatabaseInteraction
     {
         private static string webpage = "https://cleardata-webapp.uqcloud.net/api";
@@ -50,7 +52,7 @@ namespace ClearData.Models
                     address = "authenticate";
                     break;
                 case DatabaseRequest.DATATYPES:
-                default: //never uses default
+                default: //never uses default, but make the compiler happy
                     address = "data_types";
                     break;
             }
@@ -65,11 +67,11 @@ namespace ClearData.Models
             client = new HttpClient();
             client.BaseAddress = GetUri(requestType);
 
+            //add authentication to the request, this won't be done for a login/signup request, but is done for any other request
             if (auth)
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", UserInfo.DatabaseInfo.token);
             }
-
 
             //then send the request
             HttpResponseMessage response;
@@ -82,7 +84,6 @@ namespace ClearData.Models
                 default:
                     response = await client.GetAsync(GetUri(requestType));
                     break;
-
             }
 
             if (!response.IsSuccessStatusCode && displayErrors)

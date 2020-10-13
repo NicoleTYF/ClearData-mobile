@@ -5,6 +5,10 @@ using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
+    /**
+     * Used for converting a date time value to a string representing the time between the given
+     * value and the current time
+     */
     public class TimeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

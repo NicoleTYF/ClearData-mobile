@@ -2,6 +2,10 @@
 
 namespace ClearData.Models
 {
+    /**
+     * A pair of Ids relating to the data type and enterprise. This is used for setting a datatype to be
+     * enabled for a company from the perspective of the active user.
+     */
     public class IdPair
     {
         public int enterprise { get; set; }

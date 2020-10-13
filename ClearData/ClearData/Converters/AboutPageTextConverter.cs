@@ -6,6 +6,9 @@ using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
+    /**
+     * Class for determining what text to display on the about page
+     */
     public class AboutPageTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
