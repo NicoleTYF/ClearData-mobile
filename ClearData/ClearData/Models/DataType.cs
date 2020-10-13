@@ -2,11 +2,17 @@
 
 namespace ClearData.Models
 {
+    /**
+     * A datatype that can be collected
+     */
     public class DataType : DataObject
     {
         public enum DataTypeId { LOCATION = 0, BROWSING = 1, PHONE_USAGE = 2, PAYMENT_HISTORY = 3, PHOTOS = 4, ADVERTISING = 5}
         
-        //whether this data type is enabled globally, need to infer this from the company settings
+        /**
+         * whether this data type is enabled globally, for consistency, we don't want this to be a variable itself,
+         * so infer the enabled value from the settings for individual companies.
+         */
         public bool Enabled {
             get => GetEnabled();
             set => SetEnabled(value);
