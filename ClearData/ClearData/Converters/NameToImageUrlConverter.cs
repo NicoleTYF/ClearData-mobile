@@ -6,6 +6,10 @@ using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
+    /**
+     * Used to convert a company name to a url to access from clearbit.com in order to have access
+     * to pictures
+     */
     public class NameToImageUrlConverter : IValueConverter
     {
         private static string clearbitUrl = "https://logo.clearbit.com";

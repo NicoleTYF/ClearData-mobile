@@ -7,6 +7,9 @@ using Xamarin.Forms;
 
 namespace ClearData.Converters
 {
+    /**
+     * Used for determining whether a list of logs is empty
+     */
     public class IsEmptyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

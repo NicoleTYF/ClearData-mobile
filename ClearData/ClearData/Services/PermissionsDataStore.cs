@@ -9,21 +9,23 @@ using System.Text;
 
 namespace ClearData.Services
 {
+    /**
+     * The main data store for the entire app, contains information relating to the companies,
+     * data types, permissions settings and logs. 
+     */
     public class PermissionsDataStore
     {
-        public List<DataType> dataTypes;
-        public List<Company> companies;
-        private HashSet<IdPair> enabledSet; //if (dataTypeId, companyId) in this set, then it is enabled
+        public List<DataType> dataTypes; // list of all data types
+        public List<Company> companies; // list of all companies
+        private HashSet<IdPair> enabledSet; // if (dataTypeId, companyId) in this set, then it is enabled
 
-        public PermissionsDataStore()
-        {
-            
-        }
-
+        /**
+         * Load the data store. This requires the authentication token to have been generated as it
+         * makes user specific database calls.
+         */
         public async Task LoadDataStore()
         {
-
-            //load data types information
+            // load data types information from database
             HttpResponseMessage dataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DATATYPES, 
                                                                                         DatabaseInteraction.HttpRequestType.GET, null, true, true);
             if (dataTypesResponse != null)
@@ -41,12 +43,12 @@ namespace ClearData.Services
                 companies = JsonConvert.DeserializeObject<List<Company>>(jsonString);
             }
 
-            //initialise all the wanted data types as empty
+            // initialise all the wanted data types as empty
             foreach (Company company in companies)
             {
                 company.WantedDataTypes = new SortedSet<int>();
             }
-            //get the wanted data types of all the companies
+            // get the wanted data types of all the companies
             HttpResponseMessage wantedDataTypesResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.WANTED_DATA_TYPES,
                                                                                         DatabaseInteraction.HttpRequestType.GET, null, true, true);
             if (wantedDataTypesResponse != null)
@@ -56,7 +58,7 @@ namespace ClearData.Services
                 foreach (IdPair idPair in idPairs)
                 {
                     //now I constructed all this structure in such a way that I never thought I would have to do this, but here we go!
-                    //iterating through all of them is sad, but what are you going to do?
+                    //iterating through all of them is sad, but it's necessary to play nicely with the database
                     foreach (Company company in companies)
                     {
                         if (company.Id == idPair.enterprise)
@@ -68,14 +70,15 @@ namespace ClearData.Services
                 }
             }
 
-            //load the permissions into the enabled set
+            // load the permissions into the enabled set
             HttpResponseMessage permissionsResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.USER_PERMISSIONS,
                                                                                         DatabaseInteraction.HttpRequestType.GET, null, true, true);
             enabledSet = new HashSet<IdPair>();
             if (permissionsResponse != null)
             {
                 var jsonString = await permissionsResponse.Content.ReadAsStringAsync();
-                //cannot deserialise straight into a hashset, so instead go to a list and then build the hashset
+                // cannot deserialise straight into a hashset, so instead go to a list and then build the hashset
+                // it is faster to have these in a hashset for use cases, so a one off conversion is worth it
                 List<IdPair> idsList = JsonConvert.DeserializeObject<List<IdPair>>(jsonString);
                 foreach (IdPair idPair in idsList)
                 {
@@ -85,11 +88,18 @@ namespace ClearData.Services
 
         }
 
+        /**
+         * Return true iff the (dataTypeId, companyId) tuple is in the set of enabled permissions, i.e. is enabled
+         */
         public bool InEnabledSet(int dataTypeId, int companyId)
         {
             return enabledSet.Contains(new IdPair(){data_type=dataTypeId, enterprise=companyId });
         }
 
+        /**
+         * Sets whether a (dataTYpeId, companyId) tuple is enabled. This is done by hashset removal or addition, but
+         * this is a useful abstraction
+         */
         public async void SetEnabled(int dataTypeId, int companyId, bool setting)
         {
             IdPair idPair = new IdPair() { data_type = dataTypeId, enterprise = companyId };
@@ -111,7 +121,7 @@ namespace ClearData.Services
                 var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.DENY_PERMISSION,
                             DatabaseInteraction.HttpRequestType.POST, jsonContent, true, true);
-
+                //error checking done in the request
             }
         }
 
@@ -132,7 +142,9 @@ namespace ClearData.Services
             return wantedDataTypesOverlap;
         } 
 
-        //infer whether a data type is enabled from all the internal values
+        /**
+         * infer whether a data type is globally enabled from all the internal values
+         */
         public bool IsDataTypeEnabledGlobally(int dataTypeId)
         {
             foreach (Company company in companies)
@@ -145,6 +157,9 @@ namespace ClearData.Services
             return false;
         }
 
+        /**
+         * Set a data type global permission. If this is a transition, enable/disable the data type for all companies.
+         */
         public void SetDataTypeGlobalPermission(int dataTypeId, bool setting)
         {
             foreach (Company company in companies)
@@ -201,11 +216,16 @@ namespace ClearData.Services
             return ExampleLogs;
         }
 
+        /**
+         * Retrieve all relevant logs as a ditionary linking (dataTypeId, companyId) pairs to lists of times
+         * this is useful for the display of logs, as we need to group together all data types or companies
+         * however this is not the way we want to actually store the logs, because that is not how they are used
+         * to generate graphs, and a list is more useful in that situation.
+         */
         public Dictionary<(int,int),List<DateTime>> RetrieveAllRelevantLogs()
         {
             //this part will be replaced by a database call which will handle all the filtering
             //at the moment just pretend that we don't care about permissions
-
             Dictionary<(int, int), List<DateTime>> dict = new Dictionary<(int, int), List<DateTime>>();
 
             //go through all the return values and create a dictionary, which will make finding these things much easier
