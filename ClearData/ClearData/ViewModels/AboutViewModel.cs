@@ -103,7 +103,8 @@ namespace ClearData.ViewModels
                     }
                 }
             }
-            DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray() };
+            DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray(), 
+                                            LabelTextSize = 40, LabelMode = LabelMode.RightOnly, GraphPosition = GraphPosition.AutoFill };
             DisplayPrice = String.Format("${0}", totalProfit);
         }
 
