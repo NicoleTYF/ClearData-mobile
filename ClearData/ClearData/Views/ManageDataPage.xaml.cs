@@ -25,7 +25,7 @@ namespace ClearData.Views
 
         private async void OnServicePushed(object sender, EventArgs e)
         {
-            await _viewModel.UpdateToServicesDisplay();
+             await _viewModel.UpdateToServicesDisplay();
         }
 
         private async void OnDataTypesPushed(object sender, EventArgs e)

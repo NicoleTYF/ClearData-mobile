@@ -61,6 +61,7 @@ namespace ClearData.ViewModels
             DataTypesVisible = false;
             ServicesVisible = true;
             IsBusy = true;
+            IsServicesDisplayBusy = true;
             await ExecuteLoadCompaniesCommand(); //reload the companies when we switch to this view
         }
 
@@ -81,6 +82,7 @@ namespace ClearData.ViewModels
         public async void OnAppearing()
         {
             //when the page appears, load the data types or companies, only need to load one
+            
             if (DataTypesVisible)
                 await ExecuteLoadDataTypesCommand();
             else

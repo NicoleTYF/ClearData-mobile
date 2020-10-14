@@ -211,9 +211,23 @@ namespace ClearData.Services
             new BasicLog{data_type=3, enterprise=4, time=DateTime.Now - new TimeSpan(90, 0, 13), price=0.32 },
         };
 
-        public List<BasicLog> RetrieveAllLogsList()
+        public async Task<List<BasicLog>> RetrieveAllLogsList()
         {
-            return ExampleLogs;
+            // load logs information from database
+            HttpResponseMessage logsResponse = await DatabaseInteraction.SendDatabaseRequest(DatabaseInteraction.DatabaseRequest.USER_LOGS,
+                                                                                        DatabaseInteraction.HttpRequestType.GET, null, true, true);
+            List<BasicLog> logsList = new List<BasicLog>();
+            if (logsResponse != null)
+            {
+                var jsonString = await logsResponse.Content.ReadAsStringAsync();
+                logsList = JsonConvert.DeserializeObject<List<BasicLog>>(jsonString);
+                //no go through and convert the retrieved string time information to datetime objects
+                foreach (BasicLog log in logsList)
+                {
+                    log.time = DateTime.Parse(log.date_accessed);
+                }
+            }
+            return logsList;
         }
 
         /**
@@ -222,14 +236,14 @@ namespace ClearData.Services
          * however this is not the way we want to actually store the logs, because that is not how they are used
          * to generate graphs, and a list is more useful in that situation.
          */
-        public Dictionary<(int,int),List<DateTime>> RetrieveAllRelevantLogs()
+        public async Task<Dictionary<(int,int),List<DateTime>>> RetrieveAllRelevantLogs()
         {
             //this part will be replaced by a database call which will handle all the filtering
             //at the moment just pretend that we don't care about permissions
             Dictionary<(int, int), List<DateTime>> dict = new Dictionary<(int, int), List<DateTime>>();
 
             //go through all the return values and create a dictionary, which will make finding these things much easier
-            List<BasicLog> logList = ExampleLogs; //this will be replaced by a call to the database
+            List<BasicLog> logList = await RetrieveAllLogsList(); //this makes the call to the database
             foreach (var basicLog in logList) {
                 if (!dict.ContainsKey((basicLog.data_type, basicLog.enterprise)))
                 {

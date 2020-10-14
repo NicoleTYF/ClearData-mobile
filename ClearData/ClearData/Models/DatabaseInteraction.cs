@@ -37,7 +37,7 @@ namespace ClearData.Models
                     address = "enterprise_data_types";
                     break;
                 case DatabaseRequest.USER_LOGS:
-                    address = "user_logs";
+                    address = "data_access";
                     break;
                 case DatabaseRequest.USER_PERMISSIONS:
                     address = "user_permissions";

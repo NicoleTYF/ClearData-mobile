@@ -38,7 +38,7 @@ namespace ClearData
 
         private async void OnServicePushed(object sender, System.EventArgs e)
         {
-            await _viewModel.UpdateToServicesDisplay();
+             await _viewModel.UpdateToServicesDisplay();
         }
     }
 }

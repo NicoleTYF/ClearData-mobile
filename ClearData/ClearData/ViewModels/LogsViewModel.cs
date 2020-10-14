@@ -16,7 +16,6 @@ namespace ClearData.ViewModels
 {
 	public class LogsViewModel: SwitchingViewModel
 	{
-
         public ObservableCollection<IndexedLogCollection> TypeSortedLogs { get; set; }
         public ObservableCollection<IndexedLogCollection> CompanySortedLogs { get; set; }
         public Command<IndexedLogCollection> DataTypeHistoryBtnCommand { get; }
@@ -59,15 +58,14 @@ namespace ClearData.ViewModels
 
         public override async Task ExecuteLoadDataTypesCommand()
         {
-            IsDataTypeDisplayBusy = true;
             try
             {
-                TypeSortedLogs.Clear(); //clear the list
-
                 //go through each of the datatypes and work out all the company accesses for each
                 var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
                 var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
-                var logDictionary = UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+                var logDictionary = await UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+
+                TypeSortedLogs.Clear(); //clear the logs, we will reestablish it
                 foreach (DataType dataType in dataTypes)
                 {
                     //create an indexed log collection, create this for all datatypes, but only add it to the TypeSortedLogs if it has an entry
@@ -95,7 +93,6 @@ namespace ClearData.ViewModels
                         TypeSortedLogs.Add(dataTypeLogCollection);
                     }
                 }
-
                 SortAndTrimEntries(TypeSortedLogs);
             }
             catch (Exception ex)
@@ -110,15 +107,15 @@ namespace ClearData.ViewModels
 
         public override async Task ExecuteLoadCompaniesCommand()
         {
-            IsServicesDisplayBusy = true;
             try
             {
-                CompanySortedLogs.Clear(); //clear the list
-
                 //go through each of the companies and work out all the data type accesses for each
                 var dataTypes = await UserInfo.GetPermissions().GetDataTypesAsync(true);
                 var companies = await UserInfo.GetPermissions().GetCompaniesAsync(true);
-                var logDictionary = UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+                var logDictionary = await UserInfo.GetPermissions().RetrieveAllRelevantLogs();
+
+                CompanySortedLogs.Clear(); //clear the list
+
                 foreach (Company company in companies)
                 {
                     //create an indexed log collection, create this for all datatypes, but only add it to the TypeSortedLogs if it has an entry

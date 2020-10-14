@@ -27,20 +27,20 @@ namespace ClearData.ViewModels
         {
             Period = (int)TimePeriod.ALL_TIME;
             Display = (int)DisplayType.COMPANIES;
-            DisplayPrice = "$10.23";
+            DisplayPrice = "";
 
             //DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
             UpdateDonutChart();
         }
 
-        public void UpdateDonutChart()
+        public async void UpdateDonutChart()
         {
             if (UserInfo.GetPermissions() == null)
             {
                 return;
             }
             //get all the logs
-            List<BasicLog> logList = UserInfo.GetPermissions().RetrieveAllLogsList();
+            List<BasicLog> logList = await UserInfo.GetPermissions().RetrieveAllLogsList();
 
             //work out the price associated with each datatype by creating a dictionary which maps ids to their price
             Dictionary<int, double> profits = new Dictionary<int, double>();
