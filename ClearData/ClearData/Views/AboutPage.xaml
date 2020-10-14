@@ -30,12 +30,12 @@
                          HorizontalOptions="Start"/>
         <!-- Title text -->
         <Label Text="Welcome Home!"
-                    Margin="21.5,20,21.5,0"
+                    Margin="21.5,15,21.5,0"
                     FontSize="37"
                     TextColor="White"
                     FontFamily="Calibri-Light"
                     HorizontalOptions="Start"/>
-
+        <!-- Card interface -->
         <Grid Margin="16,0,16,-10" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="56"/>
@@ -50,10 +50,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- White card background -->
             <Image Source="bg_card.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"
                 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="5"/>
 
+            <!-- Card title -->
             <Label Text="Your Earnings:" TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="39,23,19,0" Grid.Column="0" Grid.Row="0"  />
+            <!-- Time picker -->
             <Image Source="arrow_down_bl.png" VerticalOptions="Start" HorizontalOptions="End" Grid.Column="1" Grid.Row="0" HeightRequest="10" WidthRequest="10" Margin="0,28,45,0"/>
             <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="SandyBrown" FontSize="Small" 
                 Margin="8,10,34,0" SelectedIndexChanged="Picker" Grid.Column="1" Grid.Row="0" HeightRequest="40">
@@ -64,14 +67,16 @@
                 </Picker.Items>
             </Picker>
 
+            <!-- Earning stats and chart desc -->
             <Label Text="{Binding DisplayPrice}" TextColor="Black" FontSize="37" VerticalOptions="End" Margin="39,0,19,0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
-
             <Label Text="{Binding Display, Converter={StaticResource textConverter}, ConverterParameter=breakdown}"  
                 TextColor="RosyBrown" FontSize="Caption" Margin="39,0,21.5,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" />
 
+            <!-- Chart -->
             <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="220" 
                                HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" />
 
+            <!-- Filter dropdown at the bottom -->
             <Image Source="ic_filter.png" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
                 HeightRequest="25" WidthRequest="25" Margin="34,13,45,0"/>
             <Image Source="arrow_down_bl.png" VerticalOptions="Start" HorizontalOptions="End" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
