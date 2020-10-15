@@ -18,20 +18,20 @@ namespace ClearData.Converters
                 switch ((AboutViewModel.TimePeriod)value)
                 {
                     case AboutViewModel.TimePeriod.ALL_TIME:
-                        return "Since starting with the app you have earned:";
+                        return "Your All Time Earnings";
                     case AboutViewModel.TimePeriod.MONTHLY:
-                        return "In the last month you have earned:";
+                        return "Your Monthly Earnings:";
                     case AboutViewModel.TimePeriod.WEEKLY:
-                        return "In the last week you have earned:";
+                        return "Your Weekly Earnings:";
                 }
             } else if (Equals((string)parameter, "breakdown")) 
             {
                 switch((AboutViewModel.DisplayType)value)
                 {
                     case AboutViewModel.DisplayType.COMPANIES:
-                        return "Here's a breakdown of who's been paying for your data";
+                        return "See who's been paying for your data";
                     case AboutViewModel.DisplayType.DATATYPES:
-                        return "Here's a breakdown of which data is earning you money";
+                        return "See which data is earning you money";
                 }
             }
             return "bad argument";

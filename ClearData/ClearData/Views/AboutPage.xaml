@@ -35,144 +35,60 @@
                     TextColor="White"
                     FontFamily="Calibri-Light"
                     HorizontalOptions="Start"/>
-
-        <Label Text="{Binding Period, Converter={StaticResource textConverter}, ConverterParameter=intro}" TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="34,16,21.5,0" />
-
-        <Label Text="{Binding DisplayPrice}"  TextColor="Black" FontSize="37" VerticalOptions="End" Margin="34,16,21.5,0"/>
-
-        <Label Text="{Binding Display, Converter={StaticResource textConverter}, ConverterParameter=breakdown}"  TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="34,16,21.5,0" />
-
-        <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="200" 
-                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" />
-
-        <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0"
-                SelectedIndexChanged="Picker">
-            <Picker.Items>
-                <x:String>All Time</x:String>
-                <x:String>Monthly</x:String>
-                <x:String>Weekly</x:String>
-            </Picker.Items>
-        </Picker>
-
-        <Picker x:Name="type_picker" Title="Display Type:" SelectedIndex="{Binding Display}" TextColor="White" FontSize="Body" Margin="34,16,21.5,0"
-                SelectedIndexChanged="Picker">
-            <Picker.Items>
-                <x:String>Companies</x:String>
-                <x:String>Data Types</x:String>
-            </Picker.Items>
-        </Picker>
-
-
-        <!--
-
-        <Grid Margin="14,0,16,0">
+        <!-- Card interface -->
+        <Grid Margin="16,0,16,-10" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="12"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-                
-                
 
-            <Image Source="bg_card.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" 
-                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
-            <Label Text="Your Data Earnings is :" TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="34,16,21.5,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
-            <Label Text="$(AUD)" TextColor="#747474" FontSize="Caption" Margin="34,-14,10,0" Grid.Column="0" Grid.Row="1" />
-            <Label Text="$846.84" TextColor="Black" FontSize="37" Margin="34,0,0,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalOptions="End" />
-            <Label Text="$34.15 (+4.2%)" TextColor="ForestGreen" FontSize="Caption" Margin="16,0,27,0" Grid.Column="1" Grid.Row="2" 
-                   HorizontalOptions="EndAndExpand" VerticalOptions="End" />
-            
-            
+            <!-- White card background -->
+            <Image Source="bg_card.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"
+                Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="5"/>
 
-            <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="19,0,19,0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2"/>
-                    <RowDefinition Height="37"/>
-                    <RowDefinition Height="200"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!-- Card title -->
+            <Label Text="Your Earnings:" TextColor="#292929" FontSize="Small" FontAttributes="Bold" Margin="39,23,19,0" Grid.Column="0" Grid.Row="0"  />
+            <!-- Time picker -->
+            <Image Source="arrow_down_bl.png" VerticalOptions="Start" HorizontalOptions="End" Grid.Column="1" Grid.Row="0" HeightRequest="10" WidthRequest="10" Margin="0,28,45,0"/>
+            <Picker x:Name="time_picker" Title="Time Period:" SelectedIndex="{Binding Period}" TextColor="SandyBrown" FontSize="Small" 
+                Margin="8,10,34,0" SelectedIndexChanged="Picker" Grid.Column="1" Grid.Row="0" HeightRequest="40">
+                <Picker.Items>
+                    <x:String>All Time</x:String>
+                    <x:String>Monthly</x:String>
+                    <x:String>Weekly</x:String>
+                </Picker.Items>
+            </Picker>
 
-                <Image  Source="img_greyline.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" 
-                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="6,0,6,0" />
-                <Button Text="Daily" BackgroundColor="White" TextColor="#747474" FontSize="Caption" Grid.Column="0" Grid.Row="1" />
-                <Button Text="Weekly" BackgroundColor="White" TextColor="#747474" FontSize="Caption" Grid.Column="1" Grid.Row="1" />
-                <Button Text="Monthly" BackgroundColor="White" TextColor="#27B3DF" FontSize="Caption" Grid.Column="2" Grid.Row="1" />
+            <!-- Earning stats and chart desc -->
+            <Label Text="{Binding DisplayPrice}" TextColor="Black" FontSize="37" VerticalOptions="End" Margin="39,0,19,0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Label Text="{Binding Display, Converter={StaticResource textConverter}, ConverterParameter=breakdown}"  
+                TextColor="RosyBrown" FontSize="Caption" Margin="39,0,21.5,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" />
 
-                <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="200" 
-                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <!-- Chart -->
+            <microcharts:ChartView x:Name="chartViewLine" Chart="{Binding DonutChart}"  HeightRequest="200" WidthRequest="220" 
+                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" />
 
-            </Grid>
-            
+            <!-- Filter dropdown at the bottom -->
+            <Image Source="ic_filter.png" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
+                HeightRequest="25" WidthRequest="25" Margin="34,13,45,0"/>
+            <Image Source="arrow_down_bl.png" VerticalOptions="Start" HorizontalOptions="End" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
+                HeightRequest="10" WidthRequest="10" Margin="0,20,45,0"/>
+            <Picker x:Name="type_picker" Title="Display Type:" SelectedIndex="{Binding Display}" TextColor="SandyBrown" FontSize="Small" 
+                Margin="60,0,34,16" SelectedIndexChanged="Picker" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" MinimumHeightRequest="70">
+                <Picker.Items>
+                    <x:String>Companies</x:String>
+                    <x:String>Data Types</x:String>
+                </Picker.Items>
+            </Picker>
+
         </Grid>
-        -->
-                
-        <!-- 
-        <carousel:CarouselViewControl x:Name="carousel"
-                                        Scrolled="Handle_Scrolled"
-                                        ShowArrows="true"
-                                        ItemsSource="{Binding MyItemsSource}"
-                                        Orientation="Horizontal"
-                                        ShowIndicators="true"
-                                        PositionSelected="Handle_PositionSelected"
-                                        PositionSelectedCommand="{Binding MyCommand}">
-
-            <carousel:CarouselViewControl.ItemTemplate>
-                <DataTemplate>
-                    <ContentView>
-                        
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="17.3"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Source="bg_card.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" />
-                            <Label Text="Your Data Earnings is :" TextColor="#292929" FontSize="Medium" Margin="10,0,10,0" Grid.Column="0" Grid.Row="0" />
-                            <Label Text="$(AUD)" TextColor="#747474" FontSize="Small" Margin="10,0,10,0" Grid.Column="0" Grid.Row="1" />
-                            <Label Text="$846.84" TextColor="Black" FontSize="Title" Margin="10,0,10,0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  />
-                            <Label Text="$34.15 (+4.2%)" TextColor="#747474" FontSize="Small" Margin="10,0,10,0" Grid.Column="1" Grid.Row="2" />
-
-                            <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="5"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image Source="bg_entry.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" />
-                                <Button Text="Daily" BackgroundColor="White" TextColor="#747474" FontSize="Default" FontAttributes="Bold" Grid.Column="0" Grid.Row="1" />
-                                <Button Text="Weekly" BackgroundColor="White" TextColor="#747474" FontSize="Default" FontAttributes="Bold" Grid.Column="1" Grid.Row="1" />
-                                <Button Text="Monthly" BackgroundColor="White" TextColor="#747474" FontSize="Default" FontAttributes="Bold" Grid.Column="2" Grid.Row="1" />
-
-                                <Image Source="img_chart.png" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-
-
-                            </Grid>
-                        </Grid> 
-                    </ContentView>
-                </DataTemplate>
-            </carousel:CarouselViewControl.ItemTemplate>
-        </carousel:CarouselViewControl> -->
-
     </StackLayout>
 </ContentPage>

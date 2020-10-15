@@ -6,11 +6,13 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using ClearData.Models;
 
+/** 
+* Manage company controller
+*/
 namespace ClearData.Views
-{
+{   
     public partial class ManageCompanyPage : ContentPage
-    {
-        public bool isExpand;
+    {   
         public String permLevelTitle;
         public String permLevelDesc;
         public String introText;
@@ -20,9 +22,7 @@ namespace ClearData.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = viewModel;
-            isExpand = false;
-            companyInfo.LineBreakMode = LineBreakMode.TailTruncation;
-            companyInfo.MaxLines = 3;
+            
             setPermImage();
             setPermText();
         }
@@ -38,6 +38,7 @@ namespace ClearData.Views
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
+            PermRefreshView.HeightRequest = 50 * _viewModel.DataTypePermissions.Count + 10;
         }
 
         private void SwitchToggled(object sender, ToggledEventArgs e)
@@ -77,23 +78,17 @@ namespace ClearData.Views
             {
                 permLevelTitle = "Custom";
                 permLevelDesc += "On this setting, you can toggle access to any data types";
-
-                //permPercent.Text = "Auto";
             } 
             else if (_viewModel.CurrentRestriction == (int)Company.RestrictionType.NONE)
             {
                 permLevelTitle = "None";
                 permLevelDesc += "On this setting, none of your data will be shared with this company";
             }
-            
         }
 
         public void expandCompanyInfo(object sender, System.EventArgs e)
         {
-
-            isExpand = !isExpand;
-
-            if (isExpand == true)
+            if (companyInfo.LineBreakMode == LineBreakMode.TailTruncation)
             {
                 companyInfo.LineBreakMode = LineBreakMode.WordWrap;
                 companyInfo.MaxLines = int.MaxValue;
@@ -109,13 +104,16 @@ namespace ClearData.Views
 
         public void expandPermInfo(object sender, System.EventArgs e)
         {
-            var mi = ((Label)sender);
-            if(mi.LineBreakMode == LineBreakMode.TailTruncation) {
-                mi.LineBreakMode = LineBreakMode.WordWrap;
-                mi.MaxLines = int.MaxValue;
-            } else {
-                mi.LineBreakMode = LineBreakMode.TailTruncation;
-                mi.MaxLines = 1;
+            var infoText = ((Label)sender);
+            if(infoText.LineBreakMode == LineBreakMode.TailTruncation) 
+            {
+                infoText.LineBreakMode = LineBreakMode.WordWrap;
+                infoText.MaxLines = int.MaxValue;
+            } 
+            else 
+            {
+                infoText.LineBreakMode = LineBreakMode.TailTruncation;
+                infoText.MaxLines = 1;
             }
         }
    }

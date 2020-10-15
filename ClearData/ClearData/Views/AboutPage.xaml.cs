@@ -19,16 +19,6 @@ namespace ClearData.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new AboutViewModel();
-            //OnAppearing();
-
-            /*
-            var myCarousel = new CarouselViewControl();
-            myCarousel.ItemsSource = new ObservableCollection<int> { 1, 2 }; 
-            myCarousel.Position = 0; //default
-            myCarousel.InterPageSpacing = 10;
-            myCarousel.Orientation = CarouselViewOrientation.Horizontal;
-            */
-
         }
 
         public void Picker(object sender, System.EventArgs e)
@@ -51,10 +41,6 @@ namespace ClearData.Views
             //this is all patching up the fact that this gets run on start up before we could have ever
             //established almost anything
             _viewModel.UpdateDonutChart();
-
-            // ... our chart data and chart type here ...
-
-            //chartViewLine.Chart = new LineChart { Entries = _viewModel.entries, LineMode = LineMode.Straight };
         }
         
     }
