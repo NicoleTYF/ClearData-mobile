@@ -10,10 +10,13 @@ using ClearData.Services;
 
 namespace ClearData.ViewModels
 {
+    /**
+     * The base view model which other view models inherit from
+     */
     public class BaseViewModel : INotifyPropertyChanged
     {
 
-        bool isBusy = false;
+        bool isBusy = false; //for if there is a refresh view on the page
         public bool IsBusy
         {
             get { return isBusy; }

@@ -10,6 +10,9 @@ using Xamarin.Forms;
 
 namespace ClearData.ViewModels
 {
+    /**
+     * Class for the log history company page, extends from the general log history page, with a few minor additions
+     */
 	public class LogHistoryCompanyViewModel : LogHistoryViewModel
 	{
         public Company Company { get; set; }

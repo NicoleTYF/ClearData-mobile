@@ -12,13 +12,15 @@ using System.Collections.Generic;
 
 namespace ClearData.ViewModels
 {
+    /**
+     * view model for the about/home page of the app. Handles the creation of the graph being shown on that page.
+     */
     public class AboutViewModel : BaseViewModel
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
-
         public enum TimePeriod { ALL_TIME = 0, MONTHLY = 1, WEEKLY = 2 }
         public enum DisplayType { COMPANIES = 0, DATATYPES = 1 }
 
+        //an array of colours to use for the graphs being made
         private static SKColor[] Colors = {SKColor.Parse("#266489"), SKColor.Parse("#68B9C0"), SKColor.Parse("#90D585"), SKColor.Parse("#F3C151"),
                                            SKColor.Parse("#F37F64"), SKColor.Parse("#424856"), SKColor.Parse("#424856"), SKColor.Parse("#8F97A4"),
                                            SKColor.Parse("#76846E"), SKColor.Parse("#A65B69"), SKColor.Parse("#DABFAF"), SKColor.Parse("#97A69D")};
@@ -28,18 +30,19 @@ namespace ClearData.ViewModels
             Period = (int)TimePeriod.ALL_TIME;
             Display = (int)DisplayType.COMPANIES;
             DisplayPrice = "";
-
-            //DonutChart = new DonutChart() { BackgroundColor=SKColors.Transparent, Entries = entries };
-            UpdateDonutChart();
+            UpdateDonutChart(); //set up the donut chart for the first time
         }
 
+        /**
+         * Updates the donut chart with a) the database b) the settings/filters which have been applied. Also updates the price being displayed
+         */
         public async void UpdateDonutChart()
         {
             if (UserInfo.GetPermissions() == null)
             {
                 return;
             }
-            //get all the logs
+            //get all the logs, this does a database call
             List<BasicLog> logList = await UserInfo.GetPermissions().RetrieveAllLogsList();
 
             //work out the price associated with each datatype by creating a dictionary which maps ids to their price
@@ -95,28 +98,13 @@ namespace ClearData.ViewModels
                     }
                 }
             }
+            //update the donut chart, by creating a new one, we get the nice animation
             DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray(), 
                                             LabelTextSize = 30, LabelMode = LabelMode.RightOnly, GraphPosition = GraphPosition.AutoFill };
-            DisplayPrice = String.Format("${0:0.00}", totalProfit);
+            DisplayPrice = String.Format("${0:0.00}", totalProfit); //update the displayed price
         }
 
-        /*
-        ObservableCollection<View> _myItemsSource;
-        public ObservableCollection<View> MyItemsSource {
-            set {
-                _myItemsSource = value;
-                OnPropertyChanged("MyItemsSource");
-            }
-            get {
-                return _myItemsSource;
-            }
-        }
-        
-
-        public Command MyCommand { protected set; get; }
-        */
-
-        private String displayPrice;
+        private String displayPrice; //string for the price being displayed
         public String DisplayPrice
         {
             get => displayPrice;
@@ -129,12 +117,12 @@ namespace ClearData.ViewModels
             get => period;
             set => SetProperty(ref period, value);
         }
+
         private int display;
         public int Display {
             get => display;
             set => SetProperty(ref display, value);
         }
-        
 
         private Chart donutChart;
         public Chart DonutChart
@@ -142,12 +130,5 @@ namespace ClearData.ViewModels
             get => donutChart;
             set => SetProperty(ref donutChart, value);
         }
-
-        /*
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        */
     }
 }
