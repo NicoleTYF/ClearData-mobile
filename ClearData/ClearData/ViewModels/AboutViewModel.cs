@@ -90,13 +90,13 @@ namespace ClearData.ViewModels
                 {
                     if (profits.TryGetValue(dataType.Id, out double result))
                     {
-                        entryList.Add(new ChartEntry((float)profits[dataType.Id]) { Label = dataType.Name, ValueLabel = String.Format("{0:0.00}", profits[dataType.Id]),
+                        entryList.Add(new ChartEntry((float)profits[dataType.Id]) { Label = dataType.Name, ValueLabel = String.Format("${0:0.00}", profits[dataType.Id]),
                                                                                     Color = Colors[Math.Min(Colors.Length, entryList.Count)]});
                     }
                 }
             }
             DonutChart = new DonutChart() { BackgroundColor = SKColors.Transparent, Entries = entryList.ToArray(), 
-                                            LabelTextSize = 40, LabelMode = LabelMode.RightOnly, GraphPosition = GraphPosition.AutoFill };
+                                            LabelTextSize = 30, LabelMode = LabelMode.RightOnly, GraphPosition = GraphPosition.AutoFill };
             DisplayPrice = String.Format("${0:0.00}", totalProfit);
         }
 
