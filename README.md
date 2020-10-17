@@ -22,21 +22,21 @@
   <td> 
     <b>LoginPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td width="350"><li>Convert user's mobile data into customisable charts for analysis </li></td>
+  <td width="300"><li>Convert user's mobile data into customisable charts for analysis </li></td>
   <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191752.jpg" height="200"/></td>
 </tr>
 <tr>
   <td> 
     <b>AboutPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td width="350"><li>Convert user's mobile data into customisable charts for analysis </li></td>
+  <td width="300"><li>Convert user's mobile data into customisable charts for analysis </li></td>
   <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Capture.PNG" height="200"/></td>
 </tr>
 <tr>
   <td> 
     <b>ManageCompanyPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td width="350"><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
+  <td width="300"><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
   <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191922.jpg" height="200"/>
       <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-192108.jpg" height="200"/></td>
 </tr>
