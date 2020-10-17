@@ -1,7 +1,7 @@
 ## ClearData Mobile Application
 
-Purpose: 
-Scope:   build a Android app to assists public users to view, analyse and control data accessed by companies. 
+* Purpose: Allow users to control company's data access to their mobile data
+* Scope:   build an Android app to assists public users to view, analyse and control data accessed by companies. 
 
 ### Feature Overview
 * convert user's mobile data into customisable charts for analysis  **(AboutPage)**
