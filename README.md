@@ -31,10 +31,9 @@
 </tr> 
 </table>
 
-# 👩‍💻My role in this project: 
+## 👩‍💻My role in this project: 
 
 * [UI design / Prototyping with Adobe XD](https://xd.adobe.com/view/85b2e459-6308-46c3-948b-b25e30cfd2de-d0e1/)
-
 
 * Frontend coding (All files in the [Views](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData/Views) folder)
 * Graphic design (All files in the [drawable](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData.Android/Resources/drawable) folder)
