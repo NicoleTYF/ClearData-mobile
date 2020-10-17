@@ -18,25 +18,25 @@
   <td> 
     <b>LoginPage(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td>Convert user's mobile data into customisable charts for analysis </td>
+  <td><li>Convert user's mobile data into customisable charts for analysis </li></td>
 </tr>
 <tr>
   <td> 
     <b>AboutPage(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td>Convert user's mobile data into customisable charts for analysis </td>
+  <td><li>Convert user's mobile data into customisable charts for analysis </li></td>
 </tr>
 <tr>
   <td> 
     <b>ManageCompanyPage(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td>View background of the companies who accessed user's mobile data<br>Enable/disable data access for a chosen company </td>
+  <td><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
 </tr>
 <tr>
   <td> 
     <b>LogsPage(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LogHistoryCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LogHistoryCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td>View log history of the companies who accessed user's mobile data </td>
+  <td><li>View log history of the companies who accessed user's mobile data </li></td>
 </tr> 
 </table>
 
