@@ -1,9 +1,9 @@
-## 📱 ClearData Mobile Application
+# 📱 ClearData Mobile Application
 
 &emsp; 🎯 Purpose: Allow users to control company's data access to their mobile data <br>
 &emsp; 📐 Scope:   build an Android app to assists public users to view, analyse and control data accessed by companies. 
 
-### 🔨 Feature Overview
+## 🔨 Feature Overview
 <table>
 <tr>
   <td> 
@@ -31,7 +31,7 @@
 </tr> 
 </table>
 
-### My role in this project: 
+# 👩‍💻My role in this project: 
 
 * [UI design / Prototyping with Adobe XD](https://xd.adobe.com/view/85b2e459-6308-46c3-948b-b25e30cfd2de-d0e1/)
 
