@@ -4,12 +4,12 @@
 &emsp; 📐 Scope:   build an Android app to assists public users to view, analyse and control data accessed by companies. 
 <br>
 
-**My role in this project:**
+&emsp; **My role in this project:**
 
-🖼 [UI design / Prototyping with Adobe XD](https://xd.adobe.com/view/85b2e459-6308-46c3-948b-b25e30cfd2de-d0e1/)
-🎨 Graphic design (All files in the [drawable](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData.Android/Resources/drawable) folder)
-👩‍💻  Frontend coding (All files in the [Views](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData/Views) folder)
-👩‍💻 Custom renderers for [Entry elements](https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData.Android/LoginEntryRenderer.cs) in Login page 
+&emsp; 🖼 [UI design / Prototyping with Adobe XD](https://xd.adobe.com/view/85b2e459-6308-46c3-948b-b25e30cfd2de-d0e1/) <br>
+&emsp; 🎨 Graphic design (All files in the [drawable](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData.Android/Resources/drawable) folder)<br>
+&emsp; 👩‍💻  Frontend coding (All files in the [Views](https://github.com/NicoleTYF/ClearData-mobile/tree/master/ClearData/ClearData/Views) folder)<br>
+&emsp; 👩‍💻 Custom renderers for [Entry elements](https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData.Android/LoginEntryRenderer.cs) in Login page 
 
 <br>
 
