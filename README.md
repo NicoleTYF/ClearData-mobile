@@ -18,31 +18,31 @@
   <td> 
     <b>LoginPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td height="80"><li>Convert user's mobile data into customisable charts for analysis </li></td>
-  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191752.jpg" height="150"/></td>
+  <td width="400"><li>Convert user's mobile data into customisable charts for analysis </li></td>
+  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191752.jpg" height="200"/></td>
 </tr>
 <tr>
   <td> 
     <b>AboutPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/AboutPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td height="80"><li>Convert user's mobile data into customisable charts for analysis </li></td>
-  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Capture.PNG" height="150"/></td>
+  <td width="400"><li>Convert user's mobile data into customisable charts for analysis </li></td>
+  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Capture.PNG" height="200"/></td>
 </tr>
 <tr>
   <td> 
     <b>ManageCompanyPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td height="80"><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
-  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191922.jpg" height="150"/>
-      <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-192108.jpg" height="150"/></td>
+  <td width="400"><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
+  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191922.jpg" height="200"/>
+      <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-192108.jpg" height="200"/></td>
 </tr>
 <tr>
   <td> 
     <b>LogsPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LogHistoryCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LogHistoryCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
-  <td height="80"><li>View log history of the companies who accessed user's mobile data </li></td>
-  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191900.jpg" height="150"/>
-      <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191914.jpg" height="150"/></td>
+  <td width="400"><li>View log history of the companies who accessed user's mobile data </li></td>
+  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191900.jpg" height="200"/>
+      <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191914.jpg" height="200"/></td>
 </tr> 
 </table>
 
