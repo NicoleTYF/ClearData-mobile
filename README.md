@@ -37,7 +37,7 @@
     <b>ManageCompanyPage<br>(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/ManageCompanyPage.xaml.cs">.cs</a>)</b>  
   </td>
   <td width="300"><li>View background of the companies who accessed user's mobile data</li><li>Enable/disable data access for a chosen company </li></td>
-  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191922.jpg" height="200"/>
+  <td><img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-191929.jpg" height="200"/>
       <img src="https://github.com/NicoleTYF/ClearData-mobile/blob/master/Screenshot_20201017-192108.jpg" height="200"/></td>
 </tr>
 <tr>
