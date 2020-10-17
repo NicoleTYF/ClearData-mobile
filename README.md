@@ -1,7 +1,8 @@
 # 📱 ClearData Mobile Application
 
-&emsp; 🎯 Purpose: Allow users to control company's data access to their mobile data <br>
-&emsp; 📐 Scope:   build an Android app to assists public users to view, analyse and control data accessed by companies. 
+&emsp; 🎯 **Purpose:** Allow users to control company's data access to their mobile data <br>
+&emsp; 📐 **Scope:**   build an Android app to assists public users to view, analyse and control data accessed by companies. 
+&emsp; 🧰 **Tool Stack:** C# and XAML (frontend) | C# (backend)
 
 
 ## 👩‍💻 My role in this project: 
