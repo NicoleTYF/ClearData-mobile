@@ -3,8 +3,8 @@
 &emsp; 🎯 Purpose: Allow users to control company's data access to their mobile data <br>
 &emsp; 📐 Scope:   build an Android app to assists public users to view, analyse and control data accessed by companies. 
 
-### 🔨Feature Overview
-&emsp;<table>
+### 🔨 Feature Overview
+<table>
 <tr>
   <td> 
     <b>LoginPage(<a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml">.xaml</a>, <a href="https://github.com/NicoleTYF/ClearData-mobile/blob/master/ClearData/ClearData/Views/LoginPage.xaml.cs">.cs</a>)</b>  
